@@ -21,12 +21,17 @@ public class Main {
 
 
 
-        jogador[0].comprarPropriedade(propriedade, jogador[1], propriedade.getValor());
+        jogador[0].comprarPropriedade(propriedade, jogador[1]);
 
         System.out.println("Dinheiro jogador 0: " + jogador[0].getDinheiro());
         System.out.println("Dinheiro jogador 1: " + jogador[1].getDinheiro());
         System.out.println("Propriedade jogador 0: " + jogador[0].getMinhasPropriedades());
         System.out.println("Propriedade jogador 1: " + jogador[1].getMinhasPropriedades());
+
+        jogador[0].venderPropriedade(propriedade);
+
+        System.out.println("Dinheiro jogador 0: " + jogador[0].getDinheiro());
+        System.out.println("Propriedade jogador 0: " + jogador[0].getMinhasPropriedades());
 
 
 

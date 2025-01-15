@@ -3,23 +3,26 @@ import java.util.List;
 
 public class Jogador {
     private float dinheiro;
-    private List<Propriedade> MinhasPropriedades;
+    private List<Propriedade> minhasPropriedades;
     private List<Emprestimo> emprestimosConcebidos;
     private List<Emprestimo> dividasEmprestimo;
 
     public Jogador(){
-        this.MinhasPropriedades = new ArrayList<>();
+        this.minhasPropriedades = new ArrayList<>();
     }
 
-    public void comprarPropriedade(Propriedade propriedade, Jogador dono, float valorPropriedade){
-        this.MinhasPropriedades.add(propriedade);
-        dono.MinhasPropriedades.remove(propriedade);
-        dono.setDinheiro(dono.getDinheiro() + valorPropriedade);
-        this.setDinheiro(this.getDinheiro() - valorPropriedade);
+    public void comprarPropriedade(Propriedade propriedade, Jogador dono){
+        this.minhasPropriedades.add(propriedade);
+        dono.minhasPropriedades.remove(propriedade);
+        dono.setDinheiro(dono.getDinheiro() + propriedade.getValor());
+        this.setDinheiro(this.getDinheiro() - propriedade.getValor());
     }
 
-    public void venderPropriedade(Propriedade propriedade, Jogador comprador){
+    public void venderPropriedade(Propriedade propriedade){
+        float valorVenda = (float) (propriedade.getValor() * 0.75); //75% do valor da Propriedade
 
+        this.setDinheiro(this.getDinheiro() + valorVenda);
+        this.minhasPropriedades.remove(propriedade);
     }
 
     public void pagarAluguel(float valorAluguel, Jogador dono){
@@ -47,11 +50,11 @@ public class Jogador {
     }
 
     public List<Propriedade> getMinhasPropriedades() {
-        return MinhasPropriedades;
+        return minhasPropriedades;
     }
 
-    public void setMinhasPropriedades(List<Propriedade> MinhasPropriedades) {
-        this.MinhasPropriedades = MinhasPropriedades;
+    public void setMinhasPropriedades(List<Propriedade> minhasPropriedades) {
+        this.minhasPropriedades = minhasPropriedades;
     }
 
     public List<Emprestimo> getDividasEmprestimo() {
