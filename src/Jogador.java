@@ -25,8 +25,13 @@ public class Jogador {
         this.minhasPropriedades.remove(propriedade);
     }
 
-    public void pagarAluguel(float valorAluguel, Jogador dono){
-
+    public void pagarAluguel(Propriedade propriedade, Jogador dono){
+        if(this.getDinheiro() >= propriedade.getValorAluguel()){
+            this.setDinheiro(this.getDinheiro() - propriedade.getValorAluguel());
+            dono.setDinheiro(dono.getDinheiro() + propriedade.getValorAluguel());
+        }else {
+            System.out.println("Dinheiro Insuficiente!");
+        }
     }
 
     public void fazerEmprestimo(Jogador credor, float valorEmprestar, Propriedade garantia){
