@@ -1,60 +1,31 @@
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        Jogador[] jogador = new Jogador[2];
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        jogador[0] = new Jogador();
-        jogador[1] = new Jogador();
+        try {
+            System.out.print("Quantos Jogadores irão participar: ");
+            int number = Integer.parseInt(reader.readLine());
 
-        jogador[0].setDinheiro(1000);
-        jogador[1].setDinheiro(1000);
+            Jogador jogadores[] = new Jogador[number];
 
-        Propriedade propriedade = new Propriedade();
-        propriedade.setValor(289);
-        propriedade.setValorAluguel(43);
+            for(int i = 0; i < number; i++){
+                System.out.printf("Nome do %d Jogador: ", i+1);
+                String nomeJogador = reader.readLine();
+                jogadores[i] = new Jogador(nomeJogador, 2000);
+            }
 
-        System.out.println("valor aluguel" + propriedade.getValorAluguel());
+            System.out.println("\nJogadores Participantes:");
+            for (Jogador jogador : jogadores) {
+                System.out.println(jogador.getNome());
+            }
 
-        System.out.println("Dinheiro jogador 0: " + jogador[0].getDinheiro());
-        System.out.println("Dinheiro jogador 1: " + jogador[1].getDinheiro());
-        System.out.println("Propriedade jogador 0: " + jogador[0].getMinhasPropriedades());
-        System.out.println("Propriedade jogador 1: " + jogador[1].getMinhasPropriedades());
-
-        System.out.println("====================================================");
-
-
-
-        jogador[0].comprarPropriedade(propriedade, jogador[1]);
-        jogador[1].pagarAluguel(propriedade, jogador[0]);
-
-        System.out.println("=========Jogador0 comprou propri e Jogador1 pagou aluguel===============");
-
-        System.out.println("Dinheiro jogador 0: " + jogador[0].getDinheiro());
-        System.out.println("Dinheiro jogador 1: " + jogador[1].getDinheiro());
-        System.out.println("Propriedade jogador 0: " + jogador[0].getMinhasPropriedades());
-        System.out.println("Propriedade jogador 1: " + jogador[1].getMinhasPropriedades());
-
-        jogador[0].venderPropriedade(propriedade);
-
-        System.out.println("==================Jogador0 vendeu propri============");
-
-        System.out.println("Dinheiro jogador 0: " + jogador[0].getDinheiro());
-        System.out.println("Dinheiro jogador 1: " + jogador[1].getDinheiro());
-        System.out.println("Propriedade jogador 0: " + jogador[0].getMinhasPropriedades());
-
-
-
-
-
-
-
-
-
-
-
-
-
+        } catch (NumberFormatException e) {
+            System.out.println("That's not a valid number.");
+        }
     }
 }

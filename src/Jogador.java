@@ -6,9 +6,12 @@ public class Jogador {
     private List<Propriedade> minhasPropriedades;
     private List<Emprestimo> emprestimosConcebidos;
     private List<Emprestimo> dividasEmprestimo;
+    private String nome;
 
-    public Jogador(){
+    public Jogador(String nome, float dinheiro){
         this.minhasPropriedades = new ArrayList<>();
+        this.nome = nome;
+        this.dinheiro = dinheiro;
     }
 
     public void comprarPropriedade(Propriedade propriedade, Jogador dono){
@@ -44,6 +47,14 @@ public class Jogador {
 
     public void receberPagamentoEmprestimo(Emprestimo pagamento){
 
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public float getDinheiro() {
