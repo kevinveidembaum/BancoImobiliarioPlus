@@ -8,11 +8,13 @@ public class Jogador {
     private List<Emprestimo> dividasEmprestimo;
     private String nome;
 
+
     public Jogador(String nome, float dinheiro){
         this.minhasPropriedades = new ArrayList<>();
         this.nome = nome;
         this.dinheiro = dinheiro;
     }
+
 
     public void comprarPropriedade(Propriedade propriedade, Jogador dono){
         this.minhasPropriedades.add(propriedade);
@@ -21,12 +23,14 @@ public class Jogador {
         this.setDinheiro(this.getDinheiro() - propriedade.getValor());
     }
 
+
     public void venderPropriedade(Propriedade propriedade){
         float valorVenda = (float) (propriedade.getValor() * 0.75); //75% do valor da Propriedade
 
         this.setDinheiro(this.getDinheiro() + valorVenda);
         this.minhasPropriedades.remove(propriedade);
     }
+
 
     public void pagarAluguel(Propriedade propriedade, Jogador dono){
         if(this.getDinheiro() >= propriedade.getValorAluguel()){
@@ -37,53 +41,66 @@ public class Jogador {
         }
     }
 
+
     public void fazerEmprestimo(Jogador credor, float valorEmprestar, Propriedade garantia){
 
     }
+
 
     public void pagarEmprestimo(Emprestimo emprestimo, float valorPagar){
 
     }
 
+
     public void receberPagamentoEmprestimo(Emprestimo pagamento){
 
     }
+
 
     public String getNome() {
         return nome;
     }
 
+
     public void setNome(String nome) {
         this.nome = nome;
     }
+
 
     public float getDinheiro() {
         return dinheiro;
     }
 
+
     public void setDinheiro(float dinheiro) {
         this.dinheiro = dinheiro;
     }
+
 
     public List<Propriedade> getMinhasPropriedades() {
         return minhasPropriedades;
     }
 
+
     public void setMinhasPropriedades(List<Propriedade> minhasPropriedades) {
         this.minhasPropriedades = minhasPropriedades;
     }
+
 
     public List<Emprestimo> getDividasEmprestimo() {
         return dividasEmprestimo;
     }
 
+
     public void setDividasEmprestimo(List<Emprestimo> dividasEmprestimo) {
         this.dividasEmprestimo = dividasEmprestimo;
     }
 
+
     public List<Emprestimo> getEmprestimosConcebidos() {
         return emprestimosConcebidos;
     }
+
 
     public void setEmprestimosConcebidos(List<Emprestimo> emprestimosConcebidos) {
         this.emprestimosConcebidos = emprestimosConcebidos;
