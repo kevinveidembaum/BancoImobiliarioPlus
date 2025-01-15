@@ -1,13 +1,21 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Jogador {
     private float dinheiro;
-    private List<Propriedade> propriedade;
+    private List<Propriedade> MinhasPropriedades;
     private List<Emprestimo> emprestimosConcebidos;
     private List<Emprestimo> dividasEmprestimo;
 
-    public void comprarProprieda(Propriedade propriedade, Jogador dono){
+    public Jogador(){
+        this.MinhasPropriedades = new ArrayList<>();
+    }
 
+    public void comprarPropriedade(Propriedade propriedade, Jogador dono, float valorPropriedade){
+        this.MinhasPropriedades.add(propriedade);
+        dono.MinhasPropriedades.remove(propriedade);
+        dono.setDinheiro(dono.getDinheiro() + valorPropriedade);
+        this.setDinheiro(this.getDinheiro() - valorPropriedade);
     }
 
     public void venderPropriedade(Propriedade propriedade, Jogador comprador){
@@ -38,12 +46,12 @@ public class Jogador {
         this.dinheiro = dinheiro;
     }
 
-    public List<Propriedade> getPropriedade() {
-        return propriedade;
+    public List<Propriedade> getMinhasPropriedades() {
+        return MinhasPropriedades;
     }
 
-    public void setPropriedade(List<Propriedade> propriedade) {
-        this.propriedade = propriedade;
+    public void setMinhasPropriedades(List<Propriedade> MinhasPropriedades) {
+        this.MinhasPropriedades = MinhasPropriedades;
     }
 
     public List<Emprestimo> getDividasEmprestimo() {
