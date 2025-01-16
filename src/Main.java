@@ -26,14 +26,25 @@ public class Main {
                 System.out.println(jogador.getNome());
             }
 
+
+
+
+
+
+
+
+
+
         } catch (NumberFormatException e) {
             System.out.println("That's not a valid number.");
         }
 
 
+
+
         List<Propriedade> propriedades = inicializarPropriedades();
 
-        // Display the properties
+
         System.out.println("Propriedades cadastradas:");
         for (Propriedade propriedade : propriedades) {
             System.out.printf("Nome: %s", propriedade.getNome());

@@ -17,8 +17,8 @@ public class Jogador {
 
 
     public void comprarPropriedade(Propriedade propriedade, Jogador dono){
-        this.minhasPropriedades.add(propriedade);
-        dono.minhasPropriedades.remove(propriedade);
+        this.getMinhasPropriedades().add(propriedade);
+        dono.getMinhasPropriedades().remove(propriedade);
         dono.setDinheiro(dono.getDinheiro() + propriedade.getValor());
         this.setDinheiro(this.getDinheiro() - propriedade.getValor());
     }
