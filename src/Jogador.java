@@ -15,14 +15,6 @@ public class Jogador {
         this.dinheiro = dinheiro;
     }
 
-    public void propriedadesDisponiveis(List<Propriedade> propriedades){
-        System.out.println("\nPropriedades disponíveis para compra:");
-        for (int i = 0; i < propriedades.size(); i++) {
-            Propriedade propriedade = propriedades.get(i);
-            System.out.printf("%d. Nome: %s, Valor: %.2f\n", i + 1, propriedade.getNome(), propriedade.getValor());
-        }
-    }
-
 
     public void comprarPropriedade(List<Propriedade> propriedades, int index){
         Propriedade propriedade = propriedades.get(index-1);
@@ -51,11 +43,25 @@ public class Jogador {
     }
 
 
+    public void hipotecar(Propriedade propriedade){
+        if(propriedade.getQntCasas() == 0){
+
+            if(this.getMinhasPropriedades().contains(propriedade)){
+                this.getMinhasPropriedades().remove(propriedade);
+                this.setDinheiro(this.getDinheiro() + propriedade.getValor());
+                propriedade.setDono(null);
+                System.out.printf("\n%s foi Hipotecacda pelo(a) %s por %.2f!\n", propriedade.getNome(), this.getNome(), propriedade.getValor());
+            }
+        }
+    }
+
+
     public void venderPropriedade(Propriedade propriedade){
         float valorVenda = (float) (propriedade.getValor() * 0.75); //75% do valor da Propriedade
 
         this.setDinheiro(this.getDinheiro() + valorVenda);
         this.minhasPropriedades.remove(propriedade);
+        propriedade.setDono(null);
     }
 
 

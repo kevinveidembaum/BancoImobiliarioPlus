@@ -18,24 +18,6 @@ public class Propriedade {
     }
 
 
-    public void hipotecar(Propriedade propriedade){
-        if(this.qntCasas == 0){
-
-            if(dono.getMinhasPropriedades().contains(propriedade)){
-                dono.getMinhasPropriedades().remove(propriedade);
-                dono.setDinheiro(dono.getDinheiro() + propriedade.getValor());
-            }
-
-        }
-
-
-
-
-
-    }
-
-
-
     public Jogador getDono() {
         return dono;
     }

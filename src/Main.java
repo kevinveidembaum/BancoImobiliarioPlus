@@ -27,6 +27,14 @@ public class Main {
 
             jogadores[0].comprarPropriedade(propriedades, 1);
 
+            propriedadesDisponiveis(propriedades);
+
+            jogadores[0].hipotecar(propriedades.get(0));
+
+            propriedadesDisponiveis(propriedades);
+
+
+
 
 
 
