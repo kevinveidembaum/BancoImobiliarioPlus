@@ -19,40 +19,54 @@ public class Jogador {
     public void comprarPropriedade(List<Propriedade> propriedades, int index){
         Propriedade propriedade = propriedades.get(index-1);
 
-        if(this.getDinheiro() > propriedade.getValor()){
-            //Propriedade não tem dono
-            if (propriedade.getDono() == null){
-                this.getMinhasPropriedades().add(propriedade);
-                propriedade.setDono(this);
-                this.setDinheiro(this.getDinheiro() - propriedade.getValor());
-                System.out.printf("\n%s comprou a propriedade %s por %.2f!\n", this.nome, propriedade.getNome(), propriedade.getValor());
-            }else {
-                //Propriedade TEM dono
-                Jogador donoAtual = propriedade.getDono();
-                donoAtual.getMinhasPropriedades().remove(propriedade);
-                donoAtual.setDinheiro(donoAtual.getDinheiro() + propriedade.getValor());
-
-                this.getMinhasPropriedades().add(propriedade);
-                propriedade.setDono(this);
-                this.setDinheiro(this.getDinheiro() - propriedade.getValor());
-                System.out.printf("\n%s comprou a propriedade %s de %s por %.2f!\n", this.nome, propriedade.getNome(), donoAtual.getNome(), propriedade.getValor());
-            }
-        }else {
+        if(! (this.getDinheiro() > propriedade.getValor())){
             System.out.println("Dinheiro insuficiente!");
+            return;
         }
+
+        if(propriedade.getDono() == null){
+            //Propriedade NÃO tem dono
+            this.getMinhasPropriedades().add(propriedade);
+            propriedade.setDono(this);
+            this.setDinheiro(this.getDinheiro() - propriedade.getValor());
+            propriedades.remove(propriedade);
+            System.out.printf("\n%s comprou a propriedade %s por %.2f!\n", this.nome, propriedade.getNome(), propriedade.getValor());
+            return;
+        }
+
+        //Propriedade TEM dono
+        Jogador donoAtual = propriedade.getDono();
+        donoAtual.getMinhasPropriedades().remove(propriedade);
+        donoAtual.setDinheiro(donoAtual.getDinheiro() + propriedade.getValor());
+
+        this.getMinhasPropriedades().add(propriedade);
+        propriedade.setDono(this);
+        this.setDinheiro(this.getDinheiro() - propriedade.getValor());
+        propriedades.remove(propriedade);
+        System.out.printf("\n%s comprou a propriedade %s de %s por %.2f!\n", this.nome, propriedade.getNome(), donoAtual.getNome(), propriedade.getValor());
     }
 
 
     public void hipotecar(Propriedade propriedade){
-        if(propriedade.getQntCasas() == 0){
-
-            if(this.getMinhasPropriedades().contains(propriedade)){
-                this.getMinhasPropriedades().remove(propriedade);
-                this.setDinheiro(this.getDinheiro() + propriedade.getValor());
-                propriedade.setDono(null);
-                System.out.printf("\n%s foi Hipotecacda pelo(a) %s por %.2f!\n", propriedade.getNome(), this.getNome(), propriedade.getValor());
-            }
+        if(propriedade.getQntCasas() != 0){
+            System.out.println("Para Hipotecar é necessário NÃO ter Casas na Propriedade!");
+            return;
         }
+
+        if(!propriedade.getDono().equals(this)){
+            System.out.println("Não é possível Hipotecar Propriedade que não lhe pertence!");
+            return;
+        }
+
+        if(!this.getMinhasPropriedades().contains(propriedade)){
+            System.out.println("A propriedade não está na sua Lista de Propriedades!");
+            return;
+        }
+
+        this.getMinhasPropriedades().remove(propriedade);
+        this.setDinheiro(this.getDinheiro() + propriedade.getValor());
+        propriedade.setDono(null);
+        System.out.printf("\n%s foi Hipotecacda pelo(a) %s por %.2f!\n", propriedade.getNome(), this.getNome(), propriedade.getValor());
     }
 
 
@@ -66,12 +80,13 @@ public class Jogador {
 
 
     public void pagarAluguel(Propriedade propriedade, Jogador dono){
-        if(this.getDinheiro() >= propriedade.getValorAluguel()){
-            this.setDinheiro(this.getDinheiro() - propriedade.getValorAluguel());
-            dono.setDinheiro(dono.getDinheiro() + propriedade.getValorAluguel());
-        }else {
-            System.out.println("Dinheiro Insuficiente!");
+        if(!(this.getDinheiro() >= propriedade.getValorAluguel())){
+            System.out.println("Dinheiro Insuficiente para Pagar Aluguel!");
+            return;
         }
+
+        this.setDinheiro(this.getDinheiro() - propriedade.getValorAluguel());
+        dono.setDinheiro(dono.getDinheiro() + propriedade.getValorAluguel());
     }
 
 

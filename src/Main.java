@@ -25,11 +25,16 @@ public class Main {
 
             propriedadesDisponiveis(propriedades);
 
+            System.out.println(jogadores[0].getDinheiro());
             jogadores[0].comprarPropriedade(propriedades, 1);
+            System.out.println(jogadores[0].getDinheiro());
+
 
             propriedadesDisponiveis(propriedades);
 
-            jogadores[0].hipotecar(propriedades.get(0));
+            jogadores[0].hipotecar(jogadores[0].getMinhasPropriedades().get(0));
+
+            System.out.println(jogadores[0].getDinheiro());
 
             propriedadesDisponiveis(propriedades);
 
