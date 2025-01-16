@@ -24,11 +24,26 @@ public class Jogador {
     }
 
 
-    public void comprarPropriedade(Propriedade propriedade, Jogador dono){
-        this.getMinhasPropriedades().add(propriedade);
-        dono.getMinhasPropriedades().remove(propriedade);
-        dono.setDinheiro(dono.getDinheiro() + propriedade.getValor());
-        this.setDinheiro(this.getDinheiro() - propriedade.getValor());
+    public void comprarPropriedade(Propriedade propriedade){
+        if(this.getDinheiro() > propriedade.getValor()){
+            //Propriedade não tem dono
+            if (propriedade.getDono() == null){
+                this.getMinhasPropriedades().add(propriedade);
+                propriedade.setDono(this);
+                this.setDinheiro(this.getDinheiro() - propriedade.getValor());
+            }else {
+                //Propriedade TEM dono
+                Jogador donoAtual = propriedade.getDono();
+                donoAtual.getMinhasPropriedades().remove(propriedade);
+                donoAtual.setDinheiro(donoAtual.getDinheiro() + propriedade.getValor());
+
+                this.getMinhasPropriedades().add(propriedade);
+                propriedade.setDono(this);
+                this.setDinheiro(this.getDinheiro() - propriedade.getValor());
+            }
+        }else {
+            System.out.println("Dinheiro insuficiente!");
+        }
     }
 
 
