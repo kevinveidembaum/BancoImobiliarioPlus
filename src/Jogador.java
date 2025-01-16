@@ -24,13 +24,16 @@ public class Jogador {
     }
 
 
-    public void comprarPropriedade(Propriedade propriedade){
+    public void comprarPropriedade(List<Propriedade> propriedades, int index){
+        Propriedade propriedade = propriedades.get(index-1);
+
         if(this.getDinheiro() > propriedade.getValor()){
             //Propriedade não tem dono
             if (propriedade.getDono() == null){
                 this.getMinhasPropriedades().add(propriedade);
                 propriedade.setDono(this);
                 this.setDinheiro(this.getDinheiro() - propriedade.getValor());
+                System.out.printf("\n%s comprou a propriedade %s por %.2f!\n", this.nome, propriedade.getNome(), propriedade.getValor());
             }else {
                 //Propriedade TEM dono
                 Jogador donoAtual = propriedade.getDono();
@@ -40,6 +43,7 @@ public class Jogador {
                 this.getMinhasPropriedades().add(propriedade);
                 propriedade.setDono(this);
                 this.setDinheiro(this.getDinheiro() - propriedade.getValor());
+                System.out.printf("\n%s comprou a propriedade %s de %s por %.2f!\n", this.nome, propriedade.getNome(), donoAtual.getNome(), propriedade.getValor());
             }
         }else {
             System.out.println("Dinheiro insuficiente!");

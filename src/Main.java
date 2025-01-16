@@ -25,6 +25,8 @@ public class Main {
 
             propriedadesDisponiveis(propriedades);
 
+            jogadores[0].comprarPropriedade(propriedades, 1);
+
 
 
 
