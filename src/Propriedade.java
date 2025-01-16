@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Propriedade {
     private float valor;
     private Jogador dono;

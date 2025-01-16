@@ -15,6 +15,14 @@ public class Jogador {
         this.dinheiro = dinheiro;
     }
 
+    public void propriedadesDisponiveis(List<Propriedade> propriedades){
+        System.out.println("\nPropriedades disponíveis para compra:");
+        for (int i = 0; i < propriedades.size(); i++) {
+            Propriedade propriedade = propriedades.get(i);
+            System.out.printf("%d. Nome: %s, Valor: %.2f\n", i + 1, propriedade.getNome(), propriedade.getValor());
+        }
+    }
+
 
     public void comprarPropriedade(Propriedade propriedade, Jogador dono){
         this.getMinhasPropriedades().add(propriedade);
