@@ -16,7 +16,7 @@ public class Main {
             Jogador jogadores[] = new Jogador[number];
 
             for(int i = 0; i < number; i++){
-                System.out.printf("Nome do %d Jogador: ", i+1);
+                System.out.printf("Nome do %d° Jogador: ", i+1);
                 String nomeJogador = reader.readLine();
                 jogadores[i] = new Jogador(nomeJogador, 2558);
             }
@@ -25,16 +25,19 @@ public class Main {
 
             propriedadesDisponiveis(propriedades);
 
+            Propriedade propriedadeTeste = propriedades.get(2);
+
             System.out.println(jogadores[0].getDinheiro());
-            jogadores[0].comprarPropriedade(propriedades, 1);
-            System.out.println(jogadores[0].getDinheiro());
+            jogadores[1].comprarPropriedade(propriedades, 1);
+            System.out.println(jogadores[1].getDinheiro());
+
 
 
             propriedadesDisponiveis(propriedades);
 
-            jogadores[0].hipotecar(jogadores[0].getMinhasPropriedades().get(0));
+            jogadores[1].hipotecar(propriedades, jogadores[1]);
 
-            System.out.println(jogadores[0].getDinheiro());
+            System.out.println(jogadores[1].getDinheiro());
 
             propriedadesDisponiveis(propriedades);
 
@@ -70,6 +73,12 @@ public class Main {
         System.out.println("\nPropriedades disponíveis para compra:");
         for (int i = 0; i < propriedades.size(); i++) {
             Propriedade propriedade = propriedades.get(i);
+
+            if(propriedade.isHipotecado()){
+                System.out.printf("%d. Nome: %s, Valor: %.2f (Hipotecado por %s)\n", i + 1, propriedade.getNome(), propriedade.getValor(), propriedade.getDono().getNome());
+                continue;
+            }
+
             System.out.printf("%d. Nome: %s, Valor: %.2f\n", i + 1, propriedade.getNome(), propriedade.getValor());
         }
     }

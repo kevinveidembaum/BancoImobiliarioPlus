@@ -47,14 +47,17 @@ public class Jogador {
     }
 
 
-    public void hipotecar(Propriedade propriedade){
+    public void hipotecar(List<Propriedade> propriedades, Jogador jogador){
+        //Fazer o jogador escolher no terminal, implementar buffer reader
+        Propriedade propriedade = jogador.getMinhasPropriedades().get(0);
+
         if(propriedade.getQntCasas() != 0){
             System.out.println("Para Hipotecar é necessário NÃO ter Casas na Propriedade!");
             return;
         }
 
-        if(!propriedade.getDono().equals(this)){
-            System.out.println("Não é possível Hipotecar Propriedade que não lhe pertence!");
+        if(propriedade.getDono() == null){
+            System.out.println("Não foi possível Hipotecar pois essa Propriedade não pertence a ninguém!");
             return;
         }
 
@@ -65,8 +68,9 @@ public class Jogador {
 
         this.getMinhasPropriedades().remove(propriedade);
         this.setDinheiro(this.getDinheiro() + propriedade.getValor());
-        propriedade.setDono(null);
-        System.out.printf("\n%s foi Hipotecacda pelo(a) %s por %.2f!\n", propriedade.getNome(), this.getNome(), propriedade.getValor());
+        propriedade.setHipotecado(true);
+        propriedades.addFirst(propriedade);
+        System.out.printf("\n%s foi Hipotecada pelo(a) %s por %.2f!\n", propriedade.getNome(), this.getNome(), propriedade.getValor());
     }
 
 
