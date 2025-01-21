@@ -37,7 +37,10 @@ public class Main {
                         break;
                     case 1:
                         System.out.println("\nVocê escolheu comprar uma propriedade!");
-                        // Add logic to buy property
+                        propriedadesDisponiveis(propriedades);
+                        int escolhaPropriedade = InputUtility.getIntInput("Digite o número da Propriedade desejada: ");
+                        jogador.comprarPropriedade(propriedades, escolhaPropriedade);
+
                         break;
                     case 2:
                         System.out.println("\nVocê escolheu hipotecar uma propriedade!");
@@ -48,12 +51,25 @@ public class Main {
                         // Add logic to sell property
                         break;
                     case 4:
-                        System.out.println("\nVocê escolheu passar a vez.");
+                        System.out.println("\nVocê escolheu pagar aluguel.");
+                        // Skip turn
+                        break;
+                    case 5:
+                        System.out.println("\nVocê escolheu fazer empréstimo.");
+                        // Skip turn
+                        break;
+                    case 6:
+                        System.out.println("\nVocê escolheu pagar empréstimo.");
+                        // Skip turn
+                        break;
+                    case 7:
+                        System.out.println("\nVocê escolheu visualizar status.");
                         // Skip turn
                         break;
                     default:
                         System.out.println("Opção inválida. Tente novamente.");
                 }
+
 
                 if(escolha == 0) break;
             }

@@ -17,6 +17,11 @@ public class Jogador {
 
 
     public void comprarPropriedade(List<Propriedade> propriedades, int index){
+        if (index < 1 || index > propriedades.size()) {
+            System.out.println("Erro: Número inválido. Escolha uma propriedade disponível na lista.");
+            return; // Exit the method
+        }
+
         Propriedade propriedade = propriedades.get(index-1);
 
         if(! (this.getDinheiro() > propriedade.getValor())){

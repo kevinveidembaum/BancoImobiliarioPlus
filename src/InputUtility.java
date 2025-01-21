@@ -12,12 +12,14 @@ public class InputUtility {
         System.out.println("1. Comprar Propriedade");
         System.out.println("2. Hipotecar Propriedade");
         System.out.println("3. Vender Propriedade");
-        System.out.println("4. Passar a vez");
+        System.out.println("4. Pagar Aluguel");
+        System.out.println("5. Fazer Empréstimo");
+        System.out.println("6. Pagar Empréstimo");
+        System.out.println("7. Visualizar Saldo e Propriedades");
         System.out.println("0. Encerrar Turno!");
 
         return getIntInput("Sua escolha: ");
     }
-
 
 
     // Metodo para ler uma String
@@ -30,6 +32,7 @@ public class InputUtility {
             return getStringInput(prompt);
         }
     }
+
 
     // Metodo para ler um Int
     public static int getIntInput(String prompt) {
