@@ -17,8 +17,8 @@ public class Jogador {
 
 
     public void comprarPropriedade(List<Propriedade> listaPropriedades, int index){
-        if (index < 1 || index > listaPropriedades.size()) {
-            System.out.println("Erro: Número inválido. Escolha uma propriedade disponível na lista.");
+        //Verifica se o index está correto
+        if (!isValidPropertyIndex(listaPropriedades, index)) {
             return;
         }
 
@@ -101,9 +101,14 @@ public class Jogador {
     }
 
 
-    public void hipotecar(List<Propriedade> listaPropriedades, Jogador jogador){
-        //Fazer o jogador escolher no terminal, implementar buffer reader
-        Propriedade propriedade = jogador.getMinhasPropriedades().get(0);
+    public void hipotecar(List<Propriedade> listaPropriedades, int index){
+        //Verifica se o index está correto
+        if (!isValidPropertyIndex(listaPropriedades, index)) {
+            return;
+        }
+
+
+        Propriedade propriedade = this.getMinhasPropriedades().get(0);
 
         if(propriedade.getQntCasas() != 0){
             System.out.println("Para Hipotecar é necessário NÃO ter Casas na Propriedade!");
@@ -129,9 +134,8 @@ public class Jogador {
 
 
     public void venderPropriedade(List<Propriedade> listaPropriedades, int index){
-        //Validação da seleção de escolha de Propriedades
-        if (index < 1 || index > this.getMinhasPropriedades().size()) {
-            System.out.println("Erro: Número inválido. Escolha uma propriedade disponível.");
+        //Verifica se o index está correto
+        if (!isValidPropertyIndex(listaPropriedades, index)) {
             return;
         }
 
@@ -176,6 +180,26 @@ public class Jogador {
 
     public void receberPagamentoEmprestimo(Emprestimo pagamento){
 
+    }
+
+
+    //Verificação e validação de index em Listas
+    public boolean isValidPropertyIndex(List<Propriedade> listaPropriedades, int index) {
+        if (index < 1 || index > listaPropriedades.size()) {
+            System.out.println("Erro: Número inválido. Escolha uma propriedade disponível.");
+            return false;
+        }
+        return true;
+    }
+
+
+    // Verifica se o Jogador possui alguma Propriedade (Propósitos de Lógica)
+    public boolean isThereProperty(Jogador jogador){
+        if(jogador.getMinhasPropriedades() == null || jogador.getMinhasPropriedades().isEmpty()){
+            System.out.println("Você ainda não possui Propriedades!");
+            return false;
+        }
+        return true;
     }
 
 

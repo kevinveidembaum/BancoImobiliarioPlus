@@ -44,12 +44,13 @@ public class Main {
 
                         break;
                     case 2:
-                        System.out.println("\nVocê escolheu vender  uma propriedade!");
+                        System.out.println("\nVocê escolheu vender uma propriedade!");
 
-                        if(jogador.getMinhasPropriedades() == null || jogador.getMinhasPropriedades().isEmpty()){
-                            System.out.println("Você ainda não possui Propriedades!");
+                        //Verifica se Jogador possui alguma Propriedade
+                        if(!jogador.isThereProperty(jogador)){
                             break;
                         }
+
 
                         propriedadesDisponiveis(jogador.getMinhasPropriedades());
                         int venderPropriedade = InputUtility.getIntInput("Digite o número da Propriedade a ser vendida: ");
@@ -58,7 +59,22 @@ public class Main {
                         break;
                     case 3:
                         System.out.println("\nVocê escolheu hipotecar uma propriedade!");
-                        // Add logic to sell property
+
+                        //Verifica se Jogador possui alguma Propriedade
+                        if(!jogador.isThereProperty(jogador)){
+                            break;
+                        }
+
+
+                        for(Propriedade propriedadesHipotecadas : jogador.getMinhasPropriedades()){
+                            if (propriedadesHipotecadas.isHipotecado()){
+
+                            }
+
+                        }
+
+
+
                         break;
                     case 4:
                         System.out.println("\nVocê escolheu pagar aluguel.");
