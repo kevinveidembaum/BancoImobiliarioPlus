@@ -16,13 +16,13 @@ public class Jogador {
     }
 
 
-    public void comprarPropriedade(List<Propriedade> propriedades, int index){
-        if (index < 1 || index > propriedades.size()) {
+    public void comprarPropriedade(List<Propriedade> listaPropriedades, int index){
+        if (index < 1 || index > listaPropriedades.size()) {
             System.out.println("Erro: Número inválido. Escolha uma propriedade disponível na lista.");
             return; // Exit the method
         }
 
-        Propriedade propriedade = propriedades.get(index-1);
+        Propriedade propriedade = listaPropriedades.get(index-1);
 
         if(! (this.getDinheiro() > propriedade.getValor())){
             System.out.println("Dinheiro insuficiente!");
@@ -34,7 +34,7 @@ public class Jogador {
             this.getMinhasPropriedades().add(propriedade);
             propriedade.setDono(this);
             this.setDinheiro(this.getDinheiro() - propriedade.getValor());
-            propriedades.remove(propriedade);
+            listaPropriedades.remove(propriedade);
             System.out.printf("\n%s comprou a propriedade %s por %.2f!\n", this.nome, propriedade.getNome(), propriedade.getValor());
             return;
         }
@@ -47,12 +47,12 @@ public class Jogador {
         this.getMinhasPropriedades().add(propriedade);
         propriedade.setDono(this);
         this.setDinheiro(this.getDinheiro() - propriedade.getValor());
-        propriedades.remove(propriedade);
+        listaPropriedades.remove(propriedade);
         System.out.printf("\n%s comprou a propriedade %s de %s por %.2f!\n", this.nome, propriedade.getNome(), donoAtual.getNome(), propriedade.getValor());
     }
 
 
-    public void hipotecar(List<Propriedade> propriedades, Jogador jogador){
+    public void hipotecar(List<Propriedade> listaPropriedades, Jogador jogador){
         //Fazer o jogador escolher no terminal, implementar buffer reader
         Propriedade propriedade = jogador.getMinhasPropriedades().get(0);
 
@@ -74,17 +74,33 @@ public class Jogador {
         this.getMinhasPropriedades().remove(propriedade);
         this.setDinheiro(this.getDinheiro() + propriedade.getValor());
         propriedade.setHipotecado(true);
-        propriedades.addFirst(propriedade);
+        listaPropriedades.addFirst(propriedade);
         System.out.printf("\n%s foi Hipotecada pelo(a) %s por %.2f!\n", propriedade.getNome(), this.getNome(), propriedade.getValor());
     }
 
 
-    public void venderPropriedade(Propriedade propriedade){
-        float valorVenda = (float) (propriedade.getValor() * 0.75); //75% do valor da Propriedade
+    public void venderPropriedade(List<Propriedade> listaPropriedades, int index){
+        //Validação da seleção de escolha de Propriedades
+        if (index < 1 || index > this.getMinhasPropriedades().size()) {
+            System.out.println("Erro: Número inválido. Escolha uma propriedade disponível.");
+            return;
+        }
 
+
+        //Seleciona a propriedade escolhida pelo Jogador
+        Propriedade propriedade = listaPropriedades.get(index - 1);
+
+
+        //75% do valor da Propriedade
+        float valorVenda = (float) (propriedade.getValor() * 0.75);
+
+
+        //A logica da venda em si
         this.setDinheiro(this.getDinheiro() + valorVenda);
-        this.minhasPropriedades.remove(propriedade);
+        this.getMinhasPropriedades().remove(propriedade);
         propriedade.setDono(null);
+        listaPropriedades.add(propriedade);
+        System.out.printf("\n%s vendeu a propriedade %s por %.2f!\n", this.getNome(), propriedade.getNome(), valorVenda);
     }
 
 

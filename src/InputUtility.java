@@ -10,8 +10,8 @@ public class InputUtility {
     public static int getOption(String playerName) {
         System.out.printf("\n%s, escolha sua próxima ação:\n", playerName);
         System.out.println("1. Comprar Propriedade");
-        System.out.println("2. Hipotecar Propriedade");
-        System.out.println("3. Vender Propriedade");
+        System.out.println("2. Vender Propriedade");
+        System.out.println("3. Hipotecar Propriedade");
         System.out.println("4. Pagar Aluguel");
         System.out.println("5. Fazer Empréstimo");
         System.out.println("6. Pagar Empréstimo");

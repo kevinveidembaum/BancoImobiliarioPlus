@@ -37,17 +37,27 @@ public class Main {
                         break;
                     case 1:
                         System.out.println("\nVocê escolheu comprar uma propriedade!");
+
                         propriedadesDisponiveis(propriedades);
                         int escolhaPropriedade = InputUtility.getIntInput("Digite o número da Propriedade desejada: ");
                         jogador.comprarPropriedade(propriedades, escolhaPropriedade);
 
                         break;
                     case 2:
-                        System.out.println("\nVocê escolheu hipotecar uma propriedade!");
-                        // Add logic to mortgage property
+                        System.out.println("\nVocê escolheu vender  uma propriedade!");
+
+                        if(jogador.getMinhasPropriedades() == null || jogador.getMinhasPropriedades().isEmpty()){
+                            System.out.println("Você ainda não possui Propriedades!");
+                            break;
+                        }
+
+                        propriedadesDisponiveis(jogador.getMinhasPropriedades());
+                        int venderPropriedade = InputUtility.getIntInput("Digite o número da Propriedade a ser vendida: ");
+                        jogador.venderPropriedade(jogador.getMinhasPropriedades(), venderPropriedade);
+                        
                         break;
                     case 3:
-                        System.out.println("\nVocê escolheu vender uma propriedade!");
+                        System.out.println("\nVocê escolheu hipotecar uma propriedade!");
                         // Add logic to sell property
                         break;
                     case 4:
@@ -87,7 +97,7 @@ public class Main {
     }
 
     private static void propriedadesDisponiveis(List<Propriedade> propriedades){
-        System.out.println("\nPropriedades disponíveis para compra:");
+        System.out.println("\nPropriedades disponíveis:");
         for (int i = 0; i < propriedades.size(); i++) {
             Propriedade propriedade = propriedades.get(i);
 
