@@ -7,12 +7,13 @@ public class InputUtility {
 
 
     //Metodo para Jogador Escolher Ação
-    public static int getPlayerAction(String playerName) {
+    public static int getOption(String playerName) {
         System.out.printf("\n%s, escolha sua próxima ação:\n", playerName);
         System.out.println("1. Comprar Propriedade");
         System.out.println("2. Hipotecar Propriedade");
         System.out.println("3. Vender Propriedade");
         System.out.println("4. Passar a vez");
+        System.out.println("0. Encerrar Turno!");
 
         return getIntInput("Sua escolha: ");
     }

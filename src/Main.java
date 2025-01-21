@@ -27,27 +27,35 @@ public class Main {
         // Turno por Jogador
         for (Jogador jogador : jogadores) {
             System.out.printf("\nÉ a vez do(a) %s!\n", jogador.getNome());
-            int escolha = InputUtility.getPlayerAction(jogador.getNome());
 
-            switch (escolha) {
-                case 1:
-                    System.out.println("\nVocê escolheu comprar uma propriedade!");
-                    // Add logic to buy property
-                    break;
-                case 2:
-                    System.out.println("\nVocê escolheu hipotecar uma propriedade!");
-                    // Add logic to mortgage property
-                    break;
-                case 3:
-                    System.out.println("\nVocê escolheu vender uma propriedade!");
-                    // Add logic to sell property
-                    break;
-                case 4:
-                    System.out.println("\nVocê escolheu passar a vez.");
-                    // Skip turn
-                    break;
-                default:
-                    System.out.println("Opção inválida. Tente novamente.");
+            while(true){
+                int escolha = InputUtility.getOption(jogador.getNome());
+
+                switch (escolha) {
+                    case 0:
+                        System.out.println("\nVez do próximo Jogador!");
+                        break;
+                    case 1:
+                        System.out.println("\nVocê escolheu comprar uma propriedade!");
+                        // Add logic to buy property
+                        break;
+                    case 2:
+                        System.out.println("\nVocê escolheu hipotecar uma propriedade!");
+                        // Add logic to mortgage property
+                        break;
+                    case 3:
+                        System.out.println("\nVocê escolheu vender uma propriedade!");
+                        // Add logic to sell property
+                        break;
+                    case 4:
+                        System.out.println("\nVocê escolheu passar a vez.");
+                        // Skip turn
+                        break;
+                    default:
+                        System.out.println("Opção inválida. Tente novamente.");
+                }
+
+                if(escolha == 0) break;
             }
         }
     }
