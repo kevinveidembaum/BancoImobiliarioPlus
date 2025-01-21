@@ -54,7 +54,7 @@ public class Main {
                         propriedadesDisponiveis(jogador.getMinhasPropriedades());
                         int venderPropriedade = InputUtility.getIntInput("Digite o número da Propriedade a ser vendida: ");
                         jogador.venderPropriedade(jogador.getMinhasPropriedades(), venderPropriedade);
-                        
+
                         break;
                     case 3:
                         System.out.println("\nVocê escolheu hipotecar uma propriedade!");
@@ -102,11 +102,16 @@ public class Main {
             Propriedade propriedade = propriedades.get(i);
 
             if(propriedade.isHipotecado()){
-                System.out.printf("%d. Nome: %s, Valor: %.2f (Hipotecado por %s)\n", i + 1, propriedade.getNome(), propriedade.getValor(), propriedade.getDono().getNome());
+                System.out.printf("%d. Nome: %s, Valor: $%.2f (Hipotecado por %s)\n", i + 1, propriedade.getNome(), propriedade.getValor(), propriedade.getDono().getNome());
                 continue;
             }
 
-            System.out.printf("%d. Nome: %s, Valor: %.2f\n", i + 1, propriedade.getNome(), propriedade.getValor());
+            if(propriedade.getDono() != null){
+                System.out.printf("%d. Nome: %s, Valor: $%.2f (Dono Atual: %s)\n", i + 1, propriedade.getNome(), propriedade.getValor(), propriedade.getDono().getNome());
+                continue;
+            }
+
+            System.out.printf("%d. Nome: %s, Valor: $%.2f\n", i + 1, propriedade.getNome(), propriedade.getValor());
         }
     }
 }

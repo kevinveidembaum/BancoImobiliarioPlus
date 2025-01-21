@@ -19,7 +19,7 @@ public class Jogador {
     public void comprarPropriedade(List<Propriedade> listaPropriedades, int index){
         if (index < 1 || index > listaPropriedades.size()) {
             System.out.println("Erro: Número inválido. Escolha uma propriedade disponível na lista.");
-            return; // Exit the method
+            return;
         }
 
         Propriedade propriedade = listaPropriedades.get(index-1);
@@ -34,21 +34,48 @@ public class Jogador {
             this.getMinhasPropriedades().add(propriedade);
             propriedade.setDono(this);
             this.setDinheiro(this.getDinheiro() - propriedade.getValor());
-            listaPropriedades.remove(propriedade);
             System.out.printf("\n%s comprou a propriedade %s por %.2f!\n", this.nome, propriedade.getNome(), propriedade.getValor());
             return;
         }
 
+
         //Propriedade TEM dono
         Jogador donoAtual = propriedade.getDono();
+
+
+        //Pergunta para o donoAtual se deseja Vender sua Propriedade
+        System.out.printf("\n%s, deseja Vender %s para %s?\n", donoAtual.getNome(), propriedade.getNome(), this.getNome());
+        String respostaDono = InputUtility.getStringInput("[S] Sim      [N] Não\n");
+
+
+        //Caso o DonoAtual não queira vender sua Propriedade
+        if(respostaDono.equalsIgnoreCase("N")){
+            System.out.println("\nO Proprietário não quis Vender sua Propriedade!");
+            return;
+        }
+
+
+        //Caso o donoAtual queira vender, Jogador interessado deverá fazer uma proposta
+        float proposta = InputUtility.getFloatInput("\nFaça uma Proposta para o Proprietário: $");
+        System.out.printf("\n%s, Aceita a Oferta? \n", donoAtual.getNome());
+        respostaDono = InputUtility.getStringInput("[S] Sim      [N] Não\n");
+
+
+        //Caso o DonoAtual não aceitou a proposta feita pelo Jogador Interessado
+        if(respostaDono.equalsIgnoreCase("N")){
+            System.out.println("\nO Proprietário não aceitou a Proposta!");
+            return;
+        }
+
+
+        //donoAtual aceitou a proposta
         donoAtual.getMinhasPropriedades().remove(propriedade);
-        donoAtual.setDinheiro(donoAtual.getDinheiro() + propriedade.getValor());
+        donoAtual.setDinheiro(donoAtual.getDinheiro() + proposta);
 
         this.getMinhasPropriedades().add(propriedade);
         propriedade.setDono(this);
-        this.setDinheiro(this.getDinheiro() - propriedade.getValor());
-        listaPropriedades.remove(propriedade);
-        System.out.printf("\n%s comprou a propriedade %s de %s por %.2f!\n", this.nome, propriedade.getNome(), donoAtual.getNome(), propriedade.getValor());
+        this.setDinheiro(this.getDinheiro() - proposta);
+        System.out.printf("\n%s comprou a propriedade %s de %s por %.2f!\n", this.nome, propriedade.getNome(), donoAtual.getNome(), proposta);
     }
 
 

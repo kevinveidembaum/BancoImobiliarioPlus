@@ -6,7 +6,7 @@ public class InputUtility {
     private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
 
-    //Metodo para Jogador Escolher Ação
+    //Metodo para mostrar Menu de Opções do Jogador
     public static int getOption(String playerName) {
         System.out.printf("\n%s, escolha sua próxima ação:\n", playerName);
         System.out.println("1. Comprar Propriedade");
@@ -41,7 +41,20 @@ public class InputUtility {
             try {
                 return Integer.parseInt(reader.readLine());
             } catch (NumberFormatException | IOException e) {
-                System.out.println("Invalid input. Please enter a valid number.");
+                System.out.println("Invalid input. Please enter a Integer number.");
+            }
+        }
+    }
+
+
+    // Metodo para ler um Float
+    public static float getFloatInput(String prompt){
+        while(true){
+            System.out.print(prompt);
+            try {
+                return Float.parseFloat(reader.readLine());
+            }catch (NumberFormatException | IOException e){
+                System.out.println("Invalid input. Please enter a Float number.");
             }
         }
     }
