@@ -86,6 +86,7 @@ public class Main {
         }
     }
 
+
     private static List<Propriedade> inicializarPropriedades() {
         List<Propriedade> propriedades = new ArrayList<>();
         propriedades.add(new Propriedade("Avenida Paulista", 500));
@@ -95,6 +96,7 @@ public class Main {
         propriedades.add(new Propriedade("Jardins", 450));
         return propriedades;
     }
+
 
     private static void propriedadesDisponiveis(List<Propriedade> propriedades){
         System.out.println("\nPropriedades disponíveis:");

@@ -29,12 +29,34 @@ public class Jogador {
             return;
         }
 
+
+        //Se a Propriedade estiver Hipotecada e Quem está comprando não for o Dono da Hipoteca
+        if(propriedade.isHipotecado() &&  !propriedade.getDono().equals(this)){
+            System.out.println("Não é possível comprar uma Propriedade Hipotecada que não é Sua!");
+            return;
+        }
+
+
+        //Se o Dono de uma Propriedade Hipoteca quer recomprá-la
+        if(propriedade.isHipotecado()){
+            float valorComJuros = (float) (propriedade.getValor() * 1.30);
+
+            System.out.println("Você está comprando sua Propriedade Hipotecada.");
+            System.out.printf("Juros de 30%, valor a pagar: $%.2f", valorComJuros);
+
+            this.getMinhasPropriedades().add(propriedade);
+            this.setDinheiro(this.getDinheiro() - valorComJuros);
+            System.out.printf("\n%s recuperou %s, sua propriedade Hipotecada, por $%.2f!\n", this.nome, propriedade.getNome(), propriedade.getValor());
+            return;
+        }
+
+
+        //Propriedade NÃO tem dono
         if(propriedade.getDono() == null){
-            //Propriedade NÃO tem dono
             this.getMinhasPropriedades().add(propriedade);
             propriedade.setDono(this);
             this.setDinheiro(this.getDinheiro() - propriedade.getValor());
-            System.out.printf("\n%s comprou a propriedade %s por %.2f!\n", this.nome, propriedade.getNome(), propriedade.getValor());
+            System.out.printf("\n%s comprou a propriedade %s por $%.2f!\n", this.nome, propriedade.getNome(), propriedade.getValor());
             return;
         }
 
@@ -75,7 +97,7 @@ public class Jogador {
         this.getMinhasPropriedades().add(propriedade);
         propriedade.setDono(this);
         this.setDinheiro(this.getDinheiro() - proposta);
-        System.out.printf("\n%s comprou a propriedade %s de %s por %.2f!\n", this.nome, propriedade.getNome(), donoAtual.getNome(), proposta);
+        System.out.printf("\n%s comprou a propriedade %s de %s por $%.2f!\n", this.getNome(), propriedade.getNome(), donoAtual.getNome(), proposta);
     }
 
 
@@ -101,8 +123,8 @@ public class Jogador {
         this.getMinhasPropriedades().remove(propriedade);
         this.setDinheiro(this.getDinheiro() + propriedade.getValor());
         propriedade.setHipotecado(true);
-        listaPropriedades.addFirst(propriedade);
-        System.out.printf("\n%s foi Hipotecada pelo(a) %s por %.2f!\n", propriedade.getNome(), this.getNome(), propriedade.getValor());
+        listaPropriedades.add(propriedade);
+        System.out.printf("\n%s foi Hipotecada pelo(a) %s por $%.2f!\n", propriedade.getNome(), this.getNome(), propriedade.getValor());
     }
 
 
@@ -127,7 +149,7 @@ public class Jogador {
         this.getMinhasPropriedades().remove(propriedade);
         propriedade.setDono(null);
         listaPropriedades.add(propriedade);
-        System.out.printf("\n%s vendeu a propriedade %s por %.2f!\n", this.getNome(), propriedade.getNome(), valorVenda);
+        System.out.printf("\n%s vendeu a propriedade %s por $%.2f!\n", this.getNome(), propriedade.getNome(), valorVenda);
     }
 
 

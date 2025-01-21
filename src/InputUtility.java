@@ -15,7 +15,7 @@ public class InputUtility {
         System.out.println("4. Pagar Aluguel");
         System.out.println("5. Fazer Empréstimo");
         System.out.println("6. Pagar Empréstimo");
-        System.out.println("7. Visualizar Saldo e Propriedades");
+        System.out.println("7. Visualizar Saldo e Minhas Propriedades");
         System.out.println("0. Encerrar Turno!");
 
         return getIntInput("Sua escolha: ");
