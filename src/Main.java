@@ -7,36 +7,49 @@ import java.util.List;
 public class Main {
     public static void main(String[] args){
 
+        //Quantos Players
         int numJogadores = InputUtility.getIntInput("Quantos Jogadores irão participar: ");
-
         Jogador jogadores[] = new Jogador[numJogadores];
 
+
+        //Nome de cada Jogador
         for(int i = 0; i < numJogadores; i++){
             int n = i+1;
             String nomeJogador = InputUtility.getStringInput("Nome do " + n + "° Jogador: ");
             jogadores[i] = new Jogador(nomeJogador, 2558);
         }
 
-        List<Propriedade> propriedades = inicializarPropriedades(); //Todas Propriedades em uma Lista
-        propriedadesDisponiveis(propriedades);
+
+        //Inicializando Todas Propriedades em uma Lista
+        List<Propriedade> propriedades = inicializarPropriedades();
 
 
-        Propriedade propriedadeTeste = propriedades.get(2);
+        // Turno por Jogador
+        for (Jogador jogador : jogadores) {
+            System.out.printf("\nÉ a vez do(a) %s!\n", jogador.getNome());
+            int escolha = InputUtility.getPlayerAction(jogador.getNome());
 
-        System.out.println(jogadores[0].getDinheiro());
-        jogadores[1].comprarPropriedade(propriedades, 1);
-        System.out.println(jogadores[1].getDinheiro());
-
-
-
-        propriedadesDisponiveis(propriedades);
-
-        jogadores[1].hipotecar(propriedades, jogadores[1]);
-
-        System.out.println(jogadores[1].getDinheiro());
-
-        propriedadesDisponiveis(propriedades);
-
+            switch (escolha) {
+                case 1:
+                    System.out.println("\nVocê escolheu comprar uma propriedade!");
+                    // Add logic to buy property
+                    break;
+                case 2:
+                    System.out.println("\nVocê escolheu hipotecar uma propriedade!");
+                    // Add logic to mortgage property
+                    break;
+                case 3:
+                    System.out.println("\nVocê escolheu vender uma propriedade!");
+                    // Add logic to sell property
+                    break;
+                case 4:
+                    System.out.println("\nVocê escolheu passar a vez.");
+                    // Skip turn
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+            }
+        }
     }
 
     private static List<Propriedade> inicializarPropriedades() {

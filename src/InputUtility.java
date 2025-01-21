@@ -5,6 +5,20 @@ import java.io.InputStreamReader;
 public class InputUtility {
     private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+
+    //Metodo para Jogador Escolher Ação
+    public static int getPlayerAction(String playerName) {
+        System.out.printf("\n%s, escolha sua próxima ação:\n", playerName);
+        System.out.println("1. Comprar Propriedade");
+        System.out.println("2. Hipotecar Propriedade");
+        System.out.println("3. Vender Propriedade");
+        System.out.println("4. Passar a vez");
+
+        return getIntInput("Sua escolha: ");
+    }
+
+
+
     // Metodo para ler uma String
     public static String getStringInput(String prompt) {
         System.out.print(prompt);
