@@ -108,7 +108,7 @@ public class Jogador {
         }
 
 
-        Propriedade propriedade = this.getMinhasPropriedades().get(0);
+        Propriedade propriedade = listaPropriedades.get(index - 1);
 
         if(propriedade.getQntCasas() != 0){
             System.out.println("Para Hipotecar é necessário NÃO ter Casas na Propriedade!");
@@ -122,6 +122,11 @@ public class Jogador {
 
         if(!this.getMinhasPropriedades().contains(propriedade)){
             System.out.println("A propriedade não está na sua Lista de Propriedades!");
+            return;
+        }
+
+        if(propriedade.isHipotecado()){
+            System.out.println("Não é possível Hipotecar uma Propriedade que já está Hipotecada!");
             return;
         }
 

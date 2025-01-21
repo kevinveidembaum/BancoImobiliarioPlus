@@ -66,14 +66,9 @@ public class Main {
                         }
 
 
-                        for(Propriedade propriedadesHipotecadas : jogador.getMinhasPropriedades()){
-                            if (propriedadesHipotecadas.isHipotecado()){
-
-                            }
-
-                        }
-
-
+                        propriedadesDisponiveis(jogador.getMinhasPropriedades());
+                        int hipotecarPropriedade = InputUtility.getIntInput("Qual Propriedade deseja Hipotecar? ");
+                        jogador.hipotecar(jogador.getMinhasPropriedades(), hipotecarPropriedade);
 
                         break;
                     case 4:
