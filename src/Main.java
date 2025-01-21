@@ -5,58 +5,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int numJogadores = InputUtility.getIntInput("Quantos Jogadores irão participar: ");
 
-        try {
-            System.out.print("Quantos Jogadores irão participar: ");
-            int number = Integer.parseInt(reader.readLine());
+        Jogador jogadores[] = new Jogador[numJogadores];
 
-            Jogador jogadores[] = new Jogador[number];
-
-            for(int i = 0; i < number; i++){
-                System.out.printf("Nome do %d° Jogador: ", i+1);
-                String nomeJogador = reader.readLine();
-                jogadores[i] = new Jogador(nomeJogador, 2558);
-            }
-
-            List<Propriedade> propriedades = inicializarPropriedades(); //Todas Propriedades em uma Lista
-
-            propriedadesDisponiveis(propriedades);
-
-            Propriedade propriedadeTeste = propriedades.get(2);
-
-            System.out.println(jogadores[0].getDinheiro());
-            jogadores[1].comprarPropriedade(propriedades, 1);
-            System.out.println(jogadores[1].getDinheiro());
-
-
-
-            propriedadesDisponiveis(propriedades);
-
-            jogadores[1].hipotecar(propriedades, jogadores[1]);
-
-            System.out.println(jogadores[1].getDinheiro());
-
-            propriedadesDisponiveis(propriedades);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        } catch (NumberFormatException e) {
-            System.out.println("That's not a valid number.");
+        for(int i = 0; i < numJogadores; i++){
+            int n = i+1;
+            String nomeJogador = InputUtility.getStringInput("Nome do " + n + "° Jogador: ");
+            jogadores[i] = new Jogador(nomeJogador, 2558);
         }
+
+        List<Propriedade> propriedades = inicializarPropriedades(); //Todas Propriedades em uma Lista
+        propriedadesDisponiveis(propriedades);
+
+
+        Propriedade propriedadeTeste = propriedades.get(2);
+
+        System.out.println(jogadores[0].getDinheiro());
+        jogadores[1].comprarPropriedade(propriedades, 1);
+        System.out.println(jogadores[1].getDinheiro());
+
+
+
+        propriedadesDisponiveis(propriedades);
+
+        jogadores[1].hipotecar(propriedades, jogadores[1]);
+
+        System.out.println(jogadores[1].getDinheiro());
+
+        propriedadesDisponiveis(propriedades);
+
     }
 
     private static List<Propriedade> inicializarPropriedades() {
