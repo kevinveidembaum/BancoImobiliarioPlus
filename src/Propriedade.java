@@ -4,6 +4,7 @@ public class Propriedade {
     private float valor;
     private Jogador dono;
     private boolean hipotecado;
+    private boolean empresa;
     private int qntCasas;
     private float valorAluguel;
     private String nome;
@@ -17,6 +18,14 @@ public class Propriedade {
 
     }
 
+
+    public boolean isEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(boolean empresa) {
+        this.empresa = empresa;
+    }
 
     public Jogador getDono() {
         return dono;

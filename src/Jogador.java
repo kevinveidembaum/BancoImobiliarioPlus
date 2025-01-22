@@ -149,6 +149,13 @@ public class Jogador {
         Propriedade propriedade = listaPropriedades.get(index - 1);
 
 
+        // Não pode vender Propriedades Hipotecadas
+        if(propriedade.isHipotecado()){
+            System.out.println("Não é possível vender uma Propriedade Hipotecada!");
+            return;
+        }
+
+
         //75% do valor da Propriedade
         float valorVenda = (float) (propriedade.getValor() * 0.75);
 
@@ -163,7 +170,7 @@ public class Jogador {
 
 
     public void pagarAluguel(Propriedade propriedade, Jogador dono){
-        if(!(this.getDinheiro() >= propriedade.getValorAluguel())){
+        if(this.getDinheiro() < propriedade.getValorAluguel()){
             System.out.println("Dinheiro Insuficiente para Pagar Aluguel!");
             return;
         }

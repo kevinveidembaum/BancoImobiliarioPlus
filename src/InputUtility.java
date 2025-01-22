@@ -12,10 +12,12 @@ public class InputUtility {
         System.out.println("1. Comprar Propriedade");
         System.out.println("2. Vender Propriedade");
         System.out.println("3. Hipotecar Propriedade");
-        System.out.println("4. Pagar Aluguel");
+        System.out.println("4. Comprar Casa/Hotel");
         System.out.println("5. Fazer Empréstimo");
-        System.out.println("6. Pagar Empréstimo");
-        System.out.println("7. Visualizar Saldo e Minhas Propriedades");
+        System.out.println("6. Pagar Empréstimo OU Aluguel");
+        System.out.println("7. Visualizar Meu Saldo e Minhas Propriedades");
+        System.out.println("8. Visualizar Todas as Propriedades");
+        System.out.println("9. Ranking");
         System.out.println("0. Encerrar Turno!");
 
         return getIntInput("Sua escolha: ");

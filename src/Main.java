@@ -72,7 +72,8 @@ public class Main {
 
                         break;
                     case 4:
-                        System.out.println("\nVocê escolheu pagar aluguel.");
+                        System.out.println("\nVocê escolheu comprar uma casa/hotel.");
+                        //adicionar comprar casas e hotel
                         // Skip turn
                         break;
                     case 5:
@@ -80,11 +81,19 @@ public class Main {
                         // Skip turn
                         break;
                     case 6:
-                        System.out.println("\nVocê escolheu pagar empréstimo.");
+                        System.out.println("\nVocê escolheu pagar empréstimo OU aluguel.");
                         // Skip turn
                         break;
                     case 7:
-                        System.out.println("\nVocê escolheu visualizar status.");
+                        System.out.println("\nVocê escolheu visualizar Saldo e Minhas Propriedades.");
+                        // Skip turn
+                        break;
+                    case 8:
+                        System.out.println("\nVocê escolheu visualizar todas as propriedades.");
+                        // Skip turn
+                        break;
+                    case 9:
+                        System.out.println("\nVocê escolheu ver ranking.");
                         // Skip turn
                         break;
                     default:
@@ -100,11 +109,28 @@ public class Main {
 
     private static List<Propriedade> inicializarPropriedades() {
         List<Propriedade> propriedades = new ArrayList<>();
-        propriedades.add(new Propriedade("Avenida Paulista", 500));
-        propriedades.add(new Propriedade("Copacabana", 300));
-        propriedades.add(new Propriedade("Leblon", 700));
-        propriedades.add(new Propriedade("Ipanema", 650));
-        propriedades.add(new Propriedade("Jardins", 450));
+        
+        propriedades.add(new Propriedade("Leblon", 100));
+        propriedades.add(new Propriedade("Avenida Presidente Vargas", 60));
+        propriedades.add(new Propriedade("Avenida Nossa Senhora de Copacabana", 60));
+        propriedades.add(new Propriedade("Avenida Brigadeiro Faria Lima", 240));
+        propriedades.add(new Propriedade("Avenida Rebouças", 220));
+        propriedades.add(new Propriedade("Avenida 9 de Julho", 220));
+        propriedades.add(new Propriedade("Jardim Europa", 350));
+        propriedades.add(new Propriedade("Avenida Paulista", 400));
+        propriedades.add(new Propriedade("Avenida Vieira Souto", 120));
+        propriedades.add(new Propriedade("Praia de Ipanema", 120));
+        propriedades.add(new Propriedade("Avenida Brasil", 160));
+        propriedades.add(new Propriedade("Avenida Augusta", 150));
+        propriedades.add(new Propriedade("Rua 25 de Março", 200));
+        propriedades.add(new Propriedade("Avenida Interlagos", 350));
+        propriedades.add(new Propriedade("Morumbi", 400));
+        propriedades.add(new Propriedade("Flamengo", 180));
+        propriedades.add(new Propriedade("Botafogo", 180));
+        propriedades.add(new Propriedade("Vila Mariana", 260));
+        propriedades.add(new Propriedade("Avenida do Estado", 300));
+        propriedades.add(new Propriedade("Avenida Ipiranga", 300));
+
         return propriedades;
     }
 
