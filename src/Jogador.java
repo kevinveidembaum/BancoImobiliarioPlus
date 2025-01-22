@@ -37,7 +37,7 @@ public class Jogador {
         }
 
 
-        //Se o Dono de uma Propriedade Hipoteca quer recomprá-la
+        //Se for o Dono de uma Propriedade Hipoteca e quer recomprá-la
         if(propriedade.isHipotecado()){
             float valorComJuros = (float) (propriedade.getValor() * 1.30);
 
@@ -63,6 +63,13 @@ public class Jogador {
 
         //Propriedade TEM dono
         Jogador donoAtual = propriedade.getDono();
+
+
+        //Se o DonoAtual tenta comprar uma Propriedade que já é dele
+        if (propriedade.getDono().equals(donoAtual)){
+            System.out.println("Não é possível comprar uma Propriedade que já é Sua!");
+            return;
+        }
 
 
         //Pergunta para o donoAtual se deseja Vender sua Propriedade
@@ -177,6 +184,47 @@ public class Jogador {
 
         this.setDinheiro(this.getDinheiro() - propriedade.getValorAluguel());
         dono.setDinheiro(dono.getDinheiro() + propriedade.getValorAluguel());
+    }
+
+
+    public void comprarCasa(Propriedade propriedade){
+        if(!propriedade.getDono().equals(this)){
+            System.out.println("Não é possível Comprar Casa/Hotel para uma Propriedade que Não é Sua!");
+            return;
+        }
+
+
+        //Selecionando a amplitude que o preço de uma casa pode ter
+        float maxRange = propriedade.getValor() + 50;
+        float minRange = propriedade.getValor();
+        float aleatoriedade = InputUtility.generateRandomNumber(minRange, maxRange);
+
+        float valorCasa = propriedade.getValor() + aleatoriedade;
+
+
+
+        System.out.printf("\nVocê pode adquirir Uma Casa por $%.2f\n", valorCasa);
+        System.out.printf("Deseja Comprar uma Casa em %s?\n", propriedade.getNome());
+        String respostaDono = InputUtility.getStringInput("[S] Sim      [N] Não\n");
+
+
+        //Dono desistiu de comprar uma casa
+        if(respostaDono.equalsIgnoreCase("N")){
+            System.out.println("\nO Proprietário não quis Comprar uma Casa!");
+            return;
+        }
+
+
+        //Dono quis comprar uma Casa
+        this.setDinheiro(this.getDinheiro() - valorCasa);
+        propriedade.setQntCasas(propriedade.getQntCasas() + 1);
+        System.out.println("\nParabéns, você Comprou uma Casa!");
+        System.out.printf("%s => Qntd. Casas: %d\n", propriedade.getNome(), propriedade.getQntCasas());
+    }
+
+
+    public void venderCasa(Propriedade propriedade, int qnt){
+
     }
 
 

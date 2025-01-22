@@ -38,6 +38,7 @@ public class Main {
                     case 1:
                         System.out.println("\nVocê escolheu comprar uma propriedade!");
 
+
                         propriedadesDisponiveis(propriedades);
                         int escolhaPropriedade = InputUtility.getIntInput("Digite o número da Propriedade desejada: ");
                         jogador.comprarPropriedade(propriedades, escolhaPropriedade);
@@ -73,6 +74,11 @@ public class Main {
                         break;
                     case 4:
                         System.out.println("\nVocê escolheu comprar uma casa/hotel.");
+
+                        propriedadesDisponiveis(jogador.getMinhasPropriedades());
+                        int opt = InputUtility.getIntInput("Em qual Propriedade gostaria de Comprar uma Casa/Hotel? ");
+                        jogador.comprarCasa(jogador.getMinhasPropriedades().get(opt - 1));
+
                         //adicionar comprar casas e hotel
                         // Skip turn
                         break;
@@ -109,7 +115,7 @@ public class Main {
 
     private static List<Propriedade> inicializarPropriedades() {
         List<Propriedade> propriedades = new ArrayList<>();
-        
+
         propriedades.add(new Propriedade("Leblon", 100));
         propriedades.add(new Propriedade("Avenida Presidente Vargas", 60));
         propriedades.add(new Propriedade("Avenida Nossa Senhora de Copacabana", 60));
