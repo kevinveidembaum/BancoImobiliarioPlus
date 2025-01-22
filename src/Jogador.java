@@ -194,16 +194,7 @@ public class Jogador {
         }
 
 
-        //Selecionando a amplitude que o preço de uma casa pode ter
-        float maxRange = propriedade.getValor() + 50;
-        float minRange = propriedade.getValor();
-        float aleatoriedade = InputUtility.generateRandomNumber(minRange, maxRange);
-
-        float valorCasa = propriedade.getValor() + aleatoriedade;
-
-
-
-        System.out.printf("\nVocê pode adquirir Uma Casa por $%.2f\n", valorCasa);
+        System.out.printf("\nVocê pode adquirir Uma Casa por $%.2f\n", propriedade.getValorCasa());
         System.out.printf("Deseja Comprar uma Casa em %s?\n", propriedade.getNome());
         String respostaDono = InputUtility.getStringInput("[S] Sim      [N] Não\n");
 
@@ -216,7 +207,7 @@ public class Jogador {
 
 
         //Dono quis comprar uma Casa
-        this.setDinheiro(this.getDinheiro() - valorCasa);
+        this.setDinheiro(this.getDinheiro() - propriedade.getValorCasa());
         propriedade.setQntCasas(propriedade.getQntCasas() + 1);
         System.out.println("\nParabéns, você Comprou uma Casa!");
         System.out.printf("%s => Qntd. Casas: %d\n", propriedade.getNome(), propriedade.getQntCasas());

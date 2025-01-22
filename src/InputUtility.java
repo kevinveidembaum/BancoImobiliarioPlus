@@ -60,10 +60,4 @@ public class InputUtility {
             }
         }
     }
-
-
-    // Metodo para gerar números aleatórios, vai ser usado para calcular aluguel e valor Casas.
-    public static int generateRandomNumber(float min, float max) {
-        return (int) (Math.random() * (max - min + 1) + min);
-    }
 }

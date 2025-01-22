@@ -7,18 +7,44 @@ public class Propriedade {
     private boolean hipotecado;
     private boolean empresa;
     private int qntCasas;
+    private float valorCasa;
     private float valorAluguel;
     private String nome;
 
     public Propriedade(String nome, float valor){
         this.nome = nome;
         this.valor = valor;
+        this.valorCasa = calcularValorCasa();
     }
 
     private void calcularAluguel(int qntCasas){
 
     }
 
+
+    private float calcularValorCasa(){
+        //Selecionando a amplitude que o preço de uma casa pode ter
+        float maxRange = this.getValor() + 50;
+        float minRange = this.getValor();
+        float valorCasa = generateRandomNumber(minRange, maxRange) + this.getValor();
+
+        return valorCasa;
+    }
+
+
+    // Metodo para gerar números aleatórios, vai ser usado para calcular aluguel e valor Casas.
+    private int generateRandomNumber(float min, float max) {
+        return (int) (Math.random() * (max - min) + min);
+    }
+
+
+    public float getValorCasa() {
+        return valorCasa;
+    }
+
+    public void setValorCasa(float valorCasa) {
+        this.valorCasa = valorCasa;
+    }
 
     public boolean isEmpresa() {
         return empresa;
