@@ -79,8 +79,7 @@ public class Main {
                         int opt = InputUtility.getIntInput("Em qual Propriedade gostaria de Comprar uma Casa/Hotel? ");
                         jogador.comprarCasa(jogador.getMinhasPropriedades().get(opt - 1));
 
-                        //adicionar comprar casas e hotel
-                        // Skip turn
+
                         break;
                     case 5:
                         System.out.println("\nVocê escolheu fazer empréstimo.");

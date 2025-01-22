@@ -9,6 +9,7 @@ public class Propriedade {
     private int qntCasas;
     private float valorCasa;
     private float valorAluguel;
+    private boolean hotel;
     private String nome;
 
     public Propriedade(String nome, float valor){
@@ -27,6 +28,14 @@ public class Propriedade {
         return (int) (Math.random() * (max - min) + min);
     }
 
+
+    public boolean isHotel() {
+        return hotel;
+    }
+
+    public void setHotel(boolean hotel) {
+        this.hotel = hotel;
+    }
 
     public float getValorCasa() {
         return valorCasa;
