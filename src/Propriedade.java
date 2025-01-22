@@ -14,21 +14,11 @@ public class Propriedade {
     public Propriedade(String nome, float valor){
         this.nome = nome;
         this.valor = valor;
-        this.valorCasa = calcularValorCasa();
+        this.valorCasa = generateRandomNumber(0, 50) + this.valor;
     }
 
     private void calcularAluguel(int qntCasas){
 
-    }
-
-
-    private float calcularValorCasa(){
-        //Selecionando a amplitude que o preço de uma casa pode ter
-        float maxRange = this.getValor() + 50;
-        float minRange = this.getValor();
-        float valorCasa = generateRandomNumber(minRange, maxRange) + this.getValor();
-
-        return valorCasa;
     }
 
 
