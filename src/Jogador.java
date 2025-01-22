@@ -187,7 +187,15 @@ public class Jogador {
     }
 
 
-    public void comprarCasa(Propriedade propriedade){
+    public void comprarCasa(List<Propriedade> listaPropriedades, int index){
+        //Verifica se o index está correto
+        if (!isValidPropertyIndex(listaPropriedades, index)) {
+            return;
+        }
+
+        Propriedade propriedade = listaPropriedades.get(index - 1);
+
+
         if(!propriedade.getDono().equals(this)){
             System.out.println("Não é possível Comprar Casa/Hotel para uma Propriedade que Não é Sua!");
             return;
@@ -204,10 +212,32 @@ public class Jogador {
         }
 
 
-        //if(propriedade.getQntCasas() == 4 && proprie)
+        // Se Propriedade já tiver Hotel, não é possível comprar mais nada
+        if (propriedade.isHotel()) {
+            System.out.println("\nEssa Propriedade já possui um Hotel. Não é possível realizar mais compras!");
+        }
 
 
-        // If the property has fewer than 4 houses, the player can buy a house
+        // Se a Propriedade tiver 4 casas e nenhum hotel, Jogador pode comprar Hotel
+        if (propriedade.getQntCasas() == 4 && !propriedade.isHotel()) {
+            System.out.println("\nVocê possui 4 Casas nessa Propriedade.");
+            System.out.printf("Deseja Comprar um Hotel por $%.2f?\n", propriedade.getValorCasa());
+
+            String respostaDono = InputUtility.getStringInput("[S] Sim      [N] Não\n");
+
+            if (respostaDono.equalsIgnoreCase("N")) {
+                System.out.println("\nO Proprietário não quis Comprar um Hotel!");
+                return;
+            }
+
+
+            this.setDinheiro(this.getDinheiro() - propriedade.getValorCasa());
+            propriedade.setHotel(true);
+            System.out.println("\nParabéns, você Comprou um Hotel!");
+        }
+
+
+        // Se a Propriedade tiver menos que 4 casas, Jogador pode comprar uma Casa
         if (propriedade.getQntCasas() < 4) {
             System.out.printf("\nVocê pode adquirir Uma Casa por $%.2f\n", propriedade.getValorCasa());
             System.out.printf("Deseja Comprar uma Casa em %s?\n", propriedade.getNome());
@@ -219,32 +249,13 @@ public class Jogador {
                 return;
             }
 
+
+            //Dono quis comprar uma Casa
             this.setDinheiro(this.getDinheiro() - propriedade.getValorCasa());
             propriedade.setQntCasas(propriedade.getQntCasas() + 1);
             System.out.println("\nParabéns, você Comprou uma Casa!");
         }
 
-        // If the property has exactly 4 houses and no hotel, the player can buy a hotel
-        if (propriedade.getQntCasas() == 4 && !propriedade.isHotel()) {
-            System.out.println("Você possui 4 Casas nessa Propriedade.");
-            System.out.printf("Deseja Comprar um Hotel por $%.2f?\n", propriedade.getValorCasa());
-
-            String respostaDono = InputUtility.getStringInput("[S] Sim      [N] Não\n");
-
-            if (respostaDono.equalsIgnoreCase("N")) {
-                System.out.println("\nO Proprietário não quis Comprar um Hotel!");
-                return;
-            }
-
-            this.setDinheiro(this.getDinheiro() - propriedade.getValorCasa());
-            propriedade.setHotel(true); // Mark property as having a hotel
-            System.out.println("\nParabéns, você Comprou um Hotel!");
-        }
-
-        // If the property already has a hotel, notify the player
-        if (propriedade.isHotel()) {
-            System.out.println("\nEssa Propriedade já possui um Hotel. Não é possível realizar mais compras!");
-        }
 
         System.out.printf("%s => Qntd. Casas: %d | Hotel: %s\n",
                 propriedade.getNome(),

@@ -76,8 +76,8 @@ public class Main {
                         System.out.println("\nVocê escolheu comprar uma casa/hotel.");
 
                         propriedadesDisponiveis(jogador.getMinhasPropriedades());
-                        int opt = InputUtility.getIntInput("Em qual Propriedade gostaria de Comprar uma Casa/Hotel? ");
-                        jogador.comprarCasa(jogador.getMinhasPropriedades().get(opt - 1));
+                        int escolhaCasa = InputUtility.getIntInput("Em qual Propriedade gostaria de Comprar uma Casa/Hotel? ");
+                        jogador.comprarCasa(jogador.getMinhasPropriedades(), escolhaCasa);
 
 
                         break;
