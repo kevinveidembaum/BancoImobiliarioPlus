@@ -108,10 +108,6 @@ public class Main {
                             jogador.venderCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeVenda);
                         }
 
-
-
-
-
                         break;
                     case 5:
                         System.out.println("\nVocê escolheu fazer empréstimo.");
@@ -123,7 +119,15 @@ public class Main {
                         break;
                     case 7:
                         System.out.println("\nVocê escolheu visualizar Saldo e Minhas Propriedades.");
-                        // Skip turn
+
+                        System.out.printf("\nDinheiro disponível: $%.2f\n", jogador.getDinheiro());
+
+                        if (jogador.getMinhasPropriedades().isEmpty()) {
+                            System.out.println("Você não possui propriedades no momento.");
+                        } else {
+                            propriedadesDisponiveis(jogador.getMinhasPropriedades());
+                        }
+
                         break;
                     case 8:
                         System.out.println("\nVocê escolheu visualizar todas as propriedades.");
@@ -173,7 +177,7 @@ public class Main {
 
 
     private static void propriedadesDisponiveis(List<Propriedade> propriedades){
-        System.out.println("\nPropriedades disponíveis:");
+        System.out.println("\nPropriedades:");
         for (int i = 0; i < propriedades.size(); i++) {
             Propriedade propriedade = propriedades.get(i);
 
