@@ -41,12 +41,14 @@ public class Jogador {
         if(propriedade.isHipotecado()){
             float valorComJuros = (float) (propriedade.getValor() * 1.30);
 
-            System.out.println("Você está comprando sua Propriedade Hipotecada.");
-            System.out.printf("Juros de 30%, valor a pagar: $%.2f", valorComJuros);
+            System.out.println("\nVocê está comprando sua Propriedade Hipotecada.");
+            System.out.printf("Juros de 30%%, valor a pagar: $%.2f", valorComJuros);
 
+            propriedade.setHipotecado(false);
+            propriedade.setDono(this);
             this.getMinhasPropriedades().add(propriedade);
             this.setDinheiro(this.getDinheiro() - valorComJuros);
-            System.out.printf("\n%s recuperou %s, sua propriedade Hipotecada, por $%.2f!\n", this.nome, propriedade.getNome(), propriedade.getValor());
+            System.out.printf("\n%s recuperou %s, sua propriedade Hipotecada, por $%.2f!\n", this.getNome(), propriedade.getNome(), valorComJuros);
             return;
         }
 
