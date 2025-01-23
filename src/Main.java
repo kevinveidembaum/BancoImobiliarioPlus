@@ -46,6 +46,7 @@ public class Main {
                         break;
                     case 2:
                         System.out.println("\nVocê escolheu vender uma propriedade!");
+                        System.out.println("Propriedades são Vendidas por 75% de seu valor.");
 
                         //Verifica se Jogador possui alguma Propriedade
                         if(!jogador.isThereProperty(jogador)){
@@ -83,11 +84,11 @@ public class Main {
 
 
                         System.out.println("\nPretende Comprar OU Vender? ");
-                        String respostaCasa = InputUtility.getStringInput("[C]Comprar       [V]Vender\n");
+                        String respostaCasa = InputUtility.getStringInput("[C]Comprar       [V]Vender\n").toUpperCase();
 
 
                         //Resposta Inválida
-                        if (!respostaCasa.toUpperCase().equals("C") && !respostaCasa.toUpperCase().equals("V")) {
+                        if (!respostaCasa.equals("C") && !respostaCasa.equals("V")) {
                             System.out.println("Alternativa inválida, tente novamente! ");
                             return;
                         }
@@ -95,14 +96,14 @@ public class Main {
 
                         //Comprar casa
                         propriedadesDisponiveis(jogador.getMinhasPropriedades());
-                        if(respostaCasa.toUpperCase().equals("C")){
+                        if(respostaCasa.equals("C")){
                             int escolhaPropriedadeCompra = InputUtility.getIntInput("Em qual Propriedade gostaria de Comprar uma Casa/Hotel? ");
                             jogador.comprarCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeCompra);
                         }
 
 
                         //Vender Casa
-                        if(respostaCasa.toUpperCase().equals("V")){
+                        if(respostaCasa.equals("V")){
                             int escolhaPropriedadeVenda = InputUtility.getIntInput("Em qual Propriedade gostaria de Vender Casa/Hotel? ");
                             jogador.venderCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeVenda);
                         }

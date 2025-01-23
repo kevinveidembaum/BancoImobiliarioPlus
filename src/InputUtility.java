@@ -60,4 +60,19 @@ public class InputUtility {
             }
         }
     }
+
+
+    // Metodo para ler Sim ou Não
+    public static boolean getYesOrNoInput() {
+        while (true) {
+            String input = getStringInput("[S] Sim      [N] Não\n").trim().toUpperCase();
+            if (input.equals("S")) {
+                return true;
+            } else if (input.equals("N")) {
+                return false;
+            } else {
+                System.out.println("Entrada inválida. Por favor, digite [S] para Sim ou [N] para Não.");
+            }
+        }
+    }
 }

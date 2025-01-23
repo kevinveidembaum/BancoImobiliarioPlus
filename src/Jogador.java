@@ -76,11 +76,11 @@ public class Jogador {
 
         //Pergunta para o donoAtual se deseja Vender sua Propriedade
         System.out.printf("\n%s, deseja Vender %s para %s?\n", donoAtual.getNome(), propriedade.getNome(), this.getNome());
-        String respostaDono = InputUtility.getStringInput("[S] Sim      [N] Não\n");
+        boolean respostaDono = InputUtility.getYesOrNoInput();
 
 
         //Caso o DonoAtual não queira vender sua Propriedade
-        if(respostaDono.equalsIgnoreCase("N")){
+        if(!respostaDono){
             System.out.println("\nO Proprietário não quis Vender sua Propriedade!");
             return;
         }
@@ -89,11 +89,11 @@ public class Jogador {
         //Caso o donoAtual queira vender, Jogador interessado deverá fazer uma proposta
         float proposta = InputUtility.getFloatInput("\nFaça uma Proposta para o Proprietário: $");
         System.out.printf("\n%s, Aceita a Oferta? \n", donoAtual.getNome());
-        respostaDono = InputUtility.getStringInput("[S] Sim      [N] Não\n");
+        respostaDono = InputUtility.getYesOrNoInput();
 
 
         //Caso o DonoAtual não aceitou a proposta feita pelo Jogador Interessado
-        if(respostaDono.equalsIgnoreCase("N")){
+        if(!respostaDono){
             System.out.println("\nO Proprietário não aceitou a Proposta!");
             return;
         }
@@ -173,7 +173,7 @@ public class Jogador {
         this.setDinheiro(this.getDinheiro() + valorVenda);
         propriedade.setDono(null);
         listaPropriedades.remove(propriedade);
-        System.out.printf("\n%s vendeu a propriedade %s por $%.2f!\n", this.getNome(), propriedade.getNome(), valorVenda);
+        System.out.printf("%s vendeu a propriedade %s por $%.2f!\n", this.getNome(), propriedade.getNome(), valorVenda);
     }
 
 
@@ -224,9 +224,9 @@ public class Jogador {
             System.out.println("\nVocê possui 4 Casas nessa Propriedade.");
             System.out.printf("Deseja Comprar um Hotel por $%.2f?\n", propriedade.getValorCasa());
 
-            String respostaDono = InputUtility.getStringInput("[S] Sim      [N] Não\n");
+            boolean respostaDono = InputUtility.getYesOrNoInput();
 
-            if (respostaDono.equalsIgnoreCase("N")) {
+            if (!respostaDono) {
                 System.out.println("\nO Proprietário não quis Comprar um Hotel!");
                 return;
             }
@@ -243,9 +243,9 @@ public class Jogador {
             System.out.printf("\nVocê pode adquirir Uma Casa por $%.2f\n", propriedade.getValorCasa());
             System.out.printf("Deseja Comprar uma Casa em %s?\n", propriedade.getNome());
 
-            String respostaDono = InputUtility.getStringInput("[S] Sim      [N] Não\n");
+            boolean respostaDono = InputUtility.getYesOrNoInput();
 
-            if (respostaDono.equalsIgnoreCase("N")) {
+            if (!respostaDono) {
                 System.out.println("\nO Proprietário não quis Comprar uma Casa!");
                 return;
             }
@@ -276,6 +276,11 @@ public class Jogador {
         if(propriedade.getQntCasas() == 0){
             System.out.println("Não há Imóveis para Vender!");
             return;
+        }
+
+        if(propriedade.isHotel()){
+            System.out.println("Deseja Vender seu Hotel?");
+            boolean resposta = InputUtility.getYesOrNoInput();
         }
 
 
