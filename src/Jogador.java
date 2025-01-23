@@ -68,7 +68,7 @@ public class Jogador {
 
 
         //Se o DonoAtual tenta comprar uma Propriedade que já é dele
-        if (propriedade.getDono().equals(donoAtual)){
+        if (propriedade.getDono().equals(this)){
             System.out.println("Não é possível comprar uma Propriedade que já é Sua!");
             return;
         }
