@@ -169,9 +169,8 @@ public class Jogador {
 
         //A logica da venda em si
         this.setDinheiro(this.getDinheiro() + valorVenda);
-        this.getMinhasPropriedades().remove(propriedade);
         propriedade.setDono(null);
-        listaPropriedades.add(propriedade);
+        listaPropriedades.remove(propriedade);
         System.out.printf("\n%s vendeu a propriedade %s por $%.2f!\n", this.getNome(), propriedade.getNome(), valorVenda);
     }
 
@@ -278,7 +277,7 @@ public class Jogador {
         }
 
 
-        System.out.printf("%s => Qntd. Casas: %d | Hotel: %s\n",
+        System.out.printf("\n%s => Qntd. Casas: %d | Hotel: %s\n",
                 propriedade.getNome(),
                 propriedade.getQntCasas(),
                 propriedade.isHotel() ? "Sim" : "Não");
@@ -301,7 +300,7 @@ public class Jogador {
         this.setDinheiro(this.getDinheiro() + valorReceber);
         propriedade.setQntCasas(propriedade.getQntCasas() - qtdVender);
 
-        System.out.printf("\nParabéns, você Vendeu %d Casas!\n", qtdVender);
+        System.out.printf("\nParabéns, você Vendeu %d Casas por $%.2f!\n", qtdVender, valorReceber);
         System.out.printf("%s => Qntd. Casas: %d | Hotel: %s\n",
                 propriedade.getNome(),
                 propriedade.getQntCasas(),
