@@ -12,7 +12,7 @@ public class InputUtility {
         System.out.println("1. Comprar Propriedade");
         System.out.println("2. Vender Propriedade");
         System.out.println("3. Hipotecar Propriedade");
-        System.out.println("4. Comprar Casa");
+        System.out.println("4. Comprar OU Vender Casa/Hotel");
         System.out.println("5. Fazer Empréstimo");
         System.out.println("6. Pagar Empréstimo OU Aluguel");
         System.out.println("7. Visualizar Meu Saldo e Minhas Propriedades");

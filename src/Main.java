@@ -73,11 +73,39 @@ public class Main {
 
                         break;
                     case 4:
-                        System.out.println("\nVocê escolheu comprar uma casa/hotel.");
+                        System.out.println("\nVocê escolheu comprar ou vender uma casa/hotel.");
 
+
+                        if(jogador.getMinhasPropriedades().isEmpty()){
+                            System.out.println("Você não possui Propriedades disponiveis para tal ação!");
+                            break;
+                        }
+
+
+
+                        System.out.println("\nPretende Comprar OU Vender? ");
+                        String respostaCasa = InputUtility.getStringInput("[C]Comprar       [V]Vender\n");
+
+
+                        //Se Jogador digitar alternativa inexistente
+                        if(!respostaCasa.equalsIgnoreCase("v") || !respostaCasa.equalsIgnoreCase("c")){
+                            System.out.println("Alternativa inválida, tente novamente! ");
+                            break;
+                        }
+
+
+                        //Comprar casa
                         propriedadesDisponiveis(jogador.getMinhasPropriedades());
-                        int escolhaCasa = InputUtility.getIntInput("Em qual Propriedade gostaria de Comprar uma Casa/Hotel? ");
-                        jogador.comprarCasa(jogador.getMinhasPropriedades(), escolhaCasa);
+                        if(respostaCasa.equalsIgnoreCase("c")){
+                            int escolhaCasa = InputUtility.getIntInput("Em qual Propriedade gostaria de Comprar uma Casa/Hotel? ");
+                            jogador.comprarCasa(jogador.getMinhasPropriedades(), escolhaCasa);
+                        }
+
+
+                        //Vender Casa
+                        
+
+
 
 
                         break;

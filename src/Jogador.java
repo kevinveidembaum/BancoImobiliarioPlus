@@ -264,7 +264,8 @@ public class Jogador {
     }
 
 
-    public void venderCasa(Propriedade propriedade, int qnt){
+    public void venderCasa(List<Propriedade> propriedades, int index, int qntVender){
+
 
     }
 
