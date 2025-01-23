@@ -281,6 +281,25 @@ public class Jogador {
         if(propriedade.isHotel()){
             System.out.println("Deseja Vender seu Hotel?");
             boolean resposta = InputUtility.getYesOrNoInput();
+
+
+            //Não Vender Hotel
+            if(!resposta){
+                System.out.println("Proprietário decidiu não Vender Hotel!");
+                return;
+            }
+
+
+            //Vender Hotel
+            float valorReceber = (float) (propriedade.getValorCasa() * 0.5);
+            this.setDinheiro(this.getDinheiro() + valorReceber);
+            propriedade.setHotel(false);
+
+            System.out.printf("\nParabéns, você Vendeu seu Hotel por $%.2f!\n", valorReceber);
+            System.out.printf("%s => Qntd. Casas: %d | Hotel: %s\n",
+                    propriedade.getNome(),
+                    propriedade.getQntCasas(),
+                    propriedade.isHotel() ? "Sim" : "Não");
         }
 
 
