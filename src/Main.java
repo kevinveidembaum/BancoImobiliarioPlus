@@ -130,12 +130,37 @@ public class Main {
                         System.out.println("=============================================================");
 
 
+                        while(true){
+                            boolean respostaInspecionar = InputUtility.getYesOrNoInput("\nDeseja SAIR ou INSPECIONAR? [S/I]  ", 'S', 'I');
 
 
+                            //Sair do Menu de visualizar todas as propriedades
+                            if(respostaInspecionar) break;
 
 
+                            //Inspecionar alguma Propriedade
+                            if(!respostaInspecionar) {
+                                //Escolha de Qual Propriedade quer Inspecionar
+                                int inspecionar = InputUtility.getIntInput("Qual Propriedade deseja Inspecionar? ");
 
-                        // Skip turn
+
+                                //Verifica se o existe tal propriedade na lista
+                                if (!jogador.isValidPropertyIndex(propriedades, inspecionar)) {
+                                    return;
+                                }
+
+
+                                Propriedade propriedadeInspecionar = propriedades.get(inspecionar - 1);
+
+
+                                //Inspeção em ação
+                                System.out.printf("\n%s => Qntd. Casas: %d | Hotel: %s\n",
+                                        propriedadeInspecionar.getNome(),
+                                        propriedadeInspecionar.getQntCasas(),
+                                        propriedadeInspecionar.isHotel() ? "Sim" : "Não");
+                            }
+                        }
+
                         break;
                     case 9:
                         System.out.println("\nVocê escolheu ver ranking.");
