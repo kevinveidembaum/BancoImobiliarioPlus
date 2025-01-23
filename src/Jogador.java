@@ -291,7 +291,7 @@ public class Jogador {
 
 
         //Digitou valor incorreto de Casas
-        if(qtdVender > propriedade.getQntCasas() || qtdVender < propriedade.getQntCasas()){
+        if(qtdVender > propriedade.getQntCasas() || qtdVender <= 0){
             System.out.println("Número Inválido de Casas!");
             return;
         }
