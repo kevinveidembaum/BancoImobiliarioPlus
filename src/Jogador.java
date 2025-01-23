@@ -256,10 +256,7 @@ public class Jogador {
         }
 
 
-        System.out.printf("%s => Qntd. Casas: %d | Hotel: %s\n",
-                propriedade.getNome(),
-                propriedade.getQntCasas(),
-                propriedade.isHotel() ? "Sim" : "Não");
+        propriedade.inspecionar();
     }
 
 
@@ -269,13 +266,17 @@ public class Jogador {
             return;
         }
 
+
         Propriedade propriedade = listaPropriedades.get(index - 1);
+
 
         if(propriedade.getQntCasas() == 0){
             System.out.println("Não há Imóveis para Vender!");
             return;
         }
 
+
+        //Se possuir Hotel, vender o Hotel primeiro
         if(propriedade.isHotel()){
             System.out.println("Deseja Vender seu Hotel?");
             boolean resposta = InputUtility.getYesOrNoInput("[S] Sim      [N] Não\n", 'S', 'N');
@@ -294,17 +295,12 @@ public class Jogador {
             propriedade.setHotel(false);
 
             System.out.printf("\nParabéns, você Vendeu seu Hotel por $%.2f!\n", valorReceber);
-            System.out.printf("%s => Qntd. Casas: %d | Hotel: %s\n",
-                    propriedade.getNome(),
-                    propriedade.getQntCasas(),
-                    propriedade.isHotel() ? "Sim" : "Não");
+            propriedade.inspecionar();
+            return;
         }
 
 
-        System.out.printf("\n%s => Qntd. Casas: %d | Hotel: %s\n",
-                propriedade.getNome(),
-                propriedade.getQntCasas(),
-                propriedade.isHotel() ? "Sim" : "Não");
+        propriedade.inspecionar();
 
 
         //Caso tiver Hotel perguntar se quer vender hotel
@@ -324,11 +320,7 @@ public class Jogador {
         this.setDinheiro(this.getDinheiro() + valorReceber);
         propriedade.setQntCasas(propriedade.getQntCasas() - qtdVender);
 
-        System.out.printf("\nParabéns, você Vendeu %d Casas por $%.2f!\n", qtdVender, valorReceber);
-        System.out.printf("%s => Qntd. Casas: %d | Hotel: %s\n",
-                propriedade.getNome(),
-                propriedade.getQntCasas(),
-                propriedade.isHotel() ? "Sim" : "Não");
+        propriedade.inspecionar();
     }
 
 

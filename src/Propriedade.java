@@ -29,6 +29,15 @@ public class Propriedade {
     }
 
 
+    //Apenas mostrar informações das Propriedades
+    public void inspecionar() {
+        System.out.printf("\n%s => Qntd. Casas: %d | Hotel: %s\n",
+                this.getNome(),
+                this.getQntCasas(),
+                this.isHotel() ? "Sim" : "Não");
+    }
+
+
     public boolean isHotel() {
         return hotel;
     }

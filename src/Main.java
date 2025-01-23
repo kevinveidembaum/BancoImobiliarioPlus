@@ -154,10 +154,7 @@ public class Main {
 
 
                                 //Inspeção em ação
-                                System.out.printf("\n%s => Qntd. Casas: %d | Hotel: %s\n",
-                                        propriedadeInspecionar.getNome(),
-                                        propriedadeInspecionar.getQntCasas(),
-                                        propriedadeInspecionar.isHotel() ? "Sim" : "Não");
+                                propriedadeInspecionar.inspecionar();
                             }
                         }
 
