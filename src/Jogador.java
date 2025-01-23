@@ -264,9 +264,48 @@ public class Jogador {
     }
 
 
-    public void venderCasa(List<Propriedade> propriedades, int index, int qntVender){
+    public void venderCasa(List<Propriedade> listaPropriedades, int index){
+        //Verifica se o index está correto
+        if (!isValidPropertyIndex(listaPropriedades, index)) {
+            return;
+        }
+
+        Propriedade propriedade = listaPropriedades.get(index - 1);
+
+        if(propriedade.getQntCasas() == 0){
+            System.out.println("Não há Imóveis para Vender!");
+            return;
+        }
 
 
+        System.out.printf("%s => Qntd. Casas: %d | Hotel: %s\n",
+                propriedade.getNome(),
+                propriedade.getQntCasas(),
+                propriedade.isHotel() ? "Sim" : "Não");
+
+
+        //Caso tiver Hotel perguntar se quer vender hotel
+
+        int qtdVender = InputUtility.getIntInput("Quantas Casas deseja Vender? ");
+
+
+        //Digitou valor incorreto de Casas
+        if(qtdVender > propriedade.getQntCasas() || qtdVender < propriedade.getQntCasas()){
+            System.out.println("Número Inválido de Casas!");
+            return;
+        }
+
+
+        //Logica da Venda
+        float valorReceber = (float) ((propriedade.getValorCasa() * 0.5) * qtdVender);
+        this.setDinheiro(this.getDinheiro() + valorReceber);
+        propriedade.setQntCasas(propriedade.getQntCasas() - qtdVender);
+
+        System.out.printf("\nParabéns, você Vendeu %d Casas!\n", qtdVender);
+        System.out.printf("%s => Qntd. Casas: %d | Hotel: %s\n",
+                propriedade.getNome(),
+                propriedade.getQntCasas(),
+                propriedade.isHotel() ? "Sim" : "Não");
     }
 
 

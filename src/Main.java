@@ -76,34 +76,34 @@ public class Main {
                         System.out.println("\nVocê escolheu comprar ou vender uma casa/hotel.");
 
 
-                        if(jogador.getMinhasPropriedades().isEmpty()){
-                            System.out.println("Você não possui Propriedades disponiveis para tal ação!");
+                        //Verifica se Jogador possui alguma Propriedade
+                        if(!jogador.isThereProperty(jogador)){
                             break;
                         }
-
 
 
                         System.out.println("\nPretende Comprar OU Vender? ");
                         String respostaCasa = InputUtility.getStringInput("[C]Comprar       [V]Vender\n");
 
 
+                        //Comprar casa
+                        propriedadesDisponiveis(jogador.getMinhasPropriedades());
+                        if(respostaCasa.equalsIgnoreCase("c")){
+                            int escolhaPropriedadeCompra = InputUtility.getIntInput("Em qual Propriedade gostaria de Comprar uma Casa/Hotel? ");
+                            jogador.comprarCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeCompra);
+                        }
+
+
                         //Se Jogador digitar alternativa inexistente
-                        if(!respostaCasa.equalsIgnoreCase("v") || !respostaCasa.equalsIgnoreCase("c")){
+                        if(!respostaCasa.equalsIgnoreCase("v")){
                             System.out.println("Alternativa inválida, tente novamente! ");
                             break;
                         }
 
 
-                        //Comprar casa
-                        propriedadesDisponiveis(jogador.getMinhasPropriedades());
-                        if(respostaCasa.equalsIgnoreCase("c")){
-                            int escolhaCasa = InputUtility.getIntInput("Em qual Propriedade gostaria de Comprar uma Casa/Hotel? ");
-                            jogador.comprarCasa(jogador.getMinhasPropriedades(), escolhaCasa);
-                        }
-
-
                         //Vender Casa
-                        
+                        int escolhaPropriedadeVenda = InputUtility.getIntInput("Em qual Propriedade gostaria de Vender Casa/Hotel? ");
+                        jogador.venderCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeVenda);
 
 
 
