@@ -84,26 +84,19 @@ public class Main {
 
 
                         System.out.println("\nPretende Comprar OU Vender? ");
-                        String respostaCasa = InputUtility.getStringInput("[C]Comprar       [V]Vender\n").toUpperCase();
-
-
-                        //Resposta Inválida
-                        if (!respostaCasa.equals("C") && !respostaCasa.equals("V")) {
-                            System.out.println("Alternativa inválida, tente novamente! ");
-                            return;
-                        }
+                        boolean respostaCasa = InputUtility.getYesOrNoInput("[C]Comprar       [V]Vender\n", 'C', 'V');
 
 
                         //Comprar casa
                         propriedadesDisponiveis(jogador.getMinhasPropriedades());
-                        if(respostaCasa.equals("C")){
+                        if(respostaCasa){
                             int escolhaPropriedadeCompra = InputUtility.getIntInput("Em qual Propriedade gostaria de Comprar uma Casa/Hotel? ");
                             jogador.comprarCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeCompra);
                         }
 
 
                         //Vender Casa
-                        if(respostaCasa.equals("V")){
+                        if(!respostaCasa){
                             int escolhaPropriedadeVenda = InputUtility.getIntInput("Em qual Propriedade gostaria de Vender Casa/Hotel? ");
                             jogador.venderCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeVenda);
                         }
@@ -131,6 +124,17 @@ public class Main {
                         break;
                     case 8:
                         System.out.println("\nVocê escolheu visualizar todas as propriedades.");
+
+
+                        propriedadesDisponiveis(propriedades);
+                        System.out.println("=============================================================");
+
+
+
+
+
+
+
                         // Skip turn
                         break;
                     case 9:
