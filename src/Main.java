@@ -46,41 +46,15 @@ public class Main {
                         System.out.println("\nVez do próximo Jogador!");
                         break;
                     case 1:
-                        System.out.println("\nVocê escolheu comprar uma propriedade!");
-
-
-                        Utility.propriedadesDisponiveis(propriedades);
-                        int escolhaPropriedade = InputUtility.getIntInput("Digite o número da Propriedade desejada: ");
-                        jogador.comprarPropriedade(propriedades, escolhaPropriedade);
+                        jogador.comprarPropriedade(propriedades);
 
                         break;
                     case 2:
-                        System.out.println("\nVocê escolheu vender uma propriedade!");
-                        System.out.println("Propriedades são Vendidas por 75% de seu valor.");
-
-                        //Verifica se Jogador possui alguma Propriedade
-                        if(!jogador.isThereProperty(jogador)){
-                            break;
-                        }
-
-
-                        Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
-                        int venderPropriedade = InputUtility.getIntInput("Digite o número da Propriedade a ser vendida: ");
-                        jogador.venderPropriedade(jogador.getMinhasPropriedades(), venderPropriedade);
+                        jogador.venderPropriedade(jogador.getMinhasPropriedades());
 
                         break;
                     case 3:
-                        System.out.println("\nVocê escolheu hipotecar uma propriedade!");
-
-                        //Verifica se Jogador possui alguma Propriedade
-                        if(!jogador.isThereProperty(jogador)){
-                            break;
-                        }
-
-
-                        Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
-                        int hipotecarPropriedade = InputUtility.getIntInput("Qual Propriedade deseja Hipotecar? ");
-                        jogador.hipotecar(jogador.getMinhasPropriedades(), hipotecarPropriedade);
+                        jogador.hipotecar(jogador.getMinhasPropriedades());
 
                         break;
                     case 4:

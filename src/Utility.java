@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Utility {
 
-    public static void realizarTurno(Jogador[] jogadores) {
+    public void realizarTurno(Jogador[] jogadores) {
         for (Jogador jogador : jogadores) {
             System.out.printf("\nÉ a vez do(a) %s!\n", jogador.getNome());
 
