@@ -155,15 +155,30 @@ public class Jogador {
     }
 
 
-    public void venderPropriedade(List<Propriedade> listaPropriedades, int index){
+    public void venderPropriedade(List<Propriedade> listaPropriedades){
+        System.out.println("\nVocê escolheu vender uma propriedade!");
+        System.out.println("Propriedades são Vendidas por 75% de seu valor.");
+
+
+        //Verifica se Jogador possui alguma Propriedade
+        if(!this.isThereProperty(this)){
+            return;
+        }
+
+
+        //Seleciona Propriedade para vender
+        Utility.propriedadesDisponiveis(this.getMinhasPropriedades());
+        int venderPropriedade = InputUtility.getIntInput("Digite o número da Propriedade a ser vendida: ");
+
+
         //Verifica se o index está correto
-        if (!isValidPropertyIndex(listaPropriedades, index)) {
+        if (!isValidPropertyIndex(listaPropriedades, venderPropriedade)) {
             return;
         }
 
 
         //Seleciona a propriedade escolhida pelo Jogador
-        Propriedade propriedade = listaPropriedades.get(index - 1);
+        Propriedade propriedade = listaPropriedades.get(venderPropriedade - 1);
 
 
         // Não pode vender Propriedades Hipotecadas
@@ -181,7 +196,7 @@ public class Jogador {
         this.setDinheiro(this.getDinheiro() + valorVenda);
         propriedade.setDono(null);
         listaPropriedades.remove(propriedade);
-        System.out.printf("%s vendeu a propriedade %s por $%.2f!\n", this.getNome(), propriedade.getNome(), valorVenda);
+        System.out.printf("\n%s vendeu a propriedade %s por $%.2f!\n", this.getNome(), propriedade.getNome(), valorVenda);
     }
 
 

@@ -50,18 +50,7 @@ public class Main {
 
                         break;
                     case 2:
-                        System.out.println("\nVocê escolheu vender uma propriedade!");
-                        System.out.println("Propriedades são Vendidas por 75% de seu valor.");
-
-                        //Verifica se Jogador possui alguma Propriedade
-                        if(!jogador.isThereProperty(jogador)){
-                            break;
-                        }
-
-
-                        Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
-                        int venderPropriedade = InputUtility.getIntInput("Digite o número da Propriedade a ser vendida: ");
-                        jogador.venderPropriedade(jogador.getMinhasPropriedades(), venderPropriedade);
+                        jogador.venderPropriedade(jogador.getMinhasPropriedades());
 
                         break;
                     case 3:
