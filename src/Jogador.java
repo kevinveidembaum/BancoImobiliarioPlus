@@ -16,13 +16,23 @@ public class Jogador {
     }
 
 
-    public void comprarPropriedade(List<Propriedade> listaPropriedades, int index){
+    public void comprarPropriedade(List<Propriedade> listaPropriedades){
+        System.out.println("\nVocê escolheu comprar uma propriedade!");
+
+
+        //Seleciona uma Propriedade
+        Utility.propriedadesDisponiveis(listaPropriedades);
+        int escolhaPropriedade = InputUtility.getIntInput("Digite o número da Propriedade desejada: ");
+
+
         //Verifica se o index está correto
-        if (!isValidPropertyIndex(listaPropriedades, index)) {
+        if (!isValidPropertyIndex(listaPropriedades, escolhaPropriedade)) {
             return;
         }
 
-        Propriedade propriedade = listaPropriedades.get(index-1);
+
+        Propriedade propriedade = listaPropriedades.get(escolhaPropriedade-1);
+
 
         if(! (this.getDinheiro() > propriedade.getValor())){
             System.out.println("Dinheiro insuficiente!");

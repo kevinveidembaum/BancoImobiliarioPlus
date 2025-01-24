@@ -46,12 +46,7 @@ public class Main {
                         System.out.println("\nVez do próximo Jogador!");
                         break;
                     case 1:
-                        System.out.println("\nVocê escolheu comprar uma propriedade!");
-
-
-                        Utility.propriedadesDisponiveis(propriedades);
-                        int escolhaPropriedade = InputUtility.getIntInput("Digite o número da Propriedade desejada: ");
-                        jogador.comprarPropriedade(propriedades, escolhaPropriedade);
+                        jogador.comprarPropriedade(propriedades);
 
                         break;
                     case 2:
