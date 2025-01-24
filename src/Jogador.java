@@ -176,6 +176,8 @@ public class Jogador {
 
 
     public void pagarAluguel(Propriedade propriedade, Jogador dono){
+
+        //TODO arrumar aluguel
         if(this.getDinheiro() < propriedade.getValorAluguel()){
             System.out.println("Dinheiro Insuficiente para Pagar Aluguel!");
             return;
@@ -325,7 +327,7 @@ public class Jogador {
 
 
     public void fazerEmprestimo(Jogador credor, float valorEmprestar, Propriedade garantia){
-
+        //TODO fazer emprestimo
     }
 
 

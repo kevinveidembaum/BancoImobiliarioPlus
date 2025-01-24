@@ -21,7 +21,17 @@ public class Main {
 
 
         //Inicializando Todas Propriedades em uma Lista
-        List<Propriedade> propriedades = inicializarPropriedades();
+        List<Propriedade> propriedades = Utility.inicializarPropriedades();
+
+        //TODO fazer o jogo infinito até um Jogador não ter dinheiro
+
+        //TODO refatorar este trecho de código, switch case, em metodos
+
+
+
+
+
+
 
 
         // Turno por Jogador
@@ -39,7 +49,7 @@ public class Main {
                         System.out.println("\nVocê escolheu comprar uma propriedade!");
 
 
-                        propriedadesDisponiveis(propriedades);
+                        Utility.propriedadesDisponiveis(propriedades);
                         int escolhaPropriedade = InputUtility.getIntInput("Digite o número da Propriedade desejada: ");
                         jogador.comprarPropriedade(propriedades, escolhaPropriedade);
 
@@ -54,7 +64,7 @@ public class Main {
                         }
 
 
-                        propriedadesDisponiveis(jogador.getMinhasPropriedades());
+                        Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
                         int venderPropriedade = InputUtility.getIntInput("Digite o número da Propriedade a ser vendida: ");
                         jogador.venderPropriedade(jogador.getMinhasPropriedades(), venderPropriedade);
 
@@ -68,7 +78,7 @@ public class Main {
                         }
 
 
-                        propriedadesDisponiveis(jogador.getMinhasPropriedades());
+                        Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
                         int hipotecarPropriedade = InputUtility.getIntInput("Qual Propriedade deseja Hipotecar? ");
                         jogador.hipotecar(jogador.getMinhasPropriedades(), hipotecarPropriedade);
 
@@ -88,7 +98,7 @@ public class Main {
 
 
                         //Comprar casa
-                        propriedadesDisponiveis(jogador.getMinhasPropriedades());
+                        Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
                         if(respostaCasa){
                             int escolhaPropriedadeCompra = InputUtility.getIntInput("Em qual Propriedade gostaria de Comprar uma Casa/Hotel? ");
                             jogador.comprarCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeCompra);
@@ -118,7 +128,7 @@ public class Main {
                         if (jogador.getMinhasPropriedades().isEmpty()) {
                             System.out.println("Você não possui propriedades no momento.");
                         } else {
-                            propriedadesDisponiveis(jogador.getMinhasPropriedades());
+                            Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
                         }
 
                         break;
@@ -126,7 +136,7 @@ public class Main {
                         System.out.println("\nVocê escolheu visualizar todas as propriedades.");
 
 
-                        propriedadesDisponiveis(propriedades);
+                        Utility.propriedadesDisponiveis(propriedades);
                         System.out.println("=============================================================");
 
 
@@ -161,7 +171,7 @@ public class Main {
                         break;
                     case 9:
                         System.out.println("\nVocê escolheu ver ranking.");
-                        // Skip turn
+                        // TODO fazer o ranking
                         break;
                     default:
                         System.out.println("Opção inválida. Tente novamente.");
@@ -170,54 +180,6 @@ public class Main {
 
                 if(escolha == 0) break;
             }
-        }
-    }
-
-
-    private static List<Propriedade> inicializarPropriedades() {
-        List<Propriedade> propriedades = new ArrayList<>();
-
-        propriedades.add(new Propriedade("Leblon", 100));
-        propriedades.add(new Propriedade("Avenida Presidente Vargas", 60));
-        propriedades.add(new Propriedade("Avenida Nossa Senhora de Copacabana", 60));
-        propriedades.add(new Propriedade("Avenida Brigadeiro Faria Lima", 240));
-        propriedades.add(new Propriedade("Avenida Rebouças", 220));
-        propriedades.add(new Propriedade("Avenida 9 de Julho", 220));
-        propriedades.add(new Propriedade("Jardim Europa", 350));
-        propriedades.add(new Propriedade("Avenida Paulista", 400));
-        propriedades.add(new Propriedade("Avenida Vieira Souto", 120));
-        propriedades.add(new Propriedade("Praia de Ipanema", 120));
-        propriedades.add(new Propriedade("Avenida Brasil", 160));
-        propriedades.add(new Propriedade("Avenida Augusta", 150));
-        propriedades.add(new Propriedade("Rua 25 de Março", 200));
-        propriedades.add(new Propriedade("Avenida Interlagos", 350));
-        propriedades.add(new Propriedade("Morumbi", 400));
-        propriedades.add(new Propriedade("Flamengo", 180));
-        propriedades.add(new Propriedade("Botafogo", 180));
-        propriedades.add(new Propriedade("Vila Mariana", 260));
-        propriedades.add(new Propriedade("Avenida do Estado", 300));
-        propriedades.add(new Propriedade("Avenida Ipiranga", 300));
-
-        return propriedades;
-    }
-
-
-    private static void propriedadesDisponiveis(List<Propriedade> propriedades){
-        System.out.println("\nPropriedades:");
-        for (int i = 0; i < propriedades.size(); i++) {
-            Propriedade propriedade = propriedades.get(i);
-
-            if(propriedade.isHipotecado()){
-                System.out.printf("%d. Nome: %s, Valor: $%.2f (Hipotecado por %s)\n", i + 1, propriedade.getNome(), propriedade.getValor(), propriedade.getDono().getNome());
-                continue;
-            }
-
-            if(propriedade.getDono() != null){
-                System.out.printf("%d. Nome: %s, Valor: $%.2f (Dono Atual: %s)\n", i + 1, propriedade.getNome(), propriedade.getValor(), propriedade.getDono().getNome());
-                continue;
-            }
-
-            System.out.printf("%d. Nome: %s, Valor: $%.2f\n", i + 1, propriedade.getNome(), propriedade.getValor());
         }
     }
 }
