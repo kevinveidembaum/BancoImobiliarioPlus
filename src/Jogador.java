@@ -119,36 +119,55 @@ public class Jogador {
     }
 
 
-    public void hipotecar(List<Propriedade> listaPropriedades, int index){
-        //Verifica se o index está correto
-        if (!isValidPropertyIndex(listaPropriedades, index)) {
+    public void hipotecar(List<Propriedade> listaPropriedades){
+        System.out.println("\nVocê escolheu hipotecar uma propriedade!");
+
+
+        //Verifica se Jogador possui alguma Propriedade
+        if(!this.isThereProperty(this)){
             return;
         }
 
 
-        Propriedade propriedade = listaPropriedades.get(index - 1);
+        //Seleciona Propriedade para Hipotecar
+        Utility.propriedadesDisponiveis(this.getMinhasPropriedades());
+        int hipotecarPropriedade = InputUtility.getIntInput("Qual Propriedade deseja Hipotecar? ");
+
+
+        //Verifica se o index está correto
+        if (!isValidPropertyIndex(listaPropriedades, hipotecarPropriedade)) {
+            return;
+        }
+
+
+        Propriedade propriedade = listaPropriedades.get(hipotecarPropriedade - 1);
+
 
         if(propriedade.getQntCasas() != 0){
             System.out.println("Para Hipotecar é necessário NÃO ter Casas na Propriedade!");
             return;
         }
 
+
         if(propriedade.getDono() == null){
             System.out.println("Não foi possível Hipotecar pois essa Propriedade não pertence a ninguém!");
             return;
         }
+
 
         if(!this.getMinhasPropriedades().contains(propriedade)){
             System.out.println("A propriedade não está na sua Lista de Propriedades!");
             return;
         }
 
+
         if(propriedade.isHipotecado()){
             System.out.println("Não é possível Hipotecar uma Propriedade que já está Hipotecada!");
             return;
         }
 
-        this.getMinhasPropriedades().remove(propriedade);
+
+        //Logica da Hipoteca
         this.setDinheiro(this.getDinheiro() + propriedade.getValor());
         propriedade.setHipotecado(true);
         System.out.printf("\n%s foi Hipotecada pelo(a) %s por $%.2f!\n", propriedade.getNome(), this.getNome(), propriedade.getValor());

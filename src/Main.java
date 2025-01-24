@@ -54,17 +54,7 @@ public class Main {
 
                         break;
                     case 3:
-                        System.out.println("\nVocê escolheu hipotecar uma propriedade!");
-
-                        //Verifica se Jogador possui alguma Propriedade
-                        if(!jogador.isThereProperty(jogador)){
-                            break;
-                        }
-
-
-                        Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
-                        int hipotecarPropriedade = InputUtility.getIntInput("Qual Propriedade deseja Hipotecar? ");
-                        jogador.hipotecar(jogador.getMinhasPropriedades(), hipotecarPropriedade);
+                        jogador.hipotecar(jogador.getMinhasPropriedades());
 
                         break;
                     case 4:
