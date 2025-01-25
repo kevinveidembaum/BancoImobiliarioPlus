@@ -371,7 +371,7 @@ public class Jogador {
 
 
     //Escolha Vender ou Comprar casa
-    public void escolherVenderComprar(Jogador jogador){
+    public void gerenciarVenderComprar(Jogador jogador){
         System.out.println("\nVocê escolheu comprar ou vender uma casa/hotel.");
 
 
@@ -438,12 +438,13 @@ public class Jogador {
     }
 
 
-    public void escolherInspecionar(List<Propriedade> propriedades){
+    public void visualizarTodasAsPropriedades(List<Propriedade> propriedades){
         System.out.println("\nVocê escolheu visualizar todas as propriedades.");
 
 
         Utility.propriedadesDisponiveis(propriedades);
         System.out.println("=============================================================");
+
 
         while(true){
             boolean respostaInspecionar = InputUtility.getYesOrNoInput("\nDeseja SAIR ou INSPECIONAR? [S/I]  ", 'S', 'I');
