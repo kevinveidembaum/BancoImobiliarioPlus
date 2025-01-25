@@ -351,7 +351,7 @@ public class Jogador {
 
         //Caso tiver Hotel perguntar se quer vender hotel
 
-        int qtdVender = InputUtility.getIntInput("Quantas Casas deseja Vender? ");
+        int qtdVender = InputUtility.getIntInput("\nQuantas Casas deseja Vender? ");
 
 
         //Digitou valor incorreto de Casas
@@ -368,6 +368,42 @@ public class Jogador {
 
         propriedade.inspecionar();
     }
+
+
+    //Escolha Vender ou Comprar casa
+    public void escolherVenderComprar(Jogador jogador){
+        System.out.println("\nVocê escolheu comprar ou vender uma casa/hotel.");
+
+
+        //Verifica se Jogador possui alguma Propriedade
+        if(!jogador.isThereProperty(jogador)){
+            return;
+        }
+
+
+        //Escolha Compra ou Venda
+        System.out.println("\nPretende Comprar OU Vender? ");
+        boolean respostaCasa = InputUtility.getYesOrNoInput("[C]Comprar       [V]Vender\n", 'C', 'V');
+
+
+        //Visualizar Propriedades do Jogador
+        Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
+
+
+        //Comprar casa
+        if(respostaCasa){
+            int escolhaPropriedadeCompra = InputUtility.getIntInput("\nEm qual Propriedade gostaria de Comprar uma Casa/Hotel? ");
+            jogador.comprarCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeCompra);
+        }
+
+
+        //Vender Casa
+        if(!respostaCasa){
+            int escolhaPropriedadeVenda = InputUtility.getIntInput("\nEm qual Propriedade gostaria de Vender Casa/Hotel? ");
+            jogador.venderCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeVenda);
+        }
+    }
+
 
 
     public void fazerEmprestimo(Jogador credor, float valorEmprestar, Propriedade garantia){

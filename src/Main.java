@@ -58,32 +58,7 @@ public class Main {
 
                         break;
                     case 4:
-                        System.out.println("\nVocê escolheu comprar ou vender uma casa/hotel.");
-
-
-                        //Verifica se Jogador possui alguma Propriedade
-                        if(!jogador.isThereProperty(jogador)){
-                            break;
-                        }
-
-
-                        System.out.println("\nPretende Comprar OU Vender? ");
-                        boolean respostaCasa = InputUtility.getYesOrNoInput("[C]Comprar       [V]Vender\n", 'C', 'V');
-
-
-                        //Comprar casa
-                        Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
-                        if(respostaCasa){
-                            int escolhaPropriedadeCompra = InputUtility.getIntInput("Em qual Propriedade gostaria de Comprar uma Casa/Hotel? ");
-                            jogador.comprarCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeCompra);
-                        }
-
-
-                        //Vender Casa
-                        if(!respostaCasa){
-                            int escolhaPropriedadeVenda = InputUtility.getIntInput("Em qual Propriedade gostaria de Vender Casa/Hotel? ");
-                            jogador.venderCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeVenda);
-                        }
+                        jogador.escolherVenderComprar(jogador);
 
                         break;
                     case 5:
