@@ -19,6 +19,21 @@ public class Propriedade {
     }
 
     private void calcularAluguel(int qntCasas){
+        //TODO fazer calculo aluguel
+
+        /*  Regras para Cálculo Aluguel
+        *
+        *   Aluguel (Sem casas) = até 25% do valor da Propriedade
+        *   1 Casa = valor da Propriedade - (até $300)
+        *   2 Casas = x3 o valor de 1 casa, - (até $300)
+        *   3 Casas = x2 o valor de 2 casas + (até $200) OU x3 valor de 2 casas
+        *   4 Casas = valor de 3 casas + (até $300)
+        *   Hotel = valor de 3 casas + (até $300)
+        */
+
+
+
+
 
     }
 
@@ -36,6 +51,9 @@ public class Propriedade {
                 this.getQntCasas(),
                 this.isHotel() ? "Sim" : "Não");
     }
+
+
+
 
 
     public boolean isHotel() {
