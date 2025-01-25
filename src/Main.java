@@ -36,6 +36,7 @@ public class Main {
     }
 
 
+    //Gerar Jogadores
     public Jogador[] gerarJogadores(){
         //Quantos Players
         int numJogadores = InputUtility.getIntInput("Quantos Jogadores irão participar: ");
