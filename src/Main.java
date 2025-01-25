@@ -70,15 +70,7 @@ public class Main {
                         // Skip turn
                         break;
                     case 7:
-                        System.out.println("\nVocê escolheu visualizar Saldo e Minhas Propriedades.");
-
-                        System.out.printf("\nDinheiro disponível: $%.2f\n", jogador.getDinheiro());
-
-                        if (jogador.getMinhasPropriedades().isEmpty()) {
-                            System.out.println("Você não possui propriedades no momento.");
-                        } else {
-                            Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
-                        }
+                        jogador.visualizarSaldoPropriedades(jogador);
 
                         break;
                     case 8:

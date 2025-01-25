@@ -421,6 +421,23 @@ public class Jogador {
     }
 
 
+    public void visualizarSaldoPropriedades(Jogador jogador){
+        System.out.println("\nVocê escolheu visualizar Saldo e Minhas Propriedades.");
+
+
+        System.out.printf("\nDinheiro disponível: $%.2f\n", jogador.getDinheiro());
+
+
+        if(!jogador.getMinhasPropriedades().isEmpty()){
+            Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
+            return;
+        }
+
+
+        System.out.println("Você não possui propriedades no momento.");
+    }
+
+
     //Verificação e validação de index em Listas
     public boolean isValidPropertyIndex(List<Propriedade> listaPropriedades, int index) {
         if (index < 1 || index > listaPropriedades.size()) {
