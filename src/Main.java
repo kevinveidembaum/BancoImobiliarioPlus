@@ -74,40 +74,7 @@ public class Main {
 
                         break;
                     case 8:
-                        System.out.println("\nVocê escolheu visualizar todas as propriedades.");
-
-
-                        Utility.propriedadesDisponiveis(propriedades);
-                        System.out.println("=============================================================");
-
-
-                        while(true){
-                            boolean respostaInspecionar = InputUtility.getYesOrNoInput("\nDeseja SAIR ou INSPECIONAR? [S/I]  ", 'S', 'I');
-
-
-                            //Sair do Menu de visualizar todas as propriedades
-                            if(respostaInspecionar) break;
-
-
-                            //Inspecionar alguma Propriedade
-                            if(!respostaInspecionar) {
-                                //Escolha de Qual Propriedade quer Inspecionar
-                                int inspecionar = InputUtility.getIntInput("Qual Propriedade deseja Inspecionar? ");
-
-
-                                //Verifica se o existe tal propriedade na lista
-                                if (!jogador.isValidPropertyIndex(propriedades, inspecionar)) {
-                                    return;
-                                }
-
-
-                                Propriedade propriedadeInspecionar = propriedades.get(inspecionar - 1);
-
-
-                                //Inspeção em ação
-                                propriedadeInspecionar.inspecionar();
-                            }
-                        }
+                        jogador.escolherInspecionar(propriedades);
 
                         break;
                     case 9:

@@ -438,6 +438,43 @@ public class Jogador {
     }
 
 
+    public void escolherInspecionar(List<Propriedade> propriedades){
+        System.out.println("\nVocê escolheu visualizar todas as propriedades.");
+
+
+        Utility.propriedadesDisponiveis(propriedades);
+        System.out.println("=============================================================");
+
+        while(true){
+            boolean respostaInspecionar = InputUtility.getYesOrNoInput("\nDeseja SAIR ou INSPECIONAR? [S/I]  ", 'S', 'I');
+
+
+            //Sair do Menu de visualizar todas as propriedades
+            if(respostaInspecionar) break;
+
+
+            //Inspecionar alguma Propriedade
+            if(!respostaInspecionar) {
+                //Escolha de Qual Propriedade quer Inspecionar
+                int inspecionar = InputUtility.getIntInput("Qual Propriedade deseja Inspecionar? ");
+
+
+                //Verifica se o existe tal propriedade na lista
+                if (!this.isValidPropertyIndex(propriedades, inspecionar)) {
+                    break;
+                }
+
+
+                Propriedade propriedadeInspecionar = propriedades.get(inspecionar - 1);
+
+
+                //Inspeção em ação
+                propriedadeInspecionar.inspecionar();
+            }
+        }
+    }
+
+
     //Verificação e validação de index em Listas
     public boolean isValidPropertyIndex(List<Propriedade> listaPropriedades, int index) {
         if (index < 1 || index > listaPropriedades.size()) {
