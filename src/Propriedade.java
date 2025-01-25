@@ -1,6 +1,3 @@
-import java.util.List;
-import java.util.Random;
-
 public class Propriedade {
     private float valor;
     private Jogador dono;
@@ -16,11 +13,10 @@ public class Propriedade {
         this.nome = nome;
         this.valor = valor;
         this.valorCasa = generateRandomNumber(0, 50) + this.valor;
+        this.valorAluguel = calcularAluguel();
     }
 
-    private void calcularAluguel(int qntCasas){
-        //TODO fazer calculo aluguel
-
+    private float calcularAluguel(){
         /*  Regras para Cálculo Aluguel
         *
         *   Aluguel (Sem casas) = até 25% do valor da Propriedade
@@ -31,11 +27,39 @@ public class Propriedade {
         *   Hotel = valor de 3 casas + (até $300)
         */
 
+        //TODO adicionar Empresas aluguel(multiplica pelo valor do dado)
+
+        //Todo criar as empresas
 
 
+        float aluguel = (generateRandomNumber(5, 25) / 100.0f) * valor;
+
+        if (this.isHotel()) {
+            // Aluguel Hotel
+            return aluguel = 2 * (aluguel + generateRandomNumber(0, 300));
+        }
+
+        for (int i = 1; i <=  this.getQntCasas(); i++) {
+            if (i == 1) {
+                // Aluguel para 1 casas
+                aluguel = valor - generateRandomNumber(100, 300);
+            } else if (i == 2) {
+                // Aluguel para 2 casas
+                aluguel = aluguel * 3 - generateRandomNumber(100, 300);
+            } else if (i == 3) {
+                // Aluguel para 3 casas
+                aluguel = aluguel * 2 + generateRandomNumber(0, 200);
+            } else if (i == 4) {
+                // Aluguel para 4 casas
+                aluguel = aluguel + generateRandomNumber(0, 300);
+            }
+        }
 
 
+        //aluguel não pode ser negativo
+        return Math.max(aluguel, 0);
     }
+
 
 
     // Metodo para gerar números aleatórios, vai ser usado para calcular aluguel e valor Casas.
