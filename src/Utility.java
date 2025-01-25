@@ -17,10 +17,13 @@ public class Utility {
 
                 //processarEscolha(jogador, escolha);
 
-                if (escolha == 0) break; // Explicit exit from the player's turn
+
             }
         }
     }
+
+
+
 
 
 

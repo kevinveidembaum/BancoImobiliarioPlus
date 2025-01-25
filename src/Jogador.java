@@ -351,7 +351,7 @@ public class Jogador {
 
         //Caso tiver Hotel perguntar se quer vender hotel
 
-        int qtdVender = InputUtility.getIntInput("Quantas Casas deseja Vender? ");
+        int qtdVender = InputUtility.getIntInput("\nQuantas Casas deseja Vender? ");
 
 
         //Digitou valor incorreto de Casas
@@ -370,6 +370,42 @@ public class Jogador {
     }
 
 
+    //Escolha Vender ou Comprar casa
+    public void gerenciarVenderComprar(Jogador jogador){
+        System.out.println("\nVocê escolheu comprar ou vender uma casa/hotel.");
+
+
+        //Verifica se Jogador possui alguma Propriedade
+        if(!jogador.isThereProperty(jogador)){
+            return;
+        }
+
+
+        //Escolha Compra ou Venda
+        System.out.println("\nPretende Comprar OU Vender? ");
+        boolean respostaCasa = InputUtility.getYesOrNoInput("[C]Comprar       [V]Vender\n", 'C', 'V');
+
+
+        //Visualizar Propriedades do Jogador
+        Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
+
+
+        //Comprar casa
+        if(respostaCasa){
+            int escolhaPropriedadeCompra = InputUtility.getIntInput("\nEm qual Propriedade gostaria de Comprar uma Casa/Hotel? ");
+            jogador.comprarCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeCompra);
+        }
+
+
+        //Vender Casa
+        if(!respostaCasa){
+            int escolhaPropriedadeVenda = InputUtility.getIntInput("\nEm qual Propriedade gostaria de Vender Casa/Hotel? ");
+            jogador.venderCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeVenda);
+        }
+    }
+
+
+
     public void fazerEmprestimo(Jogador credor, float valorEmprestar, Propriedade garantia){
         //TODO fazer emprestimo
     }
@@ -382,6 +418,61 @@ public class Jogador {
 
     public void receberPagamentoEmprestimo(Emprestimo pagamento){
 
+    }
+
+
+    public void visualizarSaldoPropriedades(Jogador jogador){
+        System.out.println("\nVocê escolheu visualizar Saldo e Minhas Propriedades.");
+
+
+        System.out.printf("\nDinheiro disponível: $%.2f\n", jogador.getDinheiro());
+
+
+        if(!jogador.getMinhasPropriedades().isEmpty()){
+            Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
+            return;
+        }
+
+
+        System.out.println("Você não possui propriedades no momento.");
+    }
+
+
+    public void visualizarTodasAsPropriedades(List<Propriedade> propriedades){
+        System.out.println("\nVocê escolheu visualizar todas as propriedades.");
+
+
+        Utility.propriedadesDisponiveis(propriedades);
+        System.out.println("=============================================================");
+
+
+        while(true){
+            boolean respostaInspecionar = InputUtility.getYesOrNoInput("\nDeseja SAIR ou INSPECIONAR? [S/I]  ", 'S', 'I');
+
+
+            //Sair do Menu de visualizar todas as propriedades
+            if(respostaInspecionar) break;
+
+
+            //Inspecionar alguma Propriedade
+            if(!respostaInspecionar) {
+                //Escolha de Qual Propriedade quer Inspecionar
+                int inspecionar = InputUtility.getIntInput("Qual Propriedade deseja Inspecionar? ");
+
+
+                //Verifica se o existe tal propriedade na lista
+                if (!this.isValidPropertyIndex(propriedades, inspecionar)) {
+                    break;
+                }
+
+
+                Propriedade propriedadeInspecionar = propriedades.get(inspecionar - 1);
+
+
+                //Inspeção em ação
+                propriedadeInspecionar.inspecionar();
+            }
+        }
     }
 
 

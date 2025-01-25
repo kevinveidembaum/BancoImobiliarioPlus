@@ -53,6 +53,9 @@ public class Propriedade {
     }
 
 
+
+
+
     public boolean isHotel() {
         return hotel;
     }
