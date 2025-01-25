@@ -8,28 +8,40 @@ public class Main {
 
     // Controle de flow do Jogo
     public void realizarTurno(List<Propriedade> propriedades, Jogador[] jogadores) {
-        for (Jogador jogador : jogadores) {
-            System.out.printf("\nÉ a vez do(a) %s!\n", jogador.getNome());
+        while(true){
+            for (Jogador jogador : jogadores) {
+                System.out.printf("\nÉ a vez do(a) %s!\n", jogador.getNome());
 
-            while (true) {
-                int escolha = InputUtility.getOption(jogador.getNome());
+                while (true) {
+                    int escolha = InputUtility.getOption(jogador.getNome());
 
-                if (escolha == 0) {
-                    System.out.println("\nVez do próximo Jogador!");
-                    break;
-                }
 
-                switch (escolha) {
-                    case 1 -> jogador.comprarPropriedade(propriedades);
-                    case 2 -> jogador.venderPropriedade(jogador.getMinhasPropriedades());
-                    case 3 -> jogador.hipotecar(jogador.getMinhasPropriedades());
-                    case 4 -> jogador.gerenciarVenderComprar(jogador);
-                    case 5 -> System.out.println("\nVocê escolheu fazer empréstimo.");
-                    case 6 -> System.out.println("\nVocê escolheu pagar empréstimo OU aluguel.");
-                    case 7 -> jogador.visualizarSaldoPropriedades(jogador);
-                    case 8 -> jogador.visualizarTodasAsPropriedades(propriedades);
-                    case 9 -> System.out.println("\nVocê escolheu ver ranking.");
-                    default -> System.out.println("Opção inválida. Tente novamente.");
+                    //Encerra o turno do Jogador Atual
+                    if (escolha == 0) {
+                        System.out.println("\nVez do próximo Jogador!");
+                        break;
+                    }
+
+
+                    //Encerra o Jogo independente do momento
+                    if(escolha == 999){
+                        System.out.println("\nJogo Encerrado! Até a Próxima!");
+                        return;
+                    }
+
+
+                    switch (escolha) {
+                        case 1 -> jogador.comprarPropriedade(propriedades);
+                        case 2 -> jogador.venderPropriedade(jogador.getMinhasPropriedades());
+                        case 3 -> jogador.hipotecar(jogador.getMinhasPropriedades());
+                        case 4 -> jogador.gerenciarVenderComprar(jogador);
+                        case 5 -> System.out.println("\nVocê escolheu fazer empréstimo.");
+                        case 6 -> System.out.println("\nVocê escolheu pagar empréstimo OU aluguel.");
+                        case 7 -> jogador.visualizarSaldoPropriedades(jogador);
+                        case 8 -> jogador.visualizarTodasAsPropriedades(propriedades);
+                        case 9 -> System.out.println("\nVocê escolheu ver ranking.");
+                        default -> System.out.println("Opção inválida. Tente novamente.");
+                    }
                 }
             }
         }
