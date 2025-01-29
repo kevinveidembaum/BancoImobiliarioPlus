@@ -3,24 +3,7 @@ import java.util.List;
 
 public class Utility {
 
-    public void realizarTurno(Jogador[] jogadores) {
-        for (Jogador jogador : jogadores) {
-            System.out.printf("\nÉ a vez do(a) %s!\n", jogador.getNome());
 
-            while (true) {
-                int escolha = InputUtility.getOption(jogador.getNome());
-
-                if (escolha == 0) {
-                    System.out.println("\nVez do próximo Jogador!");
-                    break;
-                }
-
-                //processarEscolha(jogador, escolha);
-
-
-            }
-        }
-    }
 
 
 
