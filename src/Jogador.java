@@ -220,15 +220,39 @@ public class Jogador {
 
 
     public void pagarAluguel(Propriedade propriedade, Jogador dono){
-
-        //TODO arrumar aluguel
+        // Verifica se Jogador possui dinheiro suficiente
         if(this.getDinheiro() < propriedade.getValorAluguel()){
             System.out.println("Dinheiro Insuficiente para Pagar Aluguel!");
             return;
         }
 
+
+        // Verifica se o dono é o dono da propriedade mesmo
+        if(!propriedade.getDono().equals(dono)){
+            System.out.println("O Jogador declarado Dono não é o Dono desta Propriedade!");
+            return;
+        }
+
+
+        // Se a propriedade for Empresa
+        if(propriedade.isEmpresa()){
+            System.out.printf("\n%s é uma Empresa, portanto você deverá pagar uma Taxa!\n", propriedade.getNome());
+
+            int numDado = InputUtility.getIntInput("Digite o número resultante da Soma dos dados: ");
+            float valorTaxa = propriedade.calcularTaxa(numDado);
+
+            this.setDinheiro(this.getDinheiro() - valorTaxa);
+            dono.setDinheiro(dono.getDinheiro() + valorTaxa);
+
+            System.out.printf("\n%s Pagou Taxa no valor de $%.2f para %s\n", this.getNome(), valorTaxa, dono.getNome());
+            return;
+        }
+
+
         this.setDinheiro(this.getDinheiro() - propriedade.getValorAluguel());
         dono.setDinheiro(dono.getDinheiro() + propriedade.getValorAluguel());
+
+        System.out.printf("\n%s Pagou Aluguel no valor de $%.2f para %s\n", this.getNome(), propriedade.getValorAluguel(), dono.getNome());
     }
 
 
@@ -399,6 +423,44 @@ public class Jogador {
 
         //Vender Casa
         if(!respostaCasa){
+            int escolhaPropriedadeVenda = InputUtility.getIntInput("\nEm qual Propriedade gostaria de Vender Casa/Hotel? ");
+            jogador.venderCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeVenda);
+        }
+    }
+
+
+    //Escolha Pagar Emprestimo ou Aluguel
+    public void gerenciarEmprestimoAluguel(List<Propriedade> listaPropriedades, Jogador jogador){
+        System.out.println("\nVocê escolheu pagar aluguel ou empréstimo.");
+
+
+        //Escolha Pagar Emprestimo ou Aluguel
+        System.out.println("\nPretende pagar Aluguel ou Empréstimo? ");
+        boolean respostaPagar = InputUtility.getYesOrNoInput("[A]Aluguel       [E]Empréstimo\n", 'A', 'E');
+
+
+        //Pagar Aluguel
+        if(respostaPagar){
+            Utility.propriedadesDisponiveis(listaPropriedades);
+            int escolhaPagar = InputUtility.getIntInput("\nEm qual Propriedade você deve Pagar o Aluguel? ");
+
+
+            //Verifica se o index está correto
+            if (!isValidPropertyIndex(listaPropriedades, escolhaPagar)) {
+                return;
+            }
+
+
+            Propriedade propriedade = listaPropriedades.get(escolhaPagar - 1);
+
+
+            jogador.pagarAluguel(propriedade, propriedade.getDono());
+        }
+
+
+        //todo pagar emprestimo
+        //Pagar Emprestimo
+        if(!respostaPagar){
             int escolhaPropriedadeVenda = InputUtility.getIntInput("\nEm qual Propriedade gostaria de Vender Casa/Hotel? ");
             jogador.venderCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeVenda);
         }
