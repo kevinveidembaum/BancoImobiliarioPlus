@@ -9,9 +9,10 @@ public class Propriedade {
     private boolean hotel;
     private String nome;
 
-    public Propriedade(String nome, float valor){
+    public Propriedade(String nome, float valor, boolean isEmpresa){
         this.nome = nome;
         this.valor = valor;
+        this.empresa = isEmpresa;
         this.valorCasa = generateRandomNumber(0, 50) + this.valor;
         this.valorAluguel = calcularAluguel();
     }
