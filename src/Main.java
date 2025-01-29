@@ -29,6 +29,9 @@ public class Main {
                         return;
                     }
 
+                    //todo fazer emprestimos e aluguel
+
+                    //todo fazer ranking
 
                     switch (escolha) {
                         case 1 -> jogador.comprarPropriedade(propriedades);
