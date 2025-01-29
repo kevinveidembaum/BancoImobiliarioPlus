@@ -219,9 +219,18 @@ public class Jogador {
     }
 
 
-    public void pagarAluguel(Propriedade propriedade, Jogador dono){
+    public void pagarAluguel(List<Propriedade> listaPropriedades, int index, Jogador dono){
+        //Verifica se o index está correto
+        if (!isValidPropertyIndex(listaPropriedades, index)) {
+            return;
+        }
 
+        Propriedade propriedade = listaPropriedades.get(index - 1);
+
+        
         //TODO arrumar aluguel
+
+        // Verifica se Jogador possui dinheiro suficiente
         if(this.getDinheiro() < propriedade.getValorAluguel()){
             System.out.println("Dinheiro Insuficiente para Pagar Aluguel!");
             return;
@@ -399,6 +408,36 @@ public class Jogador {
 
         //Vender Casa
         if(!respostaCasa){
+            int escolhaPropriedadeVenda = InputUtility.getIntInput("\nEm qual Propriedade gostaria de Vender Casa/Hotel? ");
+            jogador.venderCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeVenda);
+        }
+    }
+
+
+    //Escolha Pagar Emprestimo ou Aluguel
+    public void gerenciarEmprestimoAluguel(Jogador jogador){
+        System.out.println("\nVocê escolheu pagar aluguel ou empréstimo.");
+
+
+        //Escolha Pagar Emprestimo ou Aluguel
+        System.out.println("\nPretende pagar Aluguel ou Empréstimo? ");
+        boolean respostaPagar = InputUtility.getYesOrNoInput("[A]Aluguel       [E]Empréstimo\n", 'C', 'V');
+
+
+        //Visualizar Propriedades do Jogador
+        Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
+
+
+        //Pagar Aluguel
+        if(respostaPagar){
+            int escolhaPropriedadeCompra = InputUtility.getIntInput("\nEm qual Propriedade gostaria de Comprar uma Casa/Hotel? ");
+            jogador.comprarCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeCompra);
+        }
+
+
+        //todo pagar emprestimo
+        //Pagar Emprestimo
+        if(!respostaPagar){
             int escolhaPropriedadeVenda = InputUtility.getIntInput("\nEm qual Propriedade gostaria de Vender Casa/Hotel? ");
             jogador.venderCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeVenda);
         }

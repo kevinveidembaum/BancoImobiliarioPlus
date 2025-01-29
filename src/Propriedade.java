@@ -13,8 +13,13 @@ public class Propriedade {
         this.nome = nome;
         this.valor = valor;
         this.empresa = isEmpresa;
-        this.valorCasa = generateRandomNumber(0, 50) + this.valor;
         this.valorAluguel = calcularAluguel();
+
+
+        // Empresas não podem ter casas ou hoteis
+        if(!isEmpresa){
+            this.valorCasa = generateRandomNumber(0, 50) + this.valor;
+        }
     }
 
     private float calcularAluguel(){
@@ -30,7 +35,13 @@ public class Propriedade {
 
         //TODO adicionar Empresas aluguel(multiplica pelo valor do dado)
 
-        //Todo criar as empresas
+        if(this.isEmpresa()){
+            float multiplicativo = generateRandomNumber(40, 50);
+
+            int numDado = InputUtility.getIntInput("Digite o valor do número do Dado: ");
+
+            return multiplicativo * numDado;
+        }
 
 
         float aluguel = (generateRandomNumber(5, 25) / 100.0f) * valor;
@@ -39,6 +50,7 @@ public class Propriedade {
             // Aluguel Hotel
             return aluguel = 2 * (aluguel + generateRandomNumber(0, 300));
         }
+
 
         for (int i = 1; i <=  this.getQntCasas(); i++) {
             if (i == 1) {
@@ -54,6 +66,8 @@ public class Propriedade {
                 // Aluguel para 4 casas
                 aluguel = aluguel + generateRandomNumber(0, 300);
             }
+
+            return aluguel;
         }
 
 

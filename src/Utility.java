@@ -4,12 +4,6 @@ import java.util.List;
 public class Utility {
 
 
-
-
-
-
-
-
     public static List<Propriedade> inicializarPropriedades() {
         List<Propriedade> propriedades = new ArrayList<>();
 
