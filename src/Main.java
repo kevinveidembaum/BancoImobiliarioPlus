@@ -39,7 +39,7 @@ public class Main {
                         case 3 -> jogador.hipotecar(jogador.getMinhasPropriedades());
                         case 4 -> jogador.gerenciarVenderComprar(jogador);
                         case 5 -> System.out.println("\nVocê escolheu fazer empréstimo.");
-                        case 6 -> System.out.println("\nVocê escolheu pagar empréstimo OU aluguel.");
+                        case 6 -> jogador.gerenciarEmprestimoAluguel(propriedades, jogador);
                         case 7 -> jogador.visualizarSaldoPropriedades(jogador);
                         case 8 -> jogador.visualizarTodasAsPropriedades(propriedades);
                         case 9 -> System.out.println("\nVocê escolheu ver ranking.");
