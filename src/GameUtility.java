@@ -3,7 +3,68 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public class Utility {
+public class GameUtility {
+
+    // Controle de flow do Jogo
+    public void realizarTurno(List<Propriedade> propriedades, Jogador[] jogadores) {
+        while(true){
+            for (Jogador jogador : jogadores) {
+                System.out.printf("\nÉ a vez do(a) %s!\n", jogador.getNome());
+
+                while (true) {
+                    int escolha = InputUtility.getOption(jogador.getNome());
+
+
+                    //Encerra o turno do Jogador Atual
+                    if (escolha == 0) {
+                        System.out.println("\nVez do próximo Jogador!");
+                        break;
+                    }
+
+
+                    //Encerra o Jogo independente do momento
+                    if(escolha == 999){
+                        System.out.println("\nJogo Encerrado! Até a Próxima!");
+                        return;
+                    }
+
+                    //todo fazer emprestimos
+
+                    switch (escolha) {
+                        case 1 -> jogador.comprarPropriedade(propriedades);
+                        case 2 -> jogador.venderPropriedade(jogador.getMinhasPropriedades());
+                        case 3 -> jogador.hipotecar(jogador.getMinhasPropriedades());
+                        case 4 -> jogador.gerenciarVenderComprar(jogador);
+                        case 5 -> System.out.println("\nVocê escolheu fazer empréstimo.");
+                        case 6 -> jogador.gerenciarEmprestimoAluguel(propriedades, jogador);
+                        case 7 -> jogador.visualizarSaldoPropriedades(jogador);
+                        case 8 -> jogador.visualizarTodasAsPropriedades(propriedades);
+                        case 9 -> GameUtility.visualizarRanking(jogadores);
+                        default -> System.out.println("Opção inválida. Tente novamente.");
+                    }
+                }
+            }
+        }
+    }
+
+
+    //Gerar Jogadores
+    public Jogador[] gerarJogadores(){
+        //Quantos Players
+        int numJogadores = InputUtility.getIntInput("Quantos Jogadores irão participar: ");
+        Jogador jogadores[] = new Jogador[numJogadores];
+
+
+        //Nome de cada Jogador
+        for(int i = 0; i < numJogadores; i++){
+            int n = i+1;
+            String nomeJogador = InputUtility.getStringInput("Nome do " + n + "° Jogador: ");
+            jogadores[i] = new Jogador(nomeJogador, 2558);
+        }
+
+        return jogadores;
+    }
+
 
     public static void visualizarRanking(Jogador[] jogadores) {
         // Calcula a Riqueza individual de cada Jogador

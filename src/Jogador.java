@@ -22,7 +22,7 @@ public class Jogador {
 
 
         //Seleciona uma Propriedade
-        Utility.propriedadesDisponiveis(listaPropriedades);
+        GameUtility.propriedadesDisponiveis(listaPropriedades);
         int escolhaPropriedade = InputUtility.getIntInput("Digite o número da Propriedade desejada: ");
 
 
@@ -130,7 +130,7 @@ public class Jogador {
 
 
         //Seleciona Propriedade para Hipotecar
-        Utility.propriedadesDisponiveis(this.getMinhasPropriedades());
+        GameUtility.propriedadesDisponiveis(this.getMinhasPropriedades());
         int hipotecarPropriedade = InputUtility.getIntInput("Qual Propriedade deseja Hipotecar? ");
 
 
@@ -186,7 +186,7 @@ public class Jogador {
 
 
         //Seleciona Propriedade para vender
-        Utility.propriedadesDisponiveis(this.getMinhasPropriedades());
+        GameUtility.propriedadesDisponiveis(this.getMinhasPropriedades());
         int venderPropriedade = InputUtility.getIntInput("Digite o número da Propriedade a ser vendida: ");
 
 
@@ -433,7 +433,7 @@ public class Jogador {
 
 
         //Visualizar Propriedades do Jogador
-        Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
+        GameUtility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
 
 
         //Comprar casa
@@ -463,7 +463,7 @@ public class Jogador {
 
         //Pagar Aluguel
         if(respostaPagar){
-            Utility.propriedadesComDono(listaPropriedades, jogador);
+            GameUtility.propriedadesComDono(listaPropriedades, jogador);
             int escolhaPagar = InputUtility.getIntInput("\nEm qual Propriedade você deve Pagar o Aluguel? ");
 
 
@@ -513,7 +513,7 @@ public class Jogador {
 
 
         if(!jogador.getMinhasPropriedades().isEmpty()){
-            Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
+            GameUtility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
             return;
         }
 
@@ -526,7 +526,7 @@ public class Jogador {
         System.out.println("\nVocê escolheu visualizar todas as propriedades.");
 
 
-        Utility.propriedadesDisponiveis(propriedades);
+        GameUtility.propriedadesDisponiveis(propriedades);
         System.out.println("=============================================================");
 
 
