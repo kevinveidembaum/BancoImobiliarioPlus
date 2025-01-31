@@ -56,7 +56,6 @@ public class Jogador {
             System.out.printf("Juros de 30%%, valor a pagar: $%.2f", valorComJuros);
 
             propriedade.setHipotecado(false);
-            this.getMinhasPropriedades().add(propriedade);
             this.setDinheiro(this.getDinheiro() - valorComJuros);
             System.out.printf("\n%s recuperou %s, sua propriedade Hipotecada, por $%.2f!\n", this.getNome(), propriedade.getNome(), valorComJuros);
             return;
