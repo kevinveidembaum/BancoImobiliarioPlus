@@ -219,7 +219,7 @@ public class Jogador {
     }
 
 
-    public void pagarAluguel(Propriedade propriedade, Jogador dono){
+    public void pagarAluguel(Propriedade propriedade){
         // Verifica se Jogador possui dinheiro suficiente
         if(this.getDinheiro() < propriedade.getValorAluguel()){
             System.out.println("Dinheiro Insuficiente para Pagar Aluguel!");
@@ -227,23 +227,20 @@ public class Jogador {
         }
 
 
-        // Verifica se o Dono está tentando pagar Aluguel por uma Propriedade dele mesmo
-        if(propriedade.getDono().equals(this)){
-            System.out.println("Nâo é possível Pagar Aluguel pois esta Propriedade é Sua!");
-            return;
-        }
-
-
-        // Verifica se o dono é o dono da propriedade mesmo
-        if(!propriedade.getDono().equals(dono)){
-            System.out.println("O Jogador declarado Dono não é o Dono desta Propriedade!");
-            return;
-        }
-
-
         // Verifica se a Propriedade está com status de Hipotecada
         if(propriedade.isHipotecado()){
             System.out.println("Você não precisa pagar aluguel para uma Propriedade Hipotecada!");
+            return;
+        }
+
+
+        // Coleta o Dono da Propriedade
+        Jogador dono = propriedade.getDono();
+
+
+        // Se o Dono for Null
+        if(dono == null){
+            System.out.println("Não é possível Pagar Aluguel para Propriedades Sem Dono!");
             return;
         }
 
@@ -466,7 +463,7 @@ public class Jogador {
 
         //Pagar Aluguel
         if(respostaPagar){
-            Utility.propriedadesComDono(listaPropriedades, this);
+            Utility.propriedadesComDono(listaPropriedades, jogador);
             int escolhaPagar = InputUtility.getIntInput("\nEm qual Propriedade você deve Pagar o Aluguel? ");
 
 
@@ -479,7 +476,7 @@ public class Jogador {
             Propriedade propriedade = listaPropriedades.get(escolhaPagar - 1);
 
 
-            jogador.pagarAluguel(propriedade, propriedade.getDono());
+            jogador.pagarAluguel(propriedade);
         }
 
 
