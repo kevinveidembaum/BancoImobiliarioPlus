@@ -22,7 +22,7 @@ public class Jogador {
 
 
         //Seleciona uma Propriedade
-        Utility.propriedadesDisponiveis(listaPropriedades, false);
+        Utility.propriedadesDisponiveis(listaPropriedades);
         int escolhaPropriedade = InputUtility.getIntInput("Digite o número da Propriedade desejada: ");
 
 
@@ -130,7 +130,7 @@ public class Jogador {
 
 
         //Seleciona Propriedade para Hipotecar
-        Utility.propriedadesDisponiveis(this.getMinhasPropriedades(), false);
+        Utility.propriedadesDisponiveis(this.getMinhasPropriedades());
         int hipotecarPropriedade = InputUtility.getIntInput("Qual Propriedade deseja Hipotecar? ");
 
 
@@ -186,7 +186,7 @@ public class Jogador {
 
 
         //Seleciona Propriedade para vender
-        Utility.propriedadesDisponiveis(this.getMinhasPropriedades(), false);
+        Utility.propriedadesDisponiveis(this.getMinhasPropriedades());
         int venderPropriedade = InputUtility.getIntInput("Digite o número da Propriedade a ser vendida: ");
 
 
@@ -223,6 +223,13 @@ public class Jogador {
         // Verifica se Jogador possui dinheiro suficiente
         if(this.getDinheiro() < propriedade.getValorAluguel()){
             System.out.println("Dinheiro Insuficiente para Pagar Aluguel!");
+            return;
+        }
+
+
+        // Verifica se o Dono está tentando pagar Aluguel por uma Propriedade dele mesmo
+        if(propriedade.getDono().equals(this)){
+            System.out.println("Nâo é possível Pagar Aluguel pois esta Propriedade é Sua!");
             return;
         }
 
@@ -429,7 +436,7 @@ public class Jogador {
 
 
         //Visualizar Propriedades do Jogador
-        Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades(), false);
+        Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
 
 
         //Comprar casa
@@ -459,7 +466,7 @@ public class Jogador {
 
         //Pagar Aluguel
         if(respostaPagar){
-            Utility.propriedadesDisponiveis(listaPropriedades, true);
+            Utility.propriedadesComDono(listaPropriedades, this);
             int escolhaPagar = InputUtility.getIntInput("\nEm qual Propriedade você deve Pagar o Aluguel? ");
 
 
@@ -509,7 +516,7 @@ public class Jogador {
 
 
         if(!jogador.getMinhasPropriedades().isEmpty()){
-            Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades(), false);
+            Utility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
             return;
         }
 
@@ -522,7 +529,7 @@ public class Jogador {
         System.out.println("\nVocê escolheu visualizar todas as propriedades.");
 
 
-        Utility.propriedadesDisponiveis(propriedades, false);
+        Utility.propriedadesDisponiveis(propriedades);
         System.out.println("=============================================================");
 
 

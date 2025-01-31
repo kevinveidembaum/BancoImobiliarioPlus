@@ -79,18 +79,10 @@ public class Utility {
     }
 
 
-    public static void propriedadesDisponiveis(List<Propriedade> propriedades, boolean apenasComDono){
+    public static void propriedadesDisponiveis(List<Propriedade> propriedades){
         System.out.println("\nPropriedades:");
         for (int i = 0; i < propriedades.size(); i++) {
             Propriedade propriedade = propriedades.get(i);
-
-
-            if (apenasComDono) {
-                // Pula Propriedades sem Dono OU Hipotecadas
-                if (propriedade.getDono() == null || propriedade.isHipotecado()) {
-                    continue;
-                }
-            }
 
 
             if(propriedade.isHipotecado()){
@@ -109,4 +101,21 @@ public class Utility {
         }
     }
 
+
+    // Mostra apenas Propriedades com Dono, sem contar o Jogador que chamou o metodo (usado na logica aluguel)
+    public static void propriedadesComDono(List<Propriedade> propriedades, Jogador jogador) {
+        System.out.println("\nPropriedades: ");
+        for (int i = 0; i < propriedades.size(); i++) {
+            Propriedade propriedade = propriedades.get(i);
+
+
+            // Pula Propriedades sem Dono OU Hipotecadas OU o Dono é o próprio Jogador que chamou o metodo
+            if (propriedade.getDono() == null || propriedade.isHipotecado() || propriedade.getDono().equals(jogador)) {
+                continue;
+            }
+
+
+            System.out.printf("%d. Nome: %s, Valor: $%.2f (Dono Atual: %s)\n", i + 1, propriedade.getNome(), propriedade.getValor(), propriedade.getDono().getNome());
+        }
+    }
 }
