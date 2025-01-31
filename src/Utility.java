@@ -1,7 +1,42 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class Utility {
+
+    public static void visualizarRanking(Jogador[] jogadores) {
+        // Calcula a Riqueza individual de cada Jogador
+        for (Jogador jogador : jogadores) {
+            float riquezaTotal = jogador.getDinheiro();
+
+
+            // Seleciona e soma a riqueza, o valor de cada Propriedade
+            for (Propriedade propriedade : jogador.getMinhasPropriedades()) {
+                riquezaTotal += propriedade.getValor();
+            }
+
+
+            jogador.setRiquezaTotal(riquezaTotal);
+        }
+
+
+        // Organiza Jogadores em ordem decrescente de riqueza (mais ricos no topo)
+        Arrays.sort(jogadores, new Comparator<Jogador>() {
+            @Override
+            public int compare(Jogador j1, Jogador j2) {
+                return Float.compare(j2.getRiquezaTotal(), j1.getRiquezaTotal());
+            }
+        });
+
+
+        // Mostra o Ranking em si
+        System.out.println("\n======== Ranking dos Jogadores ========");
+        for (int i = 0; i < jogadores.length; i++) {
+            System.out.println((i + 1) + "º Lugar: " + jogadores[i].getNome() +
+                    " - Riqueza Total: $" + jogadores[i].getRiquezaTotal());
+        }
+    }
 
 
     public static List<Propriedade> inicializarPropriedades() {

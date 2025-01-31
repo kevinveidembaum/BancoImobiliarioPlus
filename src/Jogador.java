@@ -7,6 +7,7 @@ public class Jogador {
     private List<Emprestimo> emprestimosConcebidos;
     private List<Emprestimo> dividasEmprestimo;
     private String nome;
+    private float riquezaTotal;
 
 
     public Jogador(String nome, float dinheiro){
@@ -575,6 +576,14 @@ public class Jogador {
         return true;
     }
 
+
+    public float getRiquezaTotal() {
+        return riquezaTotal;
+    }
+
+    public void setRiquezaTotal(float riquezaTotal) {
+        this.riquezaTotal = riquezaTotal;
+    }
 
     public String getNome() {
         return nome;

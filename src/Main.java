@@ -29,7 +29,7 @@ public class Main {
                         return;
                     }
 
-                    //todo fazer emprestimos e aluguel
+                    //todo fazer emprestimos
 
                     //todo fazer ranking
 
@@ -42,7 +42,7 @@ public class Main {
                         case 6 -> jogador.gerenciarEmprestimoAluguel(propriedades, jogador);
                         case 7 -> jogador.visualizarSaldoPropriedades(jogador);
                         case 8 -> jogador.visualizarTodasAsPropriedades(propriedades);
-                        case 9 -> System.out.println("\nVocê escolheu ver ranking.");
+                        case 9 -> Utility.visualizarRanking(jogadores);
                         default -> System.out.println("Opção inválida. Tente novamente.");
                     }
                 }
