@@ -31,8 +31,6 @@ public class Main {
 
                     //todo fazer emprestimos
 
-                    //todo fazer ranking
-
                     switch (escolha) {
                         case 1 -> jogador.comprarPropriedade(propriedades);
                         case 2 -> jogador.venderPropriedade(jogador.getMinhasPropriedades());

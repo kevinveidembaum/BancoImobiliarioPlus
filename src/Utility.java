@@ -79,10 +79,18 @@ public class Utility {
     }
 
 
-    public static void propriedadesDisponiveis(List<Propriedade> propriedades){
+    public static void propriedadesDisponiveis(List<Propriedade> propriedades, boolean apenasComDono){
         System.out.println("\nPropriedades:");
         for (int i = 0; i < propriedades.size(); i++) {
             Propriedade propriedade = propriedades.get(i);
+
+
+            if (apenasComDono) {
+                // Pula Propriedades sem Dono OU Hipotecadas
+                if (propriedade.getDono() == null || propriedade.isHipotecado()) {
+                    continue;
+                }
+            }
 
 
             if(propriedade.isHipotecado()){
