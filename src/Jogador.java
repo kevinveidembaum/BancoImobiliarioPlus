@@ -7,6 +7,7 @@ public class Jogador {
     private List<Emprestimo> emprestimosConcebidos;
     private List<Emprestimo> dividasEmprestimo;
     private String nome;
+    private float riquezaTotal;
 
 
     public Jogador(String nome, float dinheiro){
@@ -55,7 +56,6 @@ public class Jogador {
             System.out.printf("Juros de 30%%, valor a pagar: $%.2f", valorComJuros);
 
             propriedade.setHipotecado(false);
-            this.getMinhasPropriedades().add(propriedade);
             this.setDinheiro(this.getDinheiro() - valorComJuros);
             System.out.printf("\n%s recuperou %s, sua propriedade Hipotecada, por $%.2f!\n", this.getNome(), propriedade.getNome(), valorComJuros);
             return;
@@ -219,7 +219,7 @@ public class Jogador {
     }
 
 
-    public void pagarAluguel(Propriedade propriedade, Jogador dono){
+    public void pagarAluguel(Propriedade propriedade){
         // Verifica se Jogador possui dinheiro suficiente
         if(this.getDinheiro() < propriedade.getValorAluguel()){
             System.out.println("Dinheiro Insuficiente para Pagar Aluguel!");
@@ -227,9 +227,20 @@ public class Jogador {
         }
 
 
-        // Verifica se o dono é o dono da propriedade mesmo
-        if(!propriedade.getDono().equals(dono)){
-            System.out.println("O Jogador declarado Dono não é o Dono desta Propriedade!");
+        // Verifica se a Propriedade está com status de Hipotecada
+        if(propriedade.isHipotecado()){
+            System.out.println("Você não precisa pagar aluguel para uma Propriedade Hipotecada!");
+            return;
+        }
+
+
+        // Coleta o Dono da Propriedade
+        Jogador dono = propriedade.getDono();
+
+
+        // Se o Dono for Null
+        if(dono == null){
+            System.out.println("Não é possível Pagar Aluguel para Propriedades Sem Dono!");
             return;
         }
 
@@ -262,6 +273,7 @@ public class Jogador {
             return;
         }
 
+
         Propriedade propriedade = listaPropriedades.get(index - 1);
 
 
@@ -277,6 +289,11 @@ public class Jogador {
 
         if(propriedade.isHipotecado()){
             System.out.println("Não é possível Comprar uma Casa em Imóvel Hipotecado");
+            return;
+        }
+
+        if(propriedade.isEmpresa()){
+            System.out.println("Não é possível Comprar uma Casa em Propriedades do tipo Empresa!");
             return;
         }
 
@@ -342,6 +359,11 @@ public class Jogador {
 
         if(propriedade.getQntCasas() == 0){
             System.out.println("Não há Imóveis para Vender!");
+            return;
+        }
+
+        if(propriedade.isEmpresa()){
+            System.out.println("Não é possível Vender uma Casa em Propriedades do tipo Empresa!");
             return;
         }
 
@@ -441,7 +463,7 @@ public class Jogador {
 
         //Pagar Aluguel
         if(respostaPagar){
-            Utility.propriedadesDisponiveis(listaPropriedades);
+            Utility.propriedadesComDono(listaPropriedades, jogador);
             int escolhaPagar = InputUtility.getIntInput("\nEm qual Propriedade você deve Pagar o Aluguel? ");
 
 
@@ -454,7 +476,7 @@ public class Jogador {
             Propriedade propriedade = listaPropriedades.get(escolhaPagar - 1);
 
 
-            jogador.pagarAluguel(propriedade, propriedade.getDono());
+            jogador.pagarAluguel(propriedade);
         }
 
 
@@ -557,6 +579,14 @@ public class Jogador {
         return true;
     }
 
+
+    public float getRiquezaTotal() {
+        return riquezaTotal;
+    }
+
+    public void setRiquezaTotal(float riquezaTotal) {
+        this.riquezaTotal = riquezaTotal;
+    }
 
     public String getNome() {
         return nome;

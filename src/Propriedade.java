@@ -8,6 +8,7 @@ public class Propriedade {
     private float valorAluguel;
     private boolean hotel;
     private String nome;
+    private float multiplicador;
 
     public Propriedade(String nome, float valor, boolean isEmpresa){
         this.nome = nome;
@@ -19,6 +20,9 @@ public class Propriedade {
         if(!isEmpresa){
             this.valorCasa = generateRandomNumber(0, 50) + this.valor;
             this.valorAluguel = calcularAluguel();
+        }else{
+            //Porém somente empresas possuem multiplicadores de taxas
+            this.multiplicador = generateRandomNumber(40, 50);
         }
     }
 
@@ -70,9 +74,7 @@ public class Propriedade {
 
     // Calculo da Taxa de cada Empresa
     public float calcularTaxa(int numDado){
-        float multiplicador = generateRandomNumber(40, 50);
-
-        return multiplicador * numDado;
+        return this.getMultiplicador() * numDado;
     }
 
 
@@ -84,6 +86,18 @@ public class Propriedade {
 
     //Apenas mostrar informações das Propriedades
     public void inspecionar() {
+        //Se for Empresa
+        if(this.isEmpresa()){
+            System.out.printf("\n%s => Empresa: %s | Valor do Multiplicador: %.2f\n",
+                    this.getNome(),
+                    this.isEmpresa() ? "Sim" : "Não",
+                    this.getMultiplicador());
+
+            return;
+        }
+
+
+        //Propriedades normais
         System.out.printf("\n%s => Qntd. Casas: %d | Hotel: %s\n",
                 this.getNome(),
                 this.getQntCasas(),
@@ -91,8 +105,13 @@ public class Propriedade {
     }
 
 
+    public float getMultiplicador() {
+        return multiplicador;
+    }
 
-
+    public void setMultiplicador(float multiplicador) {
+        this.multiplicador = multiplicador;
+    }
 
     public boolean isHotel() {
         return hotel;
