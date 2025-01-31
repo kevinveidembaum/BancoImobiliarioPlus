@@ -234,6 +234,13 @@ public class Jogador {
         }
 
 
+        // Verifica se a Propriedade está com status de Hipotecada
+        if(propriedade.isHipotecado()){
+            System.out.println("Você não precisa pagar aluguel para uma Propriedade Hipotecada!");
+            return;
+        }
+
+
         // Se a propriedade for Empresa
         if(propriedade.isEmpresa()){
             System.out.printf("\n%s é uma Empresa, portanto você deverá pagar uma Taxa!\n", propriedade.getNome());
@@ -262,6 +269,7 @@ public class Jogador {
             return;
         }
 
+
         Propriedade propriedade = listaPropriedades.get(index - 1);
 
 
@@ -277,6 +285,11 @@ public class Jogador {
 
         if(propriedade.isHipotecado()){
             System.out.println("Não é possível Comprar uma Casa em Imóvel Hipotecado");
+            return;
+        }
+
+        if(propriedade.isEmpresa()){
+            System.out.println("Não é possível Comprar uma Casa em Propriedades do tipo Empresa!");
             return;
         }
 
@@ -342,6 +355,11 @@ public class Jogador {
 
         if(propriedade.getQntCasas() == 0){
             System.out.println("Não há Imóveis para Vender!");
+            return;
+        }
+
+        if(propriedade.isEmpresa()){
+            System.out.println("Não é possível Vender uma Casa em Propriedades do tipo Empresa!");
             return;
         }
 
