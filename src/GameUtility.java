@@ -39,7 +39,7 @@ public class GameUtility {
                         case 6 -> jogador.gerenciarEmprestimoAluguel(propriedades, jogador);
                         case 7 -> jogador.visualizarSaldoPropriedades(jogador);
                         case 8 -> jogador.visualizarTodasAsPropriedades(propriedades);
-                        case 9 -> GameUtility.visualizarRanking(jogadores);
+                        case 9 -> this.visualizarRanking(jogadores);
                         default -> System.out.println("Opção inválida. Tente novamente.");
                     }
                 }
@@ -66,7 +66,7 @@ public class GameUtility {
     }
 
 
-    public static void visualizarRanking(Jogador[] jogadores) {
+    public void visualizarRanking(Jogador[] jogadores) {
         // Calcula a Riqueza individual de cada Jogador
         for (Jogador jogador : jogadores) {
             float riquezaTotal = jogador.getDinheiro();
@@ -120,7 +120,7 @@ public class GameUtility {
     }
 
 
-    public static List<Propriedade> inicializarPropriedades() {
+    public List<Propriedade> inicializarPropriedades() {
         List<Propriedade> propriedades = new ArrayList<>();
 
         propriedades.add(new Propriedade("Leblon", 100, false));

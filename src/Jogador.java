@@ -252,6 +252,14 @@ public class Jogador {
             System.out.printf("\n%s é uma Empresa, portanto você deverá pagar uma Taxa!\n", propriedade.getNome());
 
             int numDado = InputUtility.getIntInput("Digite o número resultante da Soma dos dados: ");
+
+
+            if(!(numDado > 0 && numDado < 12)){
+                System.out.println("Número de Dado Inválido! ");
+                return;
+            }
+
+
             float valorTaxa = propriedade.calcularTaxa(numDado);
 
             this.setDinheiro(this.getDinheiro() - valorTaxa);
