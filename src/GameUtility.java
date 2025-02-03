@@ -70,14 +70,34 @@ public class GameUtility {
         // Calcula a Riqueza individual de cada Jogador
         for (Jogador jogador : jogadores) {
             float riquezaTotal = jogador.getDinheiro();
+            float valorCasaHotel = 0;
 
 
             // Seleciona e soma a riqueza, o valor de cada Propriedade
             for (Propriedade propriedade : jogador.getMinhasPropriedades()) {
-                riquezaTotal += propriedade.getValor();
+                float valorTotalPropriedade = 0;
+
+
+                /* Operador ternário
+                * Basicamente verifica se a Propriedade possui Hotel.
+                * Caso Positivo: Multiplica o valor de uma Casa por cinco -
+                * (1 Hotel é o valor de uma casa, mas para ter um Hotel é preciso ter 4 Casas)
+                *
+                * Caso Negativo: Multiplica o número atual de Casas na Propriedade pelo valor de Uma Casa.
+                */
+                valorCasaHotel += (propriedade.isHotel())? propriedade.getValorCasa() * 5 : propriedade.getQntCasas() * propriedade.getValorCasa();
+
+
+                //Soma valor da Propriedade + valor de todas as construções nela (Casas/Hotel)
+                valorTotalPropriedade += propriedade.getValor() + valorCasaHotel;
+
+
+
+                riquezaTotal += valorTotalPropriedade;
             }
 
 
+            //Atribui na riqueza total do Jogador
             jogador.setRiquezaTotal(riquezaTotal);
         }
 
