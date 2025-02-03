@@ -35,7 +35,7 @@ public class GameUtility {
                         case 2 -> jogador.venderPropriedade(jogador.getMinhasPropriedades());
                         case 3 -> jogador.hipotecar(jogador.getMinhasPropriedades());
                         case 4 -> jogador.gerenciarVenderComprar(jogador);
-                        case 5 -> System.out.println("\nVocê escolheu fazer empréstimo.");
+                        case 5 -> jogador.fazerEmprestimo(jogadores);
                         case 6 -> jogador.gerenciarEmprestimoAluguel(propriedades, jogador);
                         case 7 -> jogador.visualizarSaldoPropriedades(jogador);
                         case 8 -> jogador.visualizarTodasAsPropriedades(propriedades);

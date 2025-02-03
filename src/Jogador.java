@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class Jogador {
@@ -490,8 +492,47 @@ public class Jogador {
 
 
 
-    public void fazerEmprestimo(Jogador credor, float valorEmprestar, Propriedade garantia){
+    public void fazerEmprestimo(Jogador[] jogadores){
         //TODO fazer emprestimo
+        //Emprestar dinheiro de outro Jogador
+        System.out.println("\nVocê escolheu fazer empréstimo.");
+
+
+        //Verifica se Jogador possui alguma Propriedade
+        if(!this.isThereProperty(this)){
+            return;
+        }
+
+
+        // Organiza Jogadores em ordem decrescente de riqueza (mais ricos no topo)
+        Arrays.sort(jogadores, new Comparator<Jogador>() {
+            @Override
+            public int compare(Jogador j1, Jogador j2) {
+                return Float.compare(j2.getDinheiro(), j1.getDinheiro());
+            }
+        });
+
+
+
+        System.out.println("\nEscolha um Jogador para Emprestar dinheiro: ");
+        for (int i = 0; i < jogadores.length; i++) {
+            System.out.println((i + 1) + "º Lugar: " + jogadores[i].getNome() +
+                    " - Dinheiro disponível: $" + jogadores[i].getDinheiro());
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
