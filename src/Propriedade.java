@@ -37,8 +37,6 @@ public class Propriedade {
         *   Hotel = valor de 3 casas + (até $300)
         */
 
-        //TODO adicionar Empresas aluguel(multiplica pelo valor do dado)
-
 
         float aluguel = (generateRandomNumber(5, 25) / 100.0f) * valor;
 

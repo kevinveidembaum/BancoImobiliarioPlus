@@ -28,18 +28,17 @@ public class GameUtility {
                         return;
                     }
 
-                    //todo fazer emprestimos
 
                     switch (escolha) {
                         case 1 -> jogador.comprarPropriedade(propriedades);
                         case 2 -> jogador.venderPropriedade(jogador.getMinhasPropriedades());
                         case 3 -> jogador.hipotecar(jogador.getMinhasPropriedades());
                         case 4 -> jogador.gerenciarVenderComprar(jogador);
-                        case 5 -> System.out.println("\nVocê escolheu fazer empréstimo.");
+                        case 5 -> jogador.fazerEmprestimo(jogadores, jogador);
                         case 6 -> jogador.gerenciarEmprestimoAluguel(propriedades, jogador);
                         case 7 -> jogador.visualizarSaldoPropriedades(jogador);
                         case 8 -> jogador.visualizarTodasAsPropriedades(propriedades);
-                        case 9 -> GameUtility.visualizarRanking(jogadores);
+                        case 9 -> this.visualizarRanking(jogadores);
                         default -> System.out.println("Opção inválida. Tente novamente.");
                     }
                 }
@@ -66,18 +65,38 @@ public class GameUtility {
     }
 
 
-    public static void visualizarRanking(Jogador[] jogadores) {
+    public void visualizarRanking(Jogador[] jogadores) {
         // Calcula a Riqueza individual de cada Jogador
         for (Jogador jogador : jogadores) {
             float riquezaTotal = jogador.getDinheiro();
+            float valorCasaHotel = 0;
 
 
             // Seleciona e soma a riqueza, o valor de cada Propriedade
             for (Propriedade propriedade : jogador.getMinhasPropriedades()) {
-                riquezaTotal += propriedade.getValor();
+                float valorTotalPropriedade = 0;
+
+
+                /* Operador ternário
+                * Basicamente verifica se a Propriedade possui Hotel.
+                * Caso Positivo: Multiplica o valor de uma Casa por cinco -
+                * (1 Hotel é o valor de uma casa, mas para ter um Hotel é preciso ter 4 Casas)
+                *
+                * Caso Negativo: Multiplica o número atual de Casas na Propriedade pelo valor de Uma Casa.
+                */
+                valorCasaHotel += (propriedade.isHotel())? propriedade.getValorCasa() * 5 : propriedade.getQntCasas() * propriedade.getValorCasa();
+
+
+                //Soma valor da Propriedade + valor de todas as construções nela (Casas/Hotel)
+                valorTotalPropriedade += propriedade.getValor() + valorCasaHotel;
+
+
+
+                riquezaTotal += valorTotalPropriedade;
             }
 
 
+            //Atribui na riqueza total do Jogador
             jogador.setRiquezaTotal(riquezaTotal);
         }
 
@@ -100,7 +119,7 @@ public class GameUtility {
     }
 
 
-    public static List<Propriedade> inicializarPropriedades() {
+    public List<Propriedade> inicializarPropriedades() {
         List<Propriedade> propriedades = new ArrayList<>();
 
         propriedades.add(new Propriedade("Leblon", 100, false));

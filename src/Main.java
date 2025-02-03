@@ -9,7 +9,7 @@ public class Main {
 
 
         //Inicializando Todas Propriedades em uma Lista
-        List<Propriedade> propriedades = GameUtility.inicializarPropriedades();
+        List<Propriedade> propriedades = jogo.inicializarPropriedades();
 
 
         jogo.realizarTurno(propriedades, jogadores);

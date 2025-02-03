@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class Jogador {
@@ -250,6 +252,14 @@ public class Jogador {
             System.out.printf("\n%s é uma Empresa, portanto você deverá pagar uma Taxa!\n", propriedade.getNome());
 
             int numDado = InputUtility.getIntInput("Digite o número resultante da Soma dos dados: ");
+
+
+            if(!(numDado > 0 && numDado <= 12)){
+                System.out.println("Número de Dado Inválido! ");
+                return;
+            }
+
+
             float valorTaxa = propriedade.calcularTaxa(numDado);
 
             this.setDinheiro(this.getDinheiro() - valorTaxa);
@@ -490,8 +500,141 @@ public class Jogador {
 
 
 
-    public void fazerEmprestimo(Jogador credor, float valorEmprestar, Propriedade garantia){
+    public void fazerEmprestimo(Jogador[] jogadores, Jogador jogadorAtual){
         //TODO fazer emprestimo
+        //Emprestar dinheiro de outro Jogador
+        System.out.println("\nVocê escolheu fazer empréstimo.");
+
+
+        //Verifica se Jogador possui alguma Propriedade
+        if(!this.isThereProperty(jogadorAtual)){
+            return;
+        }
+
+
+        // Organiza Jogadores em ordem decrescente de dinheiro
+        Arrays.sort(jogadores, new Comparator<Jogador>() {
+            @Override
+            public int compare(Jogador j1, Jogador j2) {
+                return Float.compare(j2.getDinheiro(), j1.getDinheiro());
+            }
+        });
+
+
+        //Mostra jogadores e seus respectivos Saldos em Dinheiro
+        System.out.println("\nEscolha um Jogador para Emprestar dinheiro: ");
+        int displayedPlayers = 1;
+
+        for (int i = 0; i < jogadores.length; i++) {
+            if(jogadorAtual == jogadores[i]){
+                continue;
+            }
+
+
+            System.out.println((displayedPlayers) + "º Lugar: " + jogadores[i].getNome() +
+                    " - Dinheiro disponível: $" + jogadores[i].getDinheiro());
+            displayedPlayers++;
+        }
+
+
+        int escolhaCredor = InputUtility.getIntInput("\nDigite o número do Credor: ");
+
+
+        if(escolhaCredor < 1 || escolhaCredor > jogadores.length){
+            System.out.println("Número Inválido");
+            return;
+        }
+
+        //Ajustando o index para selecionar o Jogador credor
+        int indexCredor = escolhaCredor - 1;
+
+
+        if (jogadores[indexCredor] == null || jogadores[indexCredor] == this) {
+            System.out.println("Não é possível selecionar esse Jogador!");
+            return;
+        }
+
+
+        //Seleção do Jogador Credor
+        Jogador credor = jogadores[indexCredor];
+
+
+        float escolhaQuantiaEmprestar = InputUtility.getFloatInput("Digite o valor que deseja emprestar: $");
+
+
+        if(credor.getDinheiro() < escolhaQuantiaEmprestar){
+            System.out.printf("\n%s não possui $%.2f disponível!\n", credor.getNome(), escolhaQuantiaEmprestar);
+            return;
+        }
+
+
+        /*
+        * Jogador devedor deve selecionar uma de suas Propriedades que tenha no mínimo
+        * metade do valor de sua Proposta para servir de garantia ao Jogador Credor
+        */
+        System.out.println("\nPara Emprestar essa Quantia você deve selecionar uma Propriedade com no mínimo metade desse valor!");
+        System.out.print("\n======== Selecione uma de suas Propriedades como garantia ========");
+        GameUtility.propriedadesDisponiveis(jogadorAtual.getMinhasPropriedades());
+
+
+        //Escolha Propriedade garantia
+        int propriedadeGarantia = InputUtility.getIntInput("Digite o número da Propriedade: ");
+
+
+        if(!isValidPropertyIndex(jogadorAtual.getMinhasPropriedades(), propriedadeGarantia)){
+            return;
+        }
+
+
+        //Seleção da Propriedade de garantia
+        Propriedade garantia = jogadorAtual.getMinhasPropriedades().get(propriedadeGarantia - 1);
+
+
+        System.out.printf("voce selecionou %s", garantia.getNome());
+
+
+
+
+        System.out.printf("\n%s, você aceita Conceder um Empréstimo no valor de $%.2f para %s?\n", credor.getNome(), escolhaQuantiaEmprestar, jogadorAtual.getNome());
+        boolean respostaCredor = InputUtility.getYesOrNoInput("[S] Sim      [N] Não\n", 'S', 'N');
+
+
+        //Credor não aceitou emprestar dinheiro
+        if(!respostaCredor){
+            System.out.println("\n" + credor.getNome() + " não aceitou a oferta!");
+            return;
+        }
+
+
+        //Credor aceita oferta
+        if(respostaCredor){
+            //Emprestimo emprestimo = new Emprestimo();
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
