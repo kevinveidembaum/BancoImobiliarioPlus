@@ -568,8 +568,50 @@ public class Jogador {
         }
 
 
+        /*
+        * Jogador devedor deve selecionar uma de suas Propriedades que tenha no mínimo
+        * metade do valor de sua Proposta para servir de garantia ao Jogador Credor
+        */
+        System.out.println("\nPara Emprestar essa Quantia você deve selecionar uma Propriedade com no mínimo metade desse valor!");
+        System.out.print("\n======== Selecione uma de suas Propriedades como garantia ========");
+        GameUtility.propriedadesDisponiveis(jogadorAtual.getMinhasPropriedades());
+
+
+        //Escolha Propriedade garantia
+        int propriedadeGarantia = InputUtility.getIntInput("Digite o número da Propriedade: ");
+
+
+        if(!isValidPropertyIndex(jogadorAtual.getMinhasPropriedades(), propriedadeGarantia)){
+            return;
+        }
+
+
+        //Seleção da Propriedade de garantia
+        Propriedade garantia = jogadorAtual.getMinhasPropriedades().get(propriedadeGarantia - 1);
+
+
+        System.out.printf("voce selecionou %s", garantia.getNome());
+
+
+
+
         System.out.printf("\n%s, você aceita Conceder um Empréstimo no valor de $%.2f para %s?\n", credor.getNome(), escolhaQuantiaEmprestar, jogadorAtual.getNome());
         boolean respostaCredor = InputUtility.getYesOrNoInput("[S] Sim      [N] Não\n", 'S', 'N');
+
+
+        //Credor não aceitou emprestar dinheiro
+        if(!respostaCredor){
+            System.out.println("\n" + credor.getNome() + " não aceitou a oferta!");
+            return;
+        }
+
+
+        //Credor aceita oferta
+        if(respostaCredor){
+            //Emprestimo emprestimo = new Emprestimo();
+
+
+        }
 
 
 

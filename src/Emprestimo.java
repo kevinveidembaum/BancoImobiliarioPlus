@@ -4,7 +4,11 @@ public class Emprestimo {
     private Jogador credor;
     private Propriedade garantia;
 
+    public Emprestimo(Jogador devedor, Jogador credor, float valorEmprestimo, Propriedade garantia){
 
+
+
+    }
 
 
 

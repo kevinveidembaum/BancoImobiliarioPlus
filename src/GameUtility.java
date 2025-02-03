@@ -28,7 +28,6 @@ public class GameUtility {
                         return;
                     }
 
-                    //todo fazer emprestimos
 
                     switch (escolha) {
                         case 1 -> jogador.comprarPropriedade(propriedades);
