@@ -590,9 +590,10 @@ public class Jogador {
         Propriedade garantia = jogadorAtual.getMinhasPropriedades().get(propriedadeGarantia - 1);
 
 
-        System.out.printf("voce selecionou %s", garantia.getNome());
-
-
+        if(!(garantia.getValor() >= escolhaQuantiaEmprestar/2)){
+            System.out.println("A Propriedade de garantia deve ter um valor mínimo de Metade do valor a ser Emprestado! ");
+            return;
+        }
 
 
         System.out.printf("\n%s, você aceita Conceder um Empréstimo no valor de $%.2f para %s?\n", credor.getNome(), escolhaQuantiaEmprestar, jogadorAtual.getNome());
@@ -608,33 +609,13 @@ public class Jogador {
 
         //Credor aceita oferta
         if(respostaCredor){
-            //Emprestimo emprestimo = new Emprestimo();
+            Emprestimo emprestimo = new Emprestimo(jogadorAtual, credor, escolhaQuantiaEmprestar, garantia);
+
+            System.out.println("emprestimo feito" + emprestimo.getCredor() + " emprestou e " +
+                    emprestimo.getDevedor() + " pediu o dinheiro");
 
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
