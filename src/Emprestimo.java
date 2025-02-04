@@ -5,9 +5,10 @@ public class Emprestimo {
     private Propriedade garantia;
 
     public Emprestimo(Jogador devedor, Jogador credor, float valorEmprestimo, Propriedade garantia){
-
-
-
+        this.devedor = devedor;
+        this.credor = credor;
+        this.valorEmprestimo = valorEmprestimo;
+        this.garantia = garantia;
     }
 
 

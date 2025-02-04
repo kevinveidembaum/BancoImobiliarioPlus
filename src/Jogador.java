@@ -501,7 +501,6 @@ public class Jogador {
 
 
     public void fazerEmprestimo(Jogador[] jogadores, Jogador jogadorAtual){
-        //TODO fazer emprestimo
         //Emprestar dinheiro de outro Jogador
         System.out.println("\nVocê escolheu fazer empréstimo.");
 
@@ -512,8 +511,12 @@ public class Jogador {
         }
 
 
+        // Cópia dos Jogadores[] para não usar metodo sort no Array original
+        Jogador[] jogadoresOrdenados = Arrays.copyOf(jogadores, jogadores.length);
+
+
         // Organiza Jogadores em ordem decrescente de dinheiro
-        Arrays.sort(jogadores, new Comparator<Jogador>() {
+        Arrays.sort(jogadoresOrdenados, new Comparator<Jogador>() {
             @Override
             public int compare(Jogador j1, Jogador j2) {
                 return Float.compare(j2.getDinheiro(), j1.getDinheiro());
@@ -521,26 +524,27 @@ public class Jogador {
         });
 
 
+        //Cria uma Lista com apenas com Jogadores válidos
+        List<Jogador> jogadoresValidos = new ArrayList<>();
+        for(Jogador jogador : jogadoresOrdenados){
+            if(jogador != null && jogador != this){
+                jogadoresValidos.add(jogador);
+            }
+        }
+
+
         //Mostra jogadores e seus respectivos Saldos em Dinheiro
         System.out.println("\nEscolha um Jogador para Emprestar dinheiro: ");
-        int displayedPlayers = 1;
-
-        for (int i = 0; i < jogadores.length; i++) {
-            if(jogadorAtual == jogadores[i]){
-                continue;
-            }
-
-
-            System.out.println((displayedPlayers) + "º Lugar: " + jogadores[i].getNome() +
-                    " - Dinheiro disponível: $" + jogadores[i].getDinheiro());
-            displayedPlayers++;
+        for (int i = 0; i < jogadoresValidos.size(); i++) {
+            System.out.println((i + 1) + "º Lugar: " + jogadoresValidos.get(i).getNome() +
+                    " - Dinheiro disponível: $" + jogadoresValidos.get(i).getDinheiro());
         }
 
 
         int escolhaCredor = InputUtility.getIntInput("\nDigite o número do Credor: ");
 
 
-        if(escolhaCredor < 1 || escolhaCredor > jogadores.length){
+        if(escolhaCredor < 1 || escolhaCredor > jogadoresValidos.size()){
             System.out.println("Número Inválido");
             return;
         }
@@ -549,14 +553,8 @@ public class Jogador {
         int indexCredor = escolhaCredor - 1;
 
 
-        if (jogadores[indexCredor] == null || jogadores[indexCredor] == this) {
-            System.out.println("Não é possível selecionar esse Jogador!");
-            return;
-        }
-
-
         //Seleção do Jogador Credor
-        Jogador credor = jogadores[indexCredor];
+        Jogador credor = jogadoresValidos.get(indexCredor);
 
 
         float escolhaQuantiaEmprestar = InputUtility.getFloatInput("Digite o valor que deseja emprestar: $");
@@ -590,9 +588,10 @@ public class Jogador {
         Propriedade garantia = jogadorAtual.getMinhasPropriedades().get(propriedadeGarantia - 1);
 
 
-        System.out.printf("voce selecionou %s", garantia.getNome());
-
-
+        if(!(garantia.getValor() >= escolhaQuantiaEmprestar/2)){
+            System.out.println("A Propriedade de garantia deve ter um valor mínimo de Metade do valor a ser Emprestado! ");
+            return;
+        }
 
 
         System.out.printf("\n%s, você aceita Conceder um Empréstimo no valor de $%.2f para %s?\n", credor.getNome(), escolhaQuantiaEmprestar, jogadorAtual.getNome());
@@ -607,33 +606,10 @@ public class Jogador {
 
 
         //Credor aceita oferta
-        if(respostaCredor){
-            //Emprestimo emprestimo = new Emprestimo();
 
+        //Emprestimo emprestimo = new Emprestimo(jogadorAtual, credor, escolhaQuantiaEmprestar, garantia);
 
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        System.out.println("testando");
 
     }
 
