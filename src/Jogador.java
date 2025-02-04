@@ -511,8 +511,12 @@ public class Jogador {
         }
 
 
+        // Cópia dos Jogadores[] para não usar metodo sort no Array original
+        Jogador[] jogadoresOrdenados = Arrays.copyOf(jogadores, jogadores.length);
+
+
         // Organiza Jogadores em ordem decrescente de dinheiro
-        Arrays.sort(jogadores, new Comparator<Jogador>() {
+        Arrays.sort(jogadoresOrdenados, new Comparator<Jogador>() {
             @Override
             public int compare(Jogador j1, Jogador j2) {
                 return Float.compare(j2.getDinheiro(), j1.getDinheiro());
@@ -522,7 +526,7 @@ public class Jogador {
 
         //Cria uma Lista com apenas com Jogadores válidos
         List<Jogador> jogadoresValidos = new ArrayList<>();
-        for(Jogador jogador : jogadores){
+        for(Jogador jogador : jogadoresOrdenados){
             if(jogador != null && jogador != this){
                 jogadoresValidos.add(jogador);
             }
@@ -602,14 +606,11 @@ public class Jogador {
 
 
         //Credor aceita oferta
-        if(respostaCredor){
-            Emprestimo emprestimo = new Emprestimo(jogadorAtual, credor, escolhaQuantiaEmprestar, garantia);
 
-            System.out.println("emprestimo feito" + emprestimo.getCredor() + " emprestou e " +
-                    emprestimo.getDevedor() + " pediu o dinheiro");
+        //Emprestimo emprestimo = new Emprestimo(jogadorAtual, credor, escolhaQuantiaEmprestar, garantia);
 
+        System.out.println("testando");
 
-        }
     }
 
 
