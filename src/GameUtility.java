@@ -99,7 +99,6 @@ public class GameUtility {
                 valorTotalPropriedade += propriedade.getValor() + valorCasaHotel;
 
 
-
                 riquezaTotal += valorTotalPropriedade;
             }
 
