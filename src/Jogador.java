@@ -537,11 +537,7 @@ public class Jogador {
         }
 
 
-
-
-
-        System.out.printf("\n%s, você aceita Conceder um Empréstimo no valor de $%.2f para %s?\n", credor.getNome(), valorEmprestimo, devedor.getNome());
-        boolean respostaCredor = InputUtility.getYesOrNoInput("[S] Sim      [N] Não\n", 'S', 'N');
+        boolean respostaCredor = selecionarRespostaCredor(credor, devedor, valorEmprestimo);
 
 
         //Credor não aceitou emprestar dinheiro
@@ -552,17 +548,7 @@ public class Jogador {
 
 
         //Credor aceita oferta
-
-        Emprestimo emprestimo = new Emprestimo(devedor, credor, valorEmprestimo, garantia);
-
-        devedor.getDividasEmprestimo().add(emprestimo);
-        credor.getEmprestimosConcebidos().add(emprestimo);
-
-
-        System.out.println("\n Empréstimo realizado com sucesso!");
-        System.out.printf("%s emprestou $%.2f para %s usando %s como garantia.\n",
-                emprestimo.getCredor().getNome(), emprestimo.getValorEmprestimo(),
-                emprestimo.getDevedor().getNome(), emprestimo.getGarantia().getNome());
+        processarEmprestimo(credor, devedor, valorEmprestimo, garantia);
     }
 
 
@@ -752,6 +738,28 @@ public class Jogador {
         return valorEmprestimo;
     }
 
+
+    private boolean selecionarRespostaCredor(Jogador credor, Jogador devedor, float valorEmprestimo){
+        System.out.printf("\n%s, você aceita Conceder um Empréstimo no valor de $%.2f para %s?\n",
+                credor.getNome(), valorEmprestimo, devedor.getNome());
+
+        return InputUtility.getYesOrNoInput("[S] Sim      [N] Não\n", 'S', 'N');
+    }
+
+
+    private void processarEmprestimo(Jogador credor, Jogador devedor, float valorEmprestimo, Propriedade garantia){
+
+        Emprestimo emprestimo = new Emprestimo(credor, devedor, valorEmprestimo, garantia);
+
+        devedor.getDividasEmprestimo().add(emprestimo);
+        credor.getEmprestimosConcebidos().add(emprestimo);
+
+
+        System.out.println("\n Empréstimo realizado com sucesso!");
+        System.out.printf("%s emprestou $%.2f para %s usando %s como garantia.\n",
+                emprestimo.getCredor().getNome(), emprestimo.getValorEmprestimo(),
+                emprestimo.getDevedor().getNome(), emprestimo.getGarantia().getNome());
+    }
 
 
 

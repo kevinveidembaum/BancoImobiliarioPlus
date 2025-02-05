@@ -4,7 +4,7 @@ public class Emprestimo {
     private Jogador credor;
     private Propriedade garantia;
 
-    public Emprestimo(Jogador devedor, Jogador credor, float valorEmprestimo, Propriedade garantia){
+    public Emprestimo(Jogador credor, Jogador devedor, float valorEmprestimo, Propriedade garantia){
         this.devedor = devedor;
         this.credor = credor;
         this.valorEmprestimo = valorEmprestimo;
