@@ -6,16 +6,14 @@ import java.util.List;
 public class Jogador {
     private float dinheiro;
     private List<Propriedade> minhasPropriedades;
-    private List<Emprestimo> emprestimosConcebidos;
-    private List<Emprestimo> dividasEmprestimo;
     private String nome;
     private float riquezaTotal;
+    private List<Emprestimo> emprestimosAtivos;
 
 
     public Jogador(String nome, float dinheiro){
         this.minhasPropriedades = new ArrayList<>();
-        this.emprestimosConcebidos = new ArrayList<>();
-        this.dividasEmprestimo = new ArrayList<>();
+        this.emprestimosAtivos = new ArrayList<>();
         this.nome = nome;
         this.dinheiro = dinheiro;
     }
@@ -41,6 +39,12 @@ public class Jogador {
 
         if(! (this.getDinheiro() > propriedade.getValor())){
             System.out.println("Dinheiro insuficiente!");
+            return;
+        }
+
+
+        if(propriedade.isGarantia()){
+            System.out.println("Não é possível comprar uma Propriedade em status de Garantia!");
             return;
         }
 
@@ -159,6 +163,12 @@ public class Jogador {
         }
 
 
+        if(propriedade.isGarantia()){
+            System.out.println("Não é possível Hipotecar Propriedade com status de Garantia!");
+            return;
+        }
+
+
         if(!this.getMinhasPropriedades().contains(propriedade)){
             System.out.println("A propriedade não está na sua Lista de Propriedades!");
             return;
@@ -205,8 +215,8 @@ public class Jogador {
 
 
         // Não pode vender Propriedades Hipotecadas
-        if(propriedade.isHipotecado()){
-            System.out.println("Não é possível vender uma Propriedade Hipotecada!");
+        if(propriedade.isHipotecado() || propriedade.isGarantia()){
+            System.out.println("Não é possível vender essa Propriedade defido ao seu Estado Atual!");
             return;
         }
 
@@ -232,8 +242,8 @@ public class Jogador {
 
 
         // Verifica se a Propriedade está com status de Hipotecada
-        if(propriedade.isHipotecado()){
-            System.out.println("Você não precisa pagar aluguel para uma Propriedade Hipotecada!");
+        if(propriedade.isHipotecado() || propriedade.isGarantia()){
+            System.out.println("Você não precisa pagar aluguel para essa Propriedade!");
             return;
         }
 
@@ -299,8 +309,8 @@ public class Jogador {
             return;
         }
 
-        if(propriedade.isHipotecado()){
-            System.out.println("Não é possível Comprar uma Casa em Imóvel Hipotecado");
+        if(propriedade.isHipotecado() || propriedade.isGarantia()){
+            System.out.println("Não é possível Comprar uma Casa em Imóvel Hipotecado Ou com Status de Garantia!");
             return;
         }
 
@@ -712,6 +722,12 @@ public class Jogador {
         Propriedade garantia = devedor.getMinhasPropriedades().get(propriedadeGarantia - 1);
 
 
+        if(garantia.getQntCasas() != 0){
+            System.out.println("A Propriedade de Garantia Não deve conter Casas/Hotels!");
+            return null;
+        }
+
+
         return garantia;
     }
 
@@ -748,17 +764,12 @@ public class Jogador {
 
 
     private void processarEmprestimo(Jogador credor, Jogador devedor, float valorEmprestimo, Propriedade garantia){
-
+        //Cria o emprestimo e processa
         Emprestimo emprestimo = new Emprestimo(credor, devedor, valorEmprestimo, garantia);
 
-        devedor.getDividasEmprestimo().add(emprestimo);
-        credor.getEmprestimosConcebidos().add(emprestimo);
+        emprestimo.processar();
 
-
-        System.out.println("\n Empréstimo realizado com sucesso!");
-        System.out.printf("%s emprestou $%.2f para %s usando %s como garantia.\n",
-                emprestimo.getCredor().getNome(), emprestimo.getValorEmprestimo(),
-                emprestimo.getDevedor().getNome(), emprestimo.getGarantia().getNome());
+        devedor.getEmprestimosAtivos().add(emprestimo);
     }
 
 
@@ -767,6 +778,14 @@ public class Jogador {
 
     //Getters and Setters
 
+
+    public List<Emprestimo> getEmprestimosAtivos() {
+        return emprestimosAtivos;
+    }
+
+    public void setEmprestimosAtivos(List<Emprestimo> emprestimosAtivos) {
+        this.emprestimosAtivos = emprestimosAtivos;
+    }
 
     public float getRiquezaTotal() {
         return riquezaTotal;
@@ -803,25 +822,5 @@ public class Jogador {
 
     public void setMinhasPropriedades(List<Propriedade> minhasPropriedades) {
         this.minhasPropriedades = minhasPropriedades;
-    }
-
-
-    public List<Emprestimo> getDividasEmprestimo() {
-        return dividasEmprestimo;
-    }
-
-
-    public void setDividasEmprestimo(List<Emprestimo> dividasEmprestimo) {
-        this.dividasEmprestimo = dividasEmprestimo;
-    }
-
-
-    public List<Emprestimo> getEmprestimosConcebidos() {
-        return emprestimosConcebidos;
-    }
-
-
-    public void setEmprestimosConcebidos(List<Emprestimo> emprestimosConcebidos) {
-        this.emprestimosConcebidos = emprestimosConcebidos;
     }
 }

@@ -9,6 +9,7 @@ public class Propriedade {
     private boolean hotel;
     private String nome;
     private float multiplicador;
+    private boolean garantia;
 
     public Propriedade(String nome, float valor, boolean isEmpresa){
         this.nome = nome;
@@ -25,6 +26,7 @@ public class Propriedade {
             this.multiplicador = generateRandomNumber(40, 50);
         }
     }
+
 
     private float calcularAluguel(){
         /*  Regras para Cálculo Aluguel
@@ -102,6 +104,13 @@ public class Propriedade {
                 this.isHotel() ? "Sim" : "Não");
     }
 
+    public boolean isGarantia() {
+        return garantia;
+    }
+
+    public void setGarantia(boolean garantia) {
+        this.garantia = garantia;
+    }
 
     public float getMultiplicador() {
         return multiplicador;
