@@ -7,8 +7,8 @@ public class GameUtility {
 
     // Controle de flow do Jogo
     public void realizarTurno(List<Propriedade> propriedades, Jogador[] jogadores) {
-         boolean jogoAtivo = true;
-         int indiceJogadorAtual = 0;
+        boolean jogoAtivo = true;
+        int indiceJogadorAtual = 0;
 
         while(jogoAtivo){
             Jogador jogador = jogadores[indiceJogadorAtual];
@@ -49,6 +49,10 @@ public class GameUtility {
             }
 
 
+            //Verifica e calcula o Prazo de cada Emprestimo Ativo
+            verificarPrazo(jogadores);
+
+
             // Avança para o próximo jogador
             indiceJogadorAtual = (indiceJogadorAtual + 1) % jogadores.length;
         }
@@ -70,6 +74,31 @@ public class GameUtility {
         }
 
         return jogadores;
+    }
+
+
+    //Verificar Prazo de pagamento de Emprestimos ativos
+    public void verificarPrazo(Jogador[] jogadores){
+        for (Jogador j : jogadores) {
+            for (Emprestimo emprestimo : j.getEmprestimosAtivos()) {
+                emprestimo.calcularPrazo();
+
+                // Check if the loan is overdue
+                if (emprestimo.verificarPrazoEstourou()) {
+                    System.out.printf("\n%s não pagou o empréstimo a tempo! A propriedade %s será transferida para %s.\n",
+                            emprestimo.getDevedor().getNome(), emprestimo.getGarantia().getNome(), emprestimo.getCredor().getNome());
+
+
+                    // Transfer the property to the creditor
+                    emprestimo.getCredor().getMinhasPropriedades().add(emprestimo.getGarantia());
+                    emprestimo.getDevedor().getMinhasPropriedades().remove(emprestimo.getGarantia());
+
+
+                    // Remove the loan from the debtor's list of active loans
+                    j.getEmprestimosAtivos().remove(emprestimo);
+                }
+            }
+        }
     }
 
 

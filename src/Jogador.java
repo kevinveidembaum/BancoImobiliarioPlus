@@ -6,16 +6,14 @@ import java.util.List;
 public class Jogador {
     private float dinheiro;
     private List<Propriedade> minhasPropriedades;
-    private List<Emprestimo> emprestimosConcebidos;
-    private List<Emprestimo> dividasEmprestimo;
     private String nome;
     private float riquezaTotal;
+    private List<Emprestimo> emprestimosAtivos;
 
 
     public Jogador(String nome, float dinheiro){
         this.minhasPropriedades = new ArrayList<>();
-        this.emprestimosConcebidos = new ArrayList<>();
-        this.dividasEmprestimo = new ArrayList<>();
+        this.emprestimosAtivos = new ArrayList<>();
         this.nome = nome;
         this.dinheiro = dinheiro;
     }
@@ -724,6 +722,12 @@ public class Jogador {
         Propriedade garantia = devedor.getMinhasPropriedades().get(propriedadeGarantia - 1);
 
 
+        if(garantia.getQntCasas() != 0){
+            System.out.println("A Propriedade de Garantia Não deve conter Casas/Hotels!");
+            return null;
+        }
+
+
         return garantia;
     }
 
@@ -760,10 +764,12 @@ public class Jogador {
 
 
     private void processarEmprestimo(Jogador credor, Jogador devedor, float valorEmprestimo, Propriedade garantia){
-
+        //Cria o emprestimo e processa
         Emprestimo emprestimo = new Emprestimo(credor, devedor, valorEmprestimo, garantia);
 
         emprestimo.processar();
+
+        devedor.getEmprestimosAtivos().add(emprestimo);
     }
 
 
@@ -772,6 +778,14 @@ public class Jogador {
 
     //Getters and Setters
 
+
+    public List<Emprestimo> getEmprestimosAtivos() {
+        return emprestimosAtivos;
+    }
+
+    public void setEmprestimosAtivos(List<Emprestimo> emprestimosAtivos) {
+        this.emprestimosAtivos = emprestimosAtivos;
+    }
 
     public float getRiquezaTotal() {
         return riquezaTotal;
@@ -808,25 +822,5 @@ public class Jogador {
 
     public void setMinhasPropriedades(List<Propriedade> minhasPropriedades) {
         this.minhasPropriedades = minhasPropriedades;
-    }
-
-
-    public List<Emprestimo> getDividasEmprestimo() {
-        return dividasEmprestimo;
-    }
-
-
-    public void setDividasEmprestimo(List<Emprestimo> dividasEmprestimo) {
-        this.dividasEmprestimo = dividasEmprestimo;
-    }
-
-
-    public List<Emprestimo> getEmprestimosConcebidos() {
-        return emprestimosConcebidos;
-    }
-
-
-    public void setEmprestimosConcebidos(List<Emprestimo> emprestimosConcebidos) {
-        this.emprestimosConcebidos = emprestimosConcebidos;
     }
 }
