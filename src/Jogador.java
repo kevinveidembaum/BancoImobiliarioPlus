@@ -513,40 +513,16 @@ public class Jogador {
         }
 
 
-        // Cópia dos Jogadores[] para não usar metodo sort no Array original
-        Jogador[] jogadoresOrdenados = Arrays.copyOf(jogadores, jogadores.length);
+        List<Jogador> credoresValidos = exibirCredoresValidor(jogadores, devedor);
 
 
-        // Organiza Jogadores em ordem decrescente de dinheiro
-        Arrays.sort(jogadoresOrdenados, new Comparator<Jogador>() {
-            @Override
-            public int compare(Jogador j1, Jogador j2) {
-                return Float.compare(j2.getDinheiro(), j1.getDinheiro());
-            }
-        });
 
-
-        //Cria uma Lista com apenas com Jogadores válidos
-        List<Jogador> jogadoresValidos = new ArrayList<>();
-        for(Jogador jogador : jogadoresOrdenados){
-            if(jogador != null && jogador != this){
-                jogadoresValidos.add(jogador);
-            }
-        }
-
-
-        //Mostra jogadores e seus respectivos Saldos em Dinheiro
-        System.out.println("\nEscolha um Jogador para Emprestar dinheiro: ");
-        for (int i = 0; i < jogadoresValidos.size(); i++) {
-            System.out.println((i + 1) + "º Lugar: " + jogadoresValidos.get(i).getNome() +
-                    " - Dinheiro disponível: $" + jogadoresValidos.get(i).getDinheiro());
-        }
 
 
         int escolhaCredor = InputUtility.getIntInput("\nDigite o número do Credor: ");
 
 
-        if(escolhaCredor < 1 || escolhaCredor > jogadoresValidos.size()){
+        if(escolhaCredor < 1 || escolhaCredor > credoresValidos.size()){
             System.out.println("Número Inválido");
             return;
         }
@@ -556,7 +532,7 @@ public class Jogador {
 
 
         //Seleção do Jogador Credor
-        Jogador credor = jogadoresValidos.get(indexCredor);
+        Jogador credor = credoresValidos.get(indexCredor);
 
 
         float valorEmprestimo = InputUtility.getFloatInput("Digite o valor que deseja emprestar: $");
@@ -615,7 +591,7 @@ public class Jogador {
         credor.getEmprestimosConcebidos().add(emprestimo);
 
 
-        System.out.println("\nEmpréstimo realizado com sucesso!");
+        System.out.println("\n Empréstimo realizado com sucesso!");
         System.out.printf("%s emprestou $%.2f para %s usando %s como garantia.\n",
                 emprestimo.getCredor().getNome(), emprestimo.getValorEmprestimo(),
                 emprestimo.getDevedor().getNome(), emprestimo.getGarantia().getNome());
@@ -705,6 +681,50 @@ public class Jogador {
         }
         return true;
     }
+
+
+    //METODOS PRIVADOS DE AJUDA (PARA MANTER O CODIGO MAIS LIMPO)
+
+    //Metodos para fazerEmprestimo
+    private List<Jogador> exibirCredoresValidor(Jogador[] jogadores, Jogador JogadorAtual){
+        // Cópia dos Jogadores[] para não usar metodo sort no Array original
+        Jogador[] jogadoresOrdenados = Arrays.copyOf(jogadores, jogadores.length);
+
+
+        // Organiza Jogadores em ordem decrescente de dinheiro
+        Arrays.sort(jogadoresOrdenados, new Comparator<Jogador>() {
+            @Override
+            public int compare(Jogador j1, Jogador j2) {
+                return Float.compare(j2.getDinheiro(), j1.getDinheiro());
+            }
+        });
+
+
+        //Cria uma Lista com apenas com Jogadores válidos
+        List<Jogador> jogadoresValidos = new ArrayList<>();
+        for(Jogador jogador : jogadoresOrdenados){
+            if(jogador != null && jogador != this){
+                jogadoresValidos.add(jogador);
+            }
+        }
+
+
+        //Mostra jogadores e seus respectivos Saldos em Dinheiro
+        System.out.println("\nEscolha um Jogador para Emprestar dinheiro: ");
+        for (int i = 0; i < jogadoresValidos.size(); i++) {
+            System.out.println((i + 1) + "º Lugar: " + jogadoresValidos.get(i).getNome() +
+                    " - Dinheiro disponível: $" + jogadoresValidos.get(i).getDinheiro());
+        }
+
+        return jogadoresValidos;
+    }
+
+
+
+
+
+
+    //Getters and Setters
 
 
     public float getRiquezaTotal() {
