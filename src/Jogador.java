@@ -516,23 +516,10 @@ public class Jogador {
         List<Jogador> credoresValidos = exibirCredoresValidor(jogadores, devedor);
 
 
-
-
-
-        int escolhaCredor = InputUtility.getIntInput("\nDigite o número do Credor: ");
-
-
-        if(escolhaCredor < 1 || escolhaCredor > credoresValidos.size()){
-            System.out.println("Número Inválido");
-            return;
-        }
-
-        //Ajustando o index para selecionar o Jogador credor
-        int indexCredor = escolhaCredor - 1;
-
-
         //Seleção do Jogador Credor
-        Jogador credor = credoresValidos.get(indexCredor);
+        Jogador credor = selecionarCredor(credoresValidos);
+
+
 
 
         float valorEmprestimo = InputUtility.getFloatInput("Digite o valor que deseja emprestar: $");
@@ -685,6 +672,7 @@ public class Jogador {
 
     //METODOS PRIVADOS DE AJUDA (PARA MANTER O CODIGO MAIS LIMPO)
 
+
     //Metodos para fazerEmprestimo
     private List<Jogador> exibirCredoresValidor(Jogador[] jogadores, Jogador JogadorAtual){
         // Cópia dos Jogadores[] para não usar metodo sort no Array original
@@ -717,6 +705,20 @@ public class Jogador {
         }
 
         return jogadoresValidos;
+    }
+
+
+    private Jogador selecionarCredor(List<Jogador> credoresValidos){
+        int escolhaCredor = InputUtility.getIntInput("\nDigite o número do Credor: ");
+
+
+        if(escolhaCredor < 1 || escolhaCredor > credoresValidos.size()){
+            System.out.println("Número Inválido");
+            return null;
+        }
+
+
+        return credoresValidos.get(escolhaCredor - 1);
     }
 
 
