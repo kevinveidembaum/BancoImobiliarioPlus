@@ -14,6 +14,8 @@ public class Jogador {
 
     public Jogador(String nome, float dinheiro){
         this.minhasPropriedades = new ArrayList<>();
+        this.emprestimosConcebidos = new ArrayList<>();
+        this.dividasEmprestimo = new ArrayList<>();
         this.nome = nome;
         this.dinheiro = dinheiro;
     }
@@ -500,13 +502,13 @@ public class Jogador {
 
 
 
-    public void fazerEmprestimo(Jogador[] jogadores, Jogador jogadorAtual){
+    public void fazerEmprestimo(Jogador[] jogadores, Jogador devedor){
         //Emprestar dinheiro de outro Jogador
         System.out.println("\nVocê escolheu fazer empréstimo.");
 
 
         //Verifica se Jogador possui alguma Propriedade
-        if(!this.isThereProperty(jogadorAtual)){
+        if(!this.isThereProperty(devedor)){
             return;
         }
 
@@ -557,11 +559,11 @@ public class Jogador {
         Jogador credor = jogadoresValidos.get(indexCredor);
 
 
-        float escolhaQuantiaEmprestar = InputUtility.getFloatInput("Digite o valor que deseja emprestar: $");
+        float valorEmprestimo = InputUtility.getFloatInput("Digite o valor que deseja emprestar: $");
 
 
-        if(credor.getDinheiro() < escolhaQuantiaEmprestar){
-            System.out.printf("\n%s não possui $%.2f disponível!\n", credor.getNome(), escolhaQuantiaEmprestar);
+        if(credor.getDinheiro() < valorEmprestimo){
+            System.out.printf("\n%s não possui $%.2f disponível!\n", credor.getNome(), valorEmprestimo);
             return;
         }
 
@@ -572,29 +574,29 @@ public class Jogador {
         */
         System.out.println("\nPara Emprestar essa Quantia você deve selecionar uma Propriedade com no mínimo metade desse valor!");
         System.out.print("\n======== Selecione uma de suas Propriedades como garantia ========");
-        GameUtility.propriedadesDisponiveis(jogadorAtual.getMinhasPropriedades());
+        GameUtility.propriedadesDisponiveis(devedor.getMinhasPropriedades());
 
 
         //Escolha Propriedade garantia
         int propriedadeGarantia = InputUtility.getIntInput("Digite o número da Propriedade: ");
 
 
-        if(!isValidPropertyIndex(jogadorAtual.getMinhasPropriedades(), propriedadeGarantia)){
+        if(!isValidPropertyIndex(devedor.getMinhasPropriedades(), propriedadeGarantia)){
             return;
         }
 
 
         //Seleção da Propriedade de garantia
-        Propriedade garantia = jogadorAtual.getMinhasPropriedades().get(propriedadeGarantia - 1);
+        Propriedade garantia = devedor.getMinhasPropriedades().get(propriedadeGarantia - 1);
 
 
-        if(!(garantia.getValor() >= escolhaQuantiaEmprestar/2)){
+        if(!(garantia.getValor() >= valorEmprestimo/2)){
             System.out.println("A Propriedade de garantia deve ter um valor mínimo de Metade do valor a ser Emprestado! ");
             return;
         }
 
 
-        System.out.printf("\n%s, você aceita Conceder um Empréstimo no valor de $%.2f para %s?\n", credor.getNome(), escolhaQuantiaEmprestar, jogadorAtual.getNome());
+        System.out.printf("\n%s, você aceita Conceder um Empréstimo no valor de $%.2f para %s?\n", credor.getNome(), valorEmprestimo, devedor.getNome());
         boolean respostaCredor = InputUtility.getYesOrNoInput("[S] Sim      [N] Não\n", 'S', 'N');
 
 
@@ -607,10 +609,16 @@ public class Jogador {
 
         //Credor aceita oferta
 
-        //Emprestimo emprestimo = new Emprestimo(jogadorAtual, credor, escolhaQuantiaEmprestar, garantia);
+        Emprestimo emprestimo = new Emprestimo(devedor, credor, valorEmprestimo, garantia);
 
-        System.out.println("testando");
+        devedor.getDividasEmprestimo().add(emprestimo);
+        credor.getEmprestimosConcebidos().add(emprestimo);
 
+
+        System.out.println("\nEmpréstimo realizado com sucesso!");
+        System.out.printf("%s emprestou $%.2f para %s usando %s como garantia.\n",
+                emprestimo.getCredor().getNome(), emprestimo.getValorEmprestimo(),
+                emprestimo.getDevedor().getNome(), emprestimo.getGarantia().getNome());
     }
 
 
