@@ -520,21 +520,19 @@ public class Jogador {
         Jogador credor = selecionarCredor(credoresValidos);
 
 
-        //Seleção Propriedade como garantia
-        Propriedade garantia = selecionarGarantia(devedor);
-
-
-        float valorEmprestimo = InputUtility.getFloatInput("Digite o valor que deseja emprestar: $");
-
-
-        if(!(garantia.getValor() >= valorEmprestimo/2)){
-            System.out.println("A Propriedade de garantia deve ter um valor mínimo de Metade do valor a ser Emprestado! ");
+        if(credor == null){
             return;
         }
 
 
-        if(credor.getDinheiro() < valorEmprestimo){
-            System.out.printf("\n%s não possui $%.2f disponível!\n", credor.getNome(), valorEmprestimo);
+        //Seleção Propriedade como garantia
+        Propriedade garantia = selecionarGarantia(devedor);
+
+
+        float valorEmprestimo = selecionarValorEmprestimo(credor, garantia);
+
+
+        if(valorEmprestimo <= 0){
             return;
         }
 
@@ -711,7 +709,6 @@ public class Jogador {
          * metade do valor de sua Proposta para servir de garantia ao Jogador Credor
          */
         System.out.println("\nPara realizar um Empréstimo, você deve selecionar uma Propriedade como garantia.");
-        System.out.println(" E, a quantia que Deseja Emprestar deverá ser, no mínimo, metade do valor da Propriedade de Garantia!");
         System.out.print("\n======== Selecione uma de suas Propriedades como garantia ========");
         GameUtility.propriedadesDisponiveis(devedor.getMinhasPropriedades());
 
@@ -730,6 +727,29 @@ public class Jogador {
 
 
         return garantia;
+    }
+
+
+    private float selecionarValorEmprestimo(Jogador credor, Propriedade garantia){
+        System.out.println("\nValor da Propriedade de Garantia: $" + garantia.getValor() +
+                "\nValor Máximo de Empréstimo: $" + (garantia.getValor()*2) );
+
+        float valorEmprestimo = InputUtility.getFloatInput("\nDigite o valor que deseja emprestar: $");
+
+
+        if(valorEmprestimo > garantia.getValor()*2){
+            System.out.println("Valor de Empréstimo Negado! Propriedade garantia Insuficiente!");
+            return -1;
+        }
+
+
+        if(credor.getDinheiro() < valorEmprestimo){
+            System.out.printf("\n%s não possui $%.2f disponível!\n", credor.getNome(), valorEmprestimo);
+            return -1;
+        }
+
+
+        return valorEmprestimo;
     }
 
 
