@@ -45,6 +45,12 @@ public class Jogador {
         }
 
 
+        if(propriedade.isGarantia()){
+            System.out.println("Não é possível comprar uma Propriedade em status de Garantia!");
+            return;
+        }
+
+
         //Se a Propriedade estiver Hipotecada e Quem está comprando não for o Dono da Hipoteca
         if(propriedade.isHipotecado() &&  !propriedade.getDono().equals(this)){
             System.out.println("Não é possível comprar uma Propriedade Hipotecada que não é Sua!");
@@ -159,6 +165,12 @@ public class Jogador {
         }
 
 
+        if(propriedade.isGarantia()){
+            System.out.println("Não é possível Hipotecar Propriedade com status de Garantia!");
+            return;
+        }
+
+
         if(!this.getMinhasPropriedades().contains(propriedade)){
             System.out.println("A propriedade não está na sua Lista de Propriedades!");
             return;
@@ -205,8 +217,8 @@ public class Jogador {
 
 
         // Não pode vender Propriedades Hipotecadas
-        if(propriedade.isHipotecado()){
-            System.out.println("Não é possível vender uma Propriedade Hipotecada!");
+        if(propriedade.isHipotecado() || propriedade.isGarantia()){
+            System.out.println("Não é possível vender essa Propriedade defido ao seu Estado Atual!");
             return;
         }
 
@@ -232,8 +244,8 @@ public class Jogador {
 
 
         // Verifica se a Propriedade está com status de Hipotecada
-        if(propriedade.isHipotecado()){
-            System.out.println("Você não precisa pagar aluguel para uma Propriedade Hipotecada!");
+        if(propriedade.isHipotecado() || propriedade.isGarantia()){
+            System.out.println("Você não precisa pagar aluguel para essa Propriedade!");
             return;
         }
 
@@ -299,8 +311,8 @@ public class Jogador {
             return;
         }
 
-        if(propriedade.isHipotecado()){
-            System.out.println("Não é possível Comprar uma Casa em Imóvel Hipotecado");
+        if(propriedade.isHipotecado() || propriedade.isGarantia()){
+            System.out.println("Não é possível Comprar uma Casa em Imóvel Hipotecado Ou com Status de Garantia!");
             return;
         }
 
@@ -751,14 +763,7 @@ public class Jogador {
 
         Emprestimo emprestimo = new Emprestimo(credor, devedor, valorEmprestimo, garantia);
 
-        devedor.getDividasEmprestimo().add(emprestimo);
-        credor.getEmprestimosConcebidos().add(emprestimo);
-
-
-        System.out.println("\n Empréstimo realizado com sucesso!");
-        System.out.printf("%s emprestou $%.2f para %s usando %s como garantia.\n",
-                emprestimo.getCredor().getNome(), emprestimo.getValorEmprestimo(),
-                emprestimo.getDevedor().getNome(), emprestimo.getGarantia().getNome());
+        emprestimo.processar();
     }
 
 

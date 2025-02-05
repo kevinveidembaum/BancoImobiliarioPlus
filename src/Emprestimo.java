@@ -12,6 +12,23 @@ public class Emprestimo {
     }
 
 
+    //Logica de transações
+    public void processar(){
+        // Tranferencia de Dinheiro
+        credor.setDinheiro(credor.getDinheiro() - valorEmprestimo);
+        devedor.setDinheiro(devedor.getDinheiro() + valorEmprestimo);
+
+
+        // Marca a Propriedade como Garantia para Credor
+        garantia.setDono(credor);
+        garantia.setGarantia(true);
+
+
+        System.out.println("\nEmpréstimo processado com sucesso!");
+        System.out.printf("%s emprestou $%.2f para %s usando %s como garantia.\n",
+                credor.getNome(), valorEmprestimo, devedor.getNome(), garantia.getNome());
+    }
+
 
     public float getValorEmprestimo() {
         return valorEmprestimo;

@@ -172,6 +172,12 @@ public class GameUtility {
             Propriedade propriedade = propriedades.get(i);
 
 
+            if(propriedade.isGarantia()){
+                System.out.printf("%d. Nome: %s, Valor: $%.2f (Propriedade Garantia para %s)\n", i + 1, propriedade.getNome(), propriedade.getValor(), propriedade.getDono().getNome());
+                continue;
+            }
+
+
             if(propriedade.isHipotecado()){
                 System.out.printf("%d. Nome: %s, Valor: $%.2f (Hipotecado por %s)\n", i + 1, propriedade.getNome(), propriedade.getValor(), propriedade.getDono().getNome());
                 continue;
@@ -197,7 +203,7 @@ public class GameUtility {
 
 
             // Pula Propriedades sem Dono OU Hipotecadas OU o Dono é o próprio Jogador que chamou o metodo
-            if (propriedade.getDono() == null || propriedade.isHipotecado() || propriedade.getDono().equals(jogador)) {
+            if (propriedade.getDono() == null || propriedade.isHipotecado() || propriedade.isGarantia() || propriedade.getDono().equals(jogador)) {
                 continue;
             }
 
