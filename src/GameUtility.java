@@ -9,6 +9,7 @@ public class GameUtility {
     public void realizarTurno(List<Propriedade> propriedades, Jogador[] jogadores) {
         boolean jogoAtivo = true;
         int indiceJogadorAtual = 0;
+        int turnoAtual = 0;
 
         while(jogoAtivo){
             Jogador jogador = jogadores[indiceJogadorAtual];
@@ -49,8 +50,18 @@ public class GameUtility {
             }
 
 
-            //Verifica e calcula o Prazo de cada Emprestimo Ativo
-            verificarPrazo(jogadores);
+            //Adiciona 1 ao turno
+            turnoAtual++;
+
+
+            //Verifica se está no fim do Ciclo de Jogadores
+            if(turnoAtual == jogadores.length){
+
+                verificarPrazo(jogadores);
+
+                //Reseta o Ciclo
+                turnoAtual = 0;
+            }
 
 
             // Avança para o próximo jogador

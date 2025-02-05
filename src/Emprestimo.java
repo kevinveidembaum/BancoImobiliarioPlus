@@ -10,7 +10,7 @@ public class Emprestimo {
         this.credor = credor;
         this.valorEmprestimo = valorEmprestimo;
         this.garantia = garantia;
-        this.prazoFinal = 5;
+        this.prazoFinal = 6;
     }
 
 
