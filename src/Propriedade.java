@@ -5,7 +5,6 @@ public class Propriedade {
     private boolean empresa;
     private int qntCasas;
     private float valorCasa;
-    private float valorAluguel;
     private boolean hotel;
     private String nome;
     private float multiplicador;
@@ -176,15 +175,6 @@ public class Propriedade {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public float getValorAluguel() {
-        return calcularAluguel();
-    }
-
-
-    public void setValorAluguel(float valorAluguel) {
-        this.valorAluguel = valorAluguel;
     }
 
 
