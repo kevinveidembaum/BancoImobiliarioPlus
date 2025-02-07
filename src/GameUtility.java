@@ -272,8 +272,6 @@ public class GameUtility {
 
             System.out.printf("%d. Credor: %s ==> Valor Emprestado: $%.2f, Valor a Pagar: $%.2f\n",
                     i + 1, emprestimo.getCredor().getNome(), emprestimo.getValorEmprestimo(), emprestimo.getValorAtual());
-
-            //todo arrumar o valor a pagar
         }
     }
 }
