@@ -549,6 +549,11 @@ public class Jogador {
         Propriedade garantia = selecionarGarantia(devedor);
 
 
+        if(garantia == null){
+            return;
+        }
+
+
         float valorEmprestimo = selecionarValorEmprestimo(credor, garantia);
 
 
@@ -718,8 +723,6 @@ public class Jogador {
         System.out.print("\n======== Selecione uma de suas Propriedades como garantia ========");
         GameUtility.propriedadesDisponiveis(devedor.getMinhasPropriedades());
 
-        //todo arrumar erro de duplicação de propriedade e propriedade garantia não pode ser usada como garantia novamente
-
 
         //Escolha Propriedade garantia
         int propriedadeGarantia = InputUtility.getIntInput("Digite o número da Propriedade: ");
@@ -735,7 +738,13 @@ public class Jogador {
 
 
         if(garantia.getQntCasas() != 0){
-            System.out.println("A Propriedade de Garantia Não deve conter Casas/Hotels!");
+            System.out.println("\nA Propriedade de Garantia Não deve conter Casas/Hotels!");
+            return null;
+        }
+
+
+        if(garantia.isGarantia() || garantia.isHipotecado()){
+            System.out.println("\nPropriedades Hipotecadas ou Já Garantidas não podem ser selecionadas!");
             return null;
         }
 
