@@ -90,6 +90,7 @@ public class GameUtility {
 
     //Verificar Prazo de pagamento de Emprestimos ativos
     public void verificarPrazo(Jogador[] jogadores){
+        //todo arrumar o erro
         for (Jogador j : jogadores) {
             for (Emprestimo emprestimo : j.getEmprestimosAtivos()) {
                 emprestimo.calcularPrazo();
@@ -101,6 +102,7 @@ public class GameUtility {
 
 
                     // Transfer the property to the creditor
+                    //todo transferir propriedade adequadamente
                     emprestimo.getCredor().getMinhasPropriedades().add(emprestimo.getGarantia());
                     emprestimo.getDevedor().getMinhasPropriedades().remove(emprestimo.getGarantia());
 
