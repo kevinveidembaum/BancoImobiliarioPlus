@@ -5,11 +5,16 @@ public class Propriedade {
     private boolean empresa;
     private int qntCasas;
     private float valorCasa;
-    private float valorAluguel;
     private boolean hotel;
     private String nome;
     private float multiplicador;
     private boolean garantia;
+
+    //Armazenando números aleatórios para calculo de aluguel
+    final int RANDOM_1 = generateRandomNumber(100, 200); // Instead of 100-300
+    final int RANDOM_2 = generateRandomNumber(50, 150);
+    final int RANDOM_3 = generateRandomNumber(100, 300);  // Instead of 0-300
+
 
     public Propriedade(String nome, float valor, boolean isEmpresa){
         this.nome = nome;
@@ -20,7 +25,6 @@ public class Propriedade {
         // Empresas não podem ter construções nem valor de aluguel
         if(!isEmpresa){
             this.valorCasa = generateRandomNumber(0, 50) + this.valor;
-            this.valorAluguel = calcularAluguel();
         }else{
             //Porém somente empresas possuem multiplicadores de taxas
             this.multiplicador = generateRandomNumber(40, 50);
@@ -28,42 +32,39 @@ public class Propriedade {
     }
 
 
-    private float calcularAluguel(){
+    public float calcularAluguel(){
         /*  Regras para Cálculo Aluguel
         *
         *   Aluguel (Sem casas) = até 25% do valor da Propriedade
-        *   1 Casa = valor da Propriedade - (até $300)
-        *   2 Casas = x3 o valor de 1 casa, - (até $300)
-        *   3 Casas = x2 o valor de 2 casas + (até $200) OU x3 valor de 2 casas
-        *   4 Casas = valor de 3 casas + (até $300)
-        *   Hotel = valor de 3 casas + (até $300)
+        *   1 Casa = valor da Propriedade - (até 25% do valor da Propriedade)
+        *   2 Casas = 150% preço de 1 Casas + (até $200)
+        *   3 Casas = 150% preço de 2 Casas + (até $150)
+        *   4 Casas = valor de 3 Casas + (mínimo $100 até $300)
+        *   Hotel = 150% preço de 4 Casas
         */
 
 
-        float aluguel = (generateRandomNumber(5, 25) / 100.0f) * valor;
+        float aluguel;
+        float aluguelBase = (generateRandomNumber(5, 25) / 100.0f) * this.getValor();
+        aluguel = aluguelBase;
 
-        if (this.isHotel()) {
-            // Aluguel Hotel
-            return aluguel = 2 * (aluguel + generateRandomNumber(0, 300));
+
+        //Loop para atribuição de Aluguel acumulativo
+        if(this.getQntCasas() >= 1){
+            for(int i=1; i <= this.getQntCasas(); i++){
+                switch (i) {
+                    case 1 -> aluguel = this.getValor() - aluguelBase;
+                    case 2 -> aluguel = (float) ((1.5 * aluguel) + RANDOM_1);
+                    case 3 -> aluguel = (float) ((1.5 * aluguel) + RANDOM_2);
+                    case 4 -> aluguel = aluguel + RANDOM_3;
+                }
+            }
         }
 
 
-        for (int i = 1; i <=  this.getQntCasas(); i++) {
-            if (i == 1) {
-                // Aluguel para 1 casas
-                aluguel = valor - generateRandomNumber(100, 300);
-            } else if (i == 2) {
-                // Aluguel para 2 casas
-                aluguel = aluguel * 3 - generateRandomNumber(100, 300);
-            } else if (i == 3) {
-                // Aluguel para 3 casas
-                aluguel = aluguel * 2 + generateRandomNumber(0, 200);
-            } else if (i == 4) {
-                // Aluguel para 4 casas
-                aluguel = aluguel + generateRandomNumber(0, 300);
-            }
-
-            return aluguel;
+        if (this.isHotel()) {
+            // Aluguel Hotel
+            aluguel = (float) (1.5 * aluguel);
         }
 
 
@@ -174,15 +175,6 @@ public class Propriedade {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public float getValorAluguel() {
-        return valorAluguel;
-    }
-
-
-    public void setValorAluguel(float valorAluguel) {
-        this.valorAluguel = valorAluguel;
     }
 
 

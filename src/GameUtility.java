@@ -91,24 +91,34 @@ public class GameUtility {
     //Verificar Prazo de pagamento de Emprestimos ativos
     public void verificarPrazo(Jogador[] jogadores){
         for (Jogador j : jogadores) {
+            //Cria uma Lista para armazenar apenas Emprestimo que venceram
+            List<Emprestimo> emprestimosVencidos = new ArrayList<>();
+
+
             for (Emprestimo emprestimo : j.getEmprestimosAtivos()) {
                 emprestimo.calcularPrazo();
 
-                // Check if the loan is overdue
+                // verifica o Prazo do Emprestimo
                 if (emprestimo.verificarPrazoEstourou()) {
                     System.out.printf("\n%s não pagou o empréstimo a tempo! A propriedade %s será transferida para %s.\n",
                             emprestimo.getDevedor().getNome(), emprestimo.getGarantia().getNome(), emprestimo.getCredor().getNome());
+                    System.out.printf("Valor Final do Dívida: $%.2f\n", emprestimo.getValorAtual());
 
 
-                    // Transfer the property to the creditor
+                    // Transfire Propriedade garantia para Credor
+                    emprestimo.getGarantia().setGarantia(false);
                     emprestimo.getCredor().getMinhasPropriedades().add(emprestimo.getGarantia());
                     emprestimo.getDevedor().getMinhasPropriedades().remove(emprestimo.getGarantia());
 
 
-                    // Remove the loan from the debtor's list of active loans
-                    j.getEmprestimosAtivos().remove(emprestimo);
+                    // adicionar Emprestimo a Lista de Emprestimos Vencidos
+                    emprestimosVencidos.add(emprestimo);
                 }
             }
+
+
+            //Remover Emprestimos vencidos da Lista de emprestimos dos Jogadores
+            j.getEmprestimosAtivos().removeAll(emprestimosVencidos);
         }
     }
 
@@ -249,6 +259,21 @@ public class GameUtility {
 
 
             System.out.printf("%d. Nome: %s, Valor: $%.2f (Dono Atual: %s)\n", i + 1, propriedade.getNome(), propriedade.getValor(), propriedade.getDono().getNome());
+        }
+    }
+
+
+    // Mostra Emprestimo Ativos do Jogador
+    public static void visualizarEmprestimoAtivos(List<Emprestimo> emprestimos) {
+        System.out.println("\nEmpréstimos: ");
+        for (int i = 0; i < emprestimos.size(); i++) {
+            Emprestimo emprestimo = emprestimos.get(i);
+
+
+            System.out.printf("%d. Credor: %s ==> Valor Emprestado: $%.2f, Valor a Pagar: $%.2f\n",
+                    i + 1, emprestimo.getCredor().getNome(), emprestimo.getValorEmprestimo(), emprestimo.getValorAtual());
+
+            //todo arrumar o valor a pagar
         }
     }
 }

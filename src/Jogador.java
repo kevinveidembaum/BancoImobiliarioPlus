@@ -234,13 +234,6 @@ public class Jogador {
 
 
     public void pagarAluguel(Propriedade propriedade){
-        // Verifica se Jogador possui dinheiro suficiente
-        if(this.getDinheiro() < propriedade.getValorAluguel()){
-            System.out.println("Dinheiro Insuficiente para Pagar Aluguel!");
-            return;
-        }
-
-
         // Verifica se a Propriedade está com status de Hipotecada
         if(propriedade.isHipotecado() || propriedade.isGarantia()){
             System.out.println("Você não precisa pagar aluguel para essa Propriedade!");
@@ -282,10 +275,22 @@ public class Jogador {
         }
 
 
-        this.setDinheiro(this.getDinheiro() - propriedade.getValorAluguel());
-        dono.setDinheiro(dono.getDinheiro() + propriedade.getValorAluguel());
+        //Calcular aluguel para pagar
+        float aluguel = propriedade.calcularAluguel();
 
-        System.out.printf("\n%s Pagou Aluguel no valor de $%.2f para %s\n", this.getNome(), propriedade.getValorAluguel(), dono.getNome());
+
+        // Verifica se Jogador possui dinheiro suficiente
+        if(this.getDinheiro() < aluguel){
+            System.out.println("Dinheiro Insuficiente para Pagar Aluguel!");
+            return;
+        }
+
+
+        //Pagamento aluguel
+        this.setDinheiro(this.getDinheiro() - aluguel);
+        dono.setDinheiro(dono.getDinheiro() + aluguel);
+
+        System.out.printf("\n%s Pagou Aluguel no valor de $%.2f para %s\n", this.getNome(), aluguel, dono.getNome());
     }
 
 
@@ -498,6 +503,12 @@ public class Jogador {
             Propriedade propriedade = listaPropriedades.get(escolhaPagar - 1);
 
 
+            if(propriedade.getDono() == this){
+                System.out.println("Você é o Dono dessa Propriedade!");
+                return;
+            }
+
+
             jogador.pagarAluguel(propriedade);
         }
 
@@ -539,6 +550,11 @@ public class Jogador {
         Propriedade garantia = selecionarGarantia(devedor);
 
 
+        if(garantia == null){
+            return;
+        }
+
+
         float valorEmprestimo = selecionarValorEmprestimo(credor, garantia);
 
 
@@ -573,7 +589,7 @@ public class Jogador {
 
 
     public void visualizarSaldoPropriedades(Jogador jogador){
-        System.out.println("\nVocê escolheu visualizar Saldo e Minhas Propriedades.");
+        System.out.println("\nVocê escolheu visualizar seus Dados.");
 
 
         System.out.printf("\nDinheiro disponível: $%.2f\n", jogador.getDinheiro());
@@ -581,11 +597,16 @@ public class Jogador {
 
         if(!jogador.getMinhasPropriedades().isEmpty()){
             GameUtility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
-            return;
+        }else {
+            System.out.println("\nVocê não possui propriedades no momento.");
         }
 
 
-        System.out.println("Você não possui propriedades no momento.");
+        if(!jogador.getEmprestimosAtivos().isEmpty()){
+            GameUtility.visualizarEmprestimoAtivos(jogador.getEmprestimosAtivos());
+        }else{
+            System.out.println("\nVocê não possui Emprestimos Ativos no momento.");
+        }
     }
 
 
@@ -723,7 +744,13 @@ public class Jogador {
 
 
         if(garantia.getQntCasas() != 0){
-            System.out.println("A Propriedade de Garantia Não deve conter Casas/Hotels!");
+            System.out.println("\nA Propriedade de Garantia Não deve conter Casas/Hotels!");
+            return null;
+        }
+
+
+        if(garantia.isGarantia() || garantia.isHipotecado()){
+            System.out.println("\nPropriedades Hipotecadas ou Já Garantidas não podem ser selecionadas!");
             return null;
         }
 
