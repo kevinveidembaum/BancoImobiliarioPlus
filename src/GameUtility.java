@@ -98,11 +98,11 @@ public class GameUtility {
             for (Emprestimo emprestimo : j.getEmprestimosAtivos()) {
                 emprestimo.calcularPrazo();
 
-                // Check if the loan is overdue
+                // verifica o Prazo do Emprestimo
                 if (emprestimo.verificarPrazoEstourou()) {
-                    //todo adicionar o preco final do emprestimo (valorComJuros)
                     System.out.printf("\n%s não pagou o empréstimo a tempo! A propriedade %s será transferida para %s.\n",
                             emprestimo.getDevedor().getNome(), emprestimo.getGarantia().getNome(), emprestimo.getCredor().getNome());
+                    System.out.printf("Valor Final do Dívida: $%.2f\n", emprestimo.getValorAtual());
 
 
                     // Transfire Propriedade garantia para Credor
@@ -111,7 +111,7 @@ public class GameUtility {
                     emprestimo.getDevedor().getMinhasPropriedades().remove(emprestimo.getGarantia());
 
 
-                    // adicionar Emprestimo a Lista de Emrpestimos Vencidos
+                    // adicionar Emprestimo a Lista de Emprestimos Vencidos
                     emprestimosVencidos.add(emprestimo);
                 }
             }
@@ -271,7 +271,7 @@ public class GameUtility {
 
 
             System.out.printf("%d. Credor: %s ==> Valor Emprestado: $%.2f, Valor a Pagar: $%.2f\n",
-                    i + 1, emprestimo.getCredor().getNome(), emprestimo.getValorEmprestimo(), 90f);
+                    i + 1, emprestimo.getCredor().getNome(), emprestimo.getValorEmprestimo(), emprestimo.getValorAtual());
 
             //todo arrumar o valor a pagar
         }

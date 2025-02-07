@@ -15,7 +15,7 @@ public class InputUtility {
         System.out.println("4. Comprar OU Vender Casa/Hotel");
         System.out.println("5. Fazer Empréstimo");
         System.out.println("6. Pagar Empréstimo OU Aluguel");
-        System.out.println("7. Visualizar Meu Saldo e Minhas Propriedades");
+        System.out.println("7. Visualizar Meus Dados");
         System.out.println("8. Visualizar Todas as Propriedades");
         System.out.println("9. Ranking");
         System.out.println("0. Encerrar Turno!");

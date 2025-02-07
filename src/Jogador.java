@@ -589,26 +589,24 @@ public class Jogador {
 
 
     public void visualizarSaldoPropriedades(Jogador jogador){
-        System.out.println("\nVocê escolheu visualizar Saldo e Minhas Propriedades.");
+        System.out.println("\nVocê escolheu visualizar seus Dados.");
 
-        //todo adicionar ver meus emprestimo ativos
+
         System.out.printf("\nDinheiro disponível: $%.2f\n", jogador.getDinheiro());
 
 
         if(!jogador.getMinhasPropriedades().isEmpty()){
             GameUtility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
         }else {
-            System.out.println("Você não possui propriedades no momento.");
+            System.out.println("\nVocê não possui propriedades no momento.");
         }
 
 
         if(!jogador.getEmprestimosAtivos().isEmpty()){
             GameUtility.visualizarEmprestimoAtivos(jogador.getEmprestimosAtivos());
         }else{
-            System.out.println("Você não possui Emprestimos Ativos no momento.");
+            System.out.println("\nVocê não possui Emprestimos Ativos no momento.");
         }
-
-
     }
 
 

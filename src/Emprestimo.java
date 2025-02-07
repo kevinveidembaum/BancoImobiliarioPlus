@@ -4,11 +4,14 @@ public class Emprestimo {
     private Jogador credor;
     private Propriedade garantia;
     private int prazoFinal;
+    private float valorAtual;
+    private final double TAXA = 0.125;
 
     public Emprestimo(Jogador credor, Jogador devedor, float valorEmprestimo, Propriedade garantia){
         this.devedor = devedor;
         this.credor = credor;
         this.valorEmprestimo = valorEmprestimo;
+        this.valorAtual = valorEmprestimo;
         this.garantia = garantia;
         this.prazoFinal = 6;
     }
@@ -34,22 +37,19 @@ public class Emprestimo {
 
     //Calculo Prazo
     public void calcularPrazo(){
-        float valorComJuros;
-        final double TAXA = 0.085;
         if(prazoFinal > 0){
             /*
             * A taxa padrão de juros: 8.5% por rodada (juros compostos).
             *
-            *           Fórmula: V=P×(1+r)^n.
+            *           Fórmula: V=P×(1+r).
             *
             * V = valor total a ser pago após n rodadas,
             * P = valor do empréstimo, r = taxa de juros (0,085),
-            * n = número de rodadas (prazoFinal).
             *
             */
 
-            valorComJuros = (float) Math.pow((this.getValorEmprestimo() * (1+ TAXA)), this.getPrazoFinal());
 
+            valorAtual *= (1 + TAXA);
             prazoFinal--;
         }
     }
@@ -60,6 +60,13 @@ public class Emprestimo {
         return prazoFinal <= 0;
     }
 
+    public float getValorAtual() {
+        return valorAtual;
+    }
+
+    public void setValorAtual(float valorAtual) {
+        this.valorAtual = valorAtual;
+    }
 
     public int getPrazoFinal() {
         return prazoFinal;
