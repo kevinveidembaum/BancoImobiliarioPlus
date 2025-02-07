@@ -92,6 +92,10 @@ public class GameUtility {
     public void verificarPrazo(Jogador[] jogadores){
         //todo arrumar o erro
         for (Jogador j : jogadores) {
+            //Cria uma Lista para armazenar apenas Emprestimo que venceram
+            List<Emprestimo> emprestimosVencidos = new ArrayList<>();
+
+
             for (Emprestimo emprestimo : j.getEmprestimosAtivos()) {
                 emprestimo.calcularPrazo();
 
@@ -107,10 +111,14 @@ public class GameUtility {
                     emprestimo.getDevedor().getMinhasPropriedades().remove(emprestimo.getGarantia());
 
 
-                    // Remove the loan from the debtor's list of active loans
-                    j.getEmprestimosAtivos().remove(emprestimo);
+                    // adicionar Emprestimo a Lista de Emrpestimos Vencidos
+                    emprestimosVencidos.add(emprestimo);
                 }
             }
+
+
+            //Remover Emprestimos vencidos da Lista de emprestimos dos Jogadores
+            j.getEmprestimosAtivos().removeAll(emprestimosVencidos);
         }
     }
 
