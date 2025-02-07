@@ -24,17 +24,12 @@ public class Jogador {
 
 
         //Seleciona uma Propriedade
-        GameUtility.propriedadesDisponiveis(listaPropriedades);
-        int escolhaPropriedade = InputUtility.getIntInput("Digite o número da Propriedade desejada: ");
+        Propriedade propriedade = selecionarPropriedade(listaPropriedades);
 
 
-        //Verifica se o index está correto
-        if (!isValidPropertyIndex(listaPropriedades, escolhaPropriedade)) {
+        if(propriedade == null){
             return;
         }
-
-
-        Propriedade propriedade = listaPropriedades.get(escolhaPropriedade-1);
 
 
         if(! (this.getDinheiro() > propriedade.getValor())){
@@ -670,6 +665,23 @@ public class Jogador {
 
     //METODOS PRIVADOS DE AJUDA (PARA MANTER O CODIGO MAIS LIMPO)
 
+    //Metodos para comprarPropriedade
+    private Propriedade selecionarPropriedade(List<Propriedade> listaPropriedades){
+        GameUtility.propriedadesDisponiveis(listaPropriedades);
+        int escolhaPropriedade = InputUtility.getIntInput("Digite o número da Propriedade desejada: ");
+
+
+        //Verifica se o index está correto
+        if (!isValidPropertyIndex(listaPropriedades, escolhaPropriedade)) {
+            return null;
+        }
+
+
+        Propriedade propriedade = listaPropriedades.get(escolhaPropriedade-1);
+
+        return propriedade;
+    }
+
 
     //Metodos para fazerEmprestimo
     private List<Jogador> exibirCredoresValidor(Jogador[] jogadores, Jogador JogadorAtual){
@@ -760,7 +772,7 @@ public class Jogador {
 
 
     private float selecionarValorEmprestimo(Jogador credor, Propriedade garantia){
-        System.out.println("\nValor da Propriedade de Garantia: $" + garantia.getValor() +
+        System.out.println("\nTenha em Mente que Empréstimos possuem Taxa de 12.5% por turno!" +
                 "\nValor Máximo de Empréstimo: $" + (garantia.getValor()*2) );
 
         float valorEmprestimo = InputUtility.getFloatInput("\nDigite o valor que deseja emprestar: $");
