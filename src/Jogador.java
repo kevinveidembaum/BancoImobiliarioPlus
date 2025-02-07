@@ -282,10 +282,14 @@ public class Jogador {
         }
 
 
-        this.setDinheiro(this.getDinheiro() - propriedade.getValorAluguel());
-        dono.setDinheiro(dono.getDinheiro() + propriedade.getValorAluguel());
+        //Calcular aluguel para pagar
+        float aluguel = propriedade.calcularAluguel();
 
-        System.out.printf("\n%s Pagou Aluguel no valor de $%.2f para %s\n", this.getNome(), propriedade.getValorAluguel(), dono.getNome());
+
+        this.setDinheiro(this.getDinheiro() - aluguel);
+        dono.setDinheiro(dono.getDinheiro() + aluguel);
+
+        System.out.printf("\n%s Pagou Aluguel no valor de $%.2f para %s\n", this.getNome(), aluguel, dono.getNome());
     }
 
 
@@ -498,6 +502,12 @@ public class Jogador {
             Propriedade propriedade = listaPropriedades.get(escolhaPagar - 1);
 
 
+            if(propriedade.getDono() == this){
+                System.out.println("Não foi possível selecionar essa Propriedade");
+                return;
+            }
+
+
             jogador.pagarAluguel(propriedade);
         }
 
@@ -707,6 +717,8 @@ public class Jogador {
         System.out.println("\nPara realizar um Empréstimo, você deve selecionar uma Propriedade como garantia.");
         System.out.print("\n======== Selecione uma de suas Propriedades como garantia ========");
         GameUtility.propriedadesDisponiveis(devedor.getMinhasPropriedades());
+
+        //todo arrumar erro de duplicação de propriedade e propriedade garantia não pode ser usada como garantia novamente
 
 
         //Escolha Propriedade garantia
