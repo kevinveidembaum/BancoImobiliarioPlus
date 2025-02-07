@@ -37,20 +37,20 @@ public class Propriedade {
         /*  Regras para Cálculo Aluguel
         *
         *   Aluguel (Sem casas) = até 25% do valor da Propriedade
-        *   1 Casa = valor da Propriedade - (até $300)
-        *   2 Casas = x3 o valor de 1 casa, - (até $300)
-        *   3 Casas = x2 o valor de 2 casas + (até $200) OU x3 valor de 2 casas
-        *   4 Casas = valor de 3 casas + (até $300)
-        *   Hotel = valor de 3 casas + (até $300)
+        *   1 Casa = valor da Propriedade - (até 25% do valor da Propriedade)
+        *   2 Casas = 150% preço de 1 Casas + (até $200)
+        *   3 Casas = 150% preço de 2 Casas + (até $150)
+        *   4 Casas = valor de 3 Casas + (mínimo $100 até $300)
+        *   Hotel = 150% preço de 4 Casas
         */
+
 
         float aluguel;
         float aluguelBase = (generateRandomNumber(5, 25) / 100.0f) * this.getValor();
         aluguel = aluguelBase;
 
 
-
-
+        //Loop para atribuição de Aluguel acumulativo
         if(this.getQntCasas() >= 1){
             for(int i=1; i <= this.getQntCasas(); i++){
                 switch (i) {
@@ -65,11 +65,9 @@ public class Propriedade {
 
         if (this.isHotel()) {
             // Aluguel Hotel
-            float tresCasas = (2 * (3 * aluguelBase + RANDOM_2) + RANDOM_3);
-            aluguel = tresCasas + RANDOM_3;
+            aluguel = (float) (1.5 * aluguel);
         }
 
-        //todo aluguel não está calculando corretamente, pagando valor muito baixo
 
         //aluguel não pode ser negativo
         return Math.max(aluguel, 0);
