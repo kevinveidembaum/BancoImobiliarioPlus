@@ -22,7 +22,7 @@ public class Emprestimo {
 
 
         // Marca a Propriedade como Garantia para Credor
-        garantia.setDono(credor);
+        garantia.setDono(credor);   //utiliza metodo setDono() no credor, mas ainda não passa a propriedade para ele
         garantia.setGarantia(true);
 
 
@@ -34,7 +34,22 @@ public class Emprestimo {
 
     //Calculo Prazo
     public void calcularPrazo(){
+        float valorComJuros;
+        final double TAXA = 0.085;
         if(prazoFinal > 0){
+            /*
+            * A taxa padrão de juros: 8.5% por rodada (juros compostos).
+            *
+            *           Fórmula: V=P×(1+r)^n.
+            *
+            * V = valor total a ser pago após n rodadas,
+            * P = valor do empréstimo, r = taxa de juros (0,085),
+            * n = número de rodadas (prazoFinal).
+            *
+            */
+
+            valorComJuros = (float) Math.pow((this.getValorEmprestimo() * (1+ TAXA)), this.getPrazoFinal());
+
             prazoFinal--;
         }
     }

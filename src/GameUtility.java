@@ -90,7 +90,6 @@ public class GameUtility {
 
     //Verificar Prazo de pagamento de Emprestimos ativos
     public void verificarPrazo(Jogador[] jogadores){
-        //todo arrumar o erro
         for (Jogador j : jogadores) {
             //Cria uma Lista para armazenar apenas Emprestimo que venceram
             List<Emprestimo> emprestimosVencidos = new ArrayList<>();
@@ -101,12 +100,14 @@ public class GameUtility {
 
                 // Check if the loan is overdue
                 if (emprestimo.verificarPrazoEstourou()) {
+                    //todo adicionar o preco final do emprestimo (valorComJuros)
                     System.out.printf("\n%s não pagou o empréstimo a tempo! A propriedade %s será transferida para %s.\n",
                             emprestimo.getDevedor().getNome(), emprestimo.getGarantia().getNome(), emprestimo.getCredor().getNome());
 
 
-                    // Transfer the property to the creditor
+                    // Transfire Propriedade garantia para Credor
                     //todo transferir propriedade adequadamente
+                    emprestimo.getGarantia().setGarantia(false);
                     emprestimo.getCredor().getMinhasPropriedades().add(emprestimo.getGarantia());
                     emprestimo.getDevedor().getMinhasPropriedades().remove(emprestimo.getGarantia());
 

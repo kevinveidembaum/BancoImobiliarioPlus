@@ -234,13 +234,6 @@ public class Jogador {
 
 
     public void pagarAluguel(Propriedade propriedade){
-        // Verifica se Jogador possui dinheiro suficiente
-        if(this.getDinheiro() < propriedade.getValorAluguel()){
-            System.out.println("Dinheiro Insuficiente para Pagar Aluguel!");
-            return;
-        }
-
-
         // Verifica se a Propriedade está com status de Hipotecada
         if(propriedade.isHipotecado() || propriedade.isGarantia()){
             System.out.println("Você não precisa pagar aluguel para essa Propriedade!");
@@ -286,6 +279,14 @@ public class Jogador {
         float aluguel = propriedade.calcularAluguel();
 
 
+        // Verifica se Jogador possui dinheiro suficiente
+        if(this.getDinheiro() < aluguel){
+            System.out.println("Dinheiro Insuficiente para Pagar Aluguel!");
+            return;
+        }
+
+
+        //Pagamento aluguel
         this.setDinheiro(this.getDinheiro() - aluguel);
         dono.setDinheiro(dono.getDinheiro() + aluguel);
 
@@ -503,7 +504,7 @@ public class Jogador {
 
 
             if(propriedade.getDono() == this){
-                System.out.println("Não foi possível selecionar essa Propriedade");
+                System.out.println("Você é o Dono dessa Propriedade!");
                 return;
             }
 
@@ -590,7 +591,7 @@ public class Jogador {
     public void visualizarSaldoPropriedades(Jogador jogador){
         System.out.println("\nVocê escolheu visualizar Saldo e Minhas Propriedades.");
 
-
+        //todo adicionar ver meus emprestimo ativos
         System.out.printf("\nDinheiro disponível: $%.2f\n", jogador.getDinheiro());
 
 
