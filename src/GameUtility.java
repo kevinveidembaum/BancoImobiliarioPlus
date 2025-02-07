@@ -106,7 +106,6 @@ public class GameUtility {
 
 
                     // Transfire Propriedade garantia para Credor
-                    //todo transferir propriedade adequadamente
                     emprestimo.getGarantia().setGarantia(false);
                     emprestimo.getCredor().getMinhasPropriedades().add(emprestimo.getGarantia());
                     emprestimo.getDevedor().getMinhasPropriedades().remove(emprestimo.getGarantia());
@@ -260,6 +259,21 @@ public class GameUtility {
 
 
             System.out.printf("%d. Nome: %s, Valor: $%.2f (Dono Atual: %s)\n", i + 1, propriedade.getNome(), propriedade.getValor(), propriedade.getDono().getNome());
+        }
+    }
+
+
+    // Mostra Emprestimo Ativos do Jogador
+    public static void visualizarEmprestimoAtivos(List<Emprestimo> emprestimos) {
+        System.out.println("\nEmpréstimos: ");
+        for (int i = 0; i < emprestimos.size(); i++) {
+            Emprestimo emprestimo = emprestimos.get(i);
+
+
+            System.out.printf("%d. Credor: %s ==> Valor Emprestado: $%.2f, Valor a Pagar: $%.2f\n",
+                    i + 1, emprestimo.getCredor().getNome(), emprestimo.getValorEmprestimo(), 90f);
+
+            //todo arrumar o valor a pagar
         }
     }
 }

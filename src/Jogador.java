@@ -597,11 +597,18 @@ public class Jogador {
 
         if(!jogador.getMinhasPropriedades().isEmpty()){
             GameUtility.propriedadesDisponiveis(jogador.getMinhasPropriedades());
-            return;
+        }else {
+            System.out.println("Você não possui propriedades no momento.");
         }
 
 
-        System.out.println("Você não possui propriedades no momento.");
+        if(!jogador.getEmprestimosAtivos().isEmpty()){
+            GameUtility.visualizarEmprestimoAtivos(jogador.getEmprestimosAtivos());
+        }else{
+            System.out.println("Você não possui Emprestimos Ativos no momento.");
+        }
+
+
     }
 
 
