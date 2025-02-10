@@ -425,8 +425,7 @@ public class Jogador {
         //todo pagar emprestimo
         //Pagar Emprestimo
         if(!respostaPagar){
-            int escolhaPropriedadeVenda = InputUtility.getIntInput("\nEm qual Propriedade gostaria de Vender Casa/Hotel? ");
-            jogador.venderCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeVenda);
+            jogador.pagarEmprestimo();
         }
     }
 
@@ -487,8 +486,19 @@ public class Jogador {
     }
 
 
-    public void pagarEmprestimo(Emprestimo emprestimo, float valorPagar){
+    public void pagarEmprestimo(){
+        System.out.println("\nVocê escolheu Pagar Empréstimo.");
 
+
+        Emprestimo emprestimoParaPagar = selecionarEmprestimoPagar();
+
+
+        if(emprestimoParaPagar.equals(null)){
+            return;
+        }
+
+
+        processarPagamentoEmprestimo();
     }
 
 
@@ -848,6 +858,35 @@ public class Jogador {
         devedor.getEmprestimosAtivos().add(emprestimo);
     }
 
+
+    //Metodos para pagarEmprestimo
+    private Emprestimo selecionarEmprestimoPagar(){
+        if(this.getEmprestimosAtivos().isEmpty()){
+            System.out.println("\nVocê não possui Empréstimos Ativos!");
+            return null;
+        }
+
+
+        GameUtility.visualizarEmprestimoAtivos(this.getEmprestimosAtivos());
+        int escolhaEmprestimo = InputUtility.getIntInput("Selecione o Empréstimo a Pagar: ");
+
+
+        if(escolhaEmprestimo < 1 || escolhaEmprestimo > this.getEmprestimosAtivos().size()){
+            System.out.println("\nNúmero Inválido");
+            return null;
+        }
+
+
+        return this.getEmprestimosAtivos().get(escolhaEmprestimo - 1);
+    }
+
+
+    private void processarPagamentoEmprestimo(){
+
+
+
+
+    }
 
 
 
