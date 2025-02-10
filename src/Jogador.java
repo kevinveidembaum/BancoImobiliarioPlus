@@ -498,7 +498,7 @@ public class Jogador {
         }
 
 
-        processarPagamentoEmprestimo();
+        processarPagamentoEmprestimo(emprestimoParaPagar);
     }
 
 
@@ -881,7 +881,53 @@ public class Jogador {
     }
 
 
-    private void processarPagamentoEmprestimo(){
+    private void processarPagamentoEmprestimo(Emprestimo emprestimo){
+        /*
+
+        escolher o quanto quer pagar
+        pagar tudo
+        adicionar na carteira do credor
+        subtrair carteira do devedor
+        mostrar prazo total para pagamento
+         */
+
+        float quantiaPagar = obterQuantiaPagar(emprestimo);
+
+
+        if(quantiaPagar == -1){
+            return;
+        }
+
+
+        finalizarPagamentoEmprestimo(emprestimo);
+    }
+
+
+    private float obterQuantiaPagar(Emprestimo emprestimo){
+        System.out.println("\nValor da Dívida Atual: $"
+                + emprestimo.getValorAtual());
+
+
+        float valorPagar = InputUtility.getFloatInput("O quanto deseja Pagar: $");
+
+
+        if(valorPagar <= 0){
+            System.out.println("\nValor inválido!");
+            return -1;
+        }
+
+
+        if(valorPagar > this.getDinheiro()){
+            System.out.println("\nVocê não tem Dinheiro o suficiente para Pagar esse valor!");
+            return -1;
+        }
+
+
+        return valorPagar;
+    }
+
+
+    private void finalizarPagamentoEmprestimo(Emprestimo emprestimo){
 
 
 
