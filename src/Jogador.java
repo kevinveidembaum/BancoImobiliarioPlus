@@ -32,25 +32,6 @@ public class Jogador {
         }
 
 
-        if(! (this.getDinheiro() > propriedade.getValor())){
-            System.out.println("Dinheiro insuficiente!");
-            return;
-        }
-
-
-        if(propriedade.isGarantia()){
-            System.out.println("Não é possível comprar uma Propriedade em status de Garantia!");
-            return;
-        }
-
-
-        //Se a Propriedade estiver Hipotecada e Quem está comprando não for o Dono da Hipoteca
-        if(propriedade.isHipotecado() &&  !propriedade.getDono().equals(this)){
-            System.out.println("Não é possível comprar uma Propriedade Hipotecada que não é Sua!");
-            return;
-        }
-
-
         //Se for o Dono de uma Propriedade Hipoteca e quer recomprá-la
         if(propriedade.isHipotecado()){
             float valorComJuros = (float) (propriedade.getValor() * 1.30);
@@ -679,8 +660,32 @@ public class Jogador {
 
         Propriedade propriedade = listaPropriedades.get(escolhaPropriedade-1);
 
+
+        if(! (this.getDinheiro() > propriedade.getValor())){
+            System.out.println("Dinheiro insuficiente!");
+            return null;
+        }
+
+
+        if(propriedade.isGarantia()){
+            System.out.println("Não é possível comprar uma Propriedade em status de Garantia!");
+            return null;
+        }
+
+
+        //Se a Propriedade estiver Hipotecada e Quem está comprando não for o Dono da Hipoteca
+        if(propriedade.isHipotecado() &&  !propriedade.getDono().equals(this)){
+            System.out.println("Não é possível comprar uma Propriedade Hipotecada que não é Sua!");
+            return null;
+        }
+
+
         return propriedade;
     }
+
+
+
+
 
 
     //Metodos para fazerEmprestimo
