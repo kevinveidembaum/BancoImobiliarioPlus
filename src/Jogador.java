@@ -890,6 +890,7 @@ public class Jogador {
         subtrair carteira do devedor
         mostrar prazo total para pagamento
          */
+        //todo mostrar prazo dos emprestimos
 
         float valorPagamento = obterValorPagamento(emprestimo);
 
@@ -904,7 +905,7 @@ public class Jogador {
 
 
     private float obterValorPagamento(Emprestimo emprestimo){
-        System.out.printf("\nValor da Dívida Atual: $%.2f\n",
+        System.out.printf("\nValor da Dívida Atual: $%3f\n",
                 emprestimo.getValorAtual());
 
 
@@ -944,7 +945,13 @@ public class Jogador {
             System.out.println("\nParabéns! Você honrou com suas Dívidas!");
             System.out.printf("%s pagou $%.2f para %s no prazo de %d turnos!\n",
                     devedor.getNome(), valorPagamento, credor.getNome(), emprestimo.getPrazoFinal());
+
+            return;
         }
+
+
+        System.out.printf("%s pagou $%.2f para %s, de uma Divída total de $%.2f",
+                devedor.getNome(), valorPagamento, credor.getNome(), emprestimo.getValorAtual());
 
 
         //Descontar do valor a pagar Emprestimo

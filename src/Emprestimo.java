@@ -61,6 +61,7 @@ public class Emprestimo {
     }
 
     public float getValorAtual() {
+        //todo arredondar esse valor
         return valorAtual;
     }
 
