@@ -600,13 +600,6 @@ public class Jogador {
         }
 
 
-        //Se o DonoAtual tenta comprar uma Propriedade que já é dele
-        if (propriedade.getDono().equals(this)){
-            System.out.println("Não é possível comprar uma Propriedade que já é Sua!");
-            return null;
-        }
-
-
         if(propriedade.isGarantia()){
             System.out.println("Não é possível comprar uma Propriedade em status de Garantia!");
             return null;
@@ -666,6 +659,13 @@ public class Jogador {
     private void comprarPropriedadeDeTerceiro(Propriedade propriedade){
         //Propriedade TEM dono
         Jogador donoAtual = propriedade.getDono();
+
+
+        //Se o DonoAtual tenta comprar uma Propriedade que já é dele
+        if (propriedade.getDono().equals(donoAtual)){
+            System.out.println("\nNão é possível comprar uma Propriedade que já é Sua!");
+            return;
+        }
 
 
         //Caso o DonoAtual não queira vender sua Propriedade
