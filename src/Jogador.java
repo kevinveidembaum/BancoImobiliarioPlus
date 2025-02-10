@@ -674,31 +674,18 @@ public class Jogador {
             return;
         }
 
-        
-
 
         //Caso o donoAtual queira vender, Jogador interessado deverá fazer uma proposta
-        float proposta = InputUtility.getFloatInput("\nFaça uma Proposta para o Proprietário: $");
-        System.out.printf("\n%s, Aceita a Oferta? \n", donoAtual.getNome());
-        respostaDono = selecionarRespostaDono(donoAtual, propriedade);
-
-
-        //Caso o DonoAtual não aceitou a proposta feita pelo Jogador Interessado
-        if(!respostaDono){
+        float proposta = obterProposta();
+        if(!confirmarProposta(donoAtual, propriedade, proposta)){
+            //Caso o DonoAtual não aceitou a proposta feita pelo Jogador Interessado
             System.out.println("\nO Proprietário não aceitou a Proposta!");
             return;
         }
 
 
         //donoAtual aceitou a proposta
-        donoAtual.getMinhasPropriedades().remove(propriedade);
-        donoAtual.setDinheiro(donoAtual.getDinheiro() + proposta);
-
-        this.getMinhasPropriedades().add(propriedade);
-        propriedade.setDono(this);
-        this.setDinheiro(this.getDinheiro() - proposta);
-        System.out.printf("\n%s comprou a propriedade %s de %s por $%.2f!\n", this.getNome(), propriedade.getNome(), donoAtual.getNome(), proposta);
-
+        finalizarTransacao(donoAtual, propriedade, proposta);
     }
 
 
@@ -710,9 +697,28 @@ public class Jogador {
     }
 
 
+    private float obterProposta(){
+        return InputUtility.getFloatInput("\nFaça uma Proposta para o Proprietário: $");
+    }
 
 
+    private boolean confirmarProposta(Jogador dono, Propriedade propriedade, float proposta) {
+        System.out.printf("\n%s, Aceita a Oferta de $%.2f por %s? \n",
+                dono.getNome(), proposta, propriedade.getNome());
+        return InputUtility.getYesOrNoInput("[S] Sim      [N] Não\n", 'S', 'N');
+    }
 
+
+    private void finalizarTransacao(Jogador donoAtual, Propriedade propriedade, float proposta){
+        donoAtual.getMinhasPropriedades().remove(propriedade);
+        donoAtual.setDinheiro(donoAtual.getDinheiro() + proposta);
+
+        this.getMinhasPropriedades().add(propriedade);
+        propriedade.setDono(this);
+        this.setDinheiro(this.getDinheiro() - proposta);
+        System.out.printf("\n%s comprou a propriedade %s de %s por $%.2f!\n", this.getNome(), propriedade.getNome(), donoAtual.getNome(), proposta);
+    }
+    
 
     //Metodos para fazerEmprestimo
     private List<Jogador> exibirCredoresValidor(Jogador[] jogadores, Jogador JogadorAtual){
