@@ -32,93 +32,7 @@ public class Jogador {
         }
 
 
-        if(! (this.getDinheiro() > propriedade.getValor())){
-            System.out.println("Dinheiro insuficiente!");
-            return;
-        }
-
-
-        if(propriedade.isGarantia()){
-            System.out.println("Não é possível comprar uma Propriedade em status de Garantia!");
-            return;
-        }
-
-
-        //Se a Propriedade estiver Hipotecada e Quem está comprando não for o Dono da Hipoteca
-        if(propriedade.isHipotecado() &&  !propriedade.getDono().equals(this)){
-            System.out.println("Não é possível comprar uma Propriedade Hipotecada que não é Sua!");
-            return;
-        }
-
-
-        //Se for o Dono de uma Propriedade Hipoteca e quer recomprá-la
-        if(propriedade.isHipotecado()){
-            float valorComJuros = (float) (propriedade.getValor() * 1.30);
-
-            System.out.println("\nVocê está comprando sua Propriedade Hipotecada.");
-            System.out.printf("Juros de 30%%, valor a pagar: $%.2f", valorComJuros);
-
-            propriedade.setHipotecado(false);
-            this.setDinheiro(this.getDinheiro() - valorComJuros);
-            System.out.printf("\n%s recuperou %s, sua propriedade Hipotecada, por $%.2f!\n", this.getNome(), propriedade.getNome(), valorComJuros);
-            return;
-        }
-
-
-        //Propriedade NÃO tem dono
-        if(propriedade.getDono() == null){
-            this.getMinhasPropriedades().add(propriedade);
-            propriedade.setDono(this);
-            this.setDinheiro(this.getDinheiro() - propriedade.getValor());
-            System.out.printf("\n%s comprou a propriedade %s por $%.2f!\n", this.nome, propriedade.getNome(), propriedade.getValor());
-            return;
-        }
-
-
-        //Propriedade TEM dono
-        Jogador donoAtual = propriedade.getDono();
-
-
-        //Se o DonoAtual tenta comprar uma Propriedade que já é dele
-        if (propriedade.getDono().equals(this)){
-            System.out.println("Não é possível comprar uma Propriedade que já é Sua!");
-            return;
-        }
-
-
-        //Pergunta para o donoAtual se deseja Vender sua Propriedade
-        System.out.printf("\n%s, deseja Vender %s para %s?\n", donoAtual.getNome(), propriedade.getNome(), this.getNome());
-        boolean respostaDono = InputUtility.getYesOrNoInput("[S] Sim      [N] Não\n", 'S', 'N');
-
-
-        //Caso o DonoAtual não queira vender sua Propriedade
-        if(!respostaDono){
-            System.out.println("\nO Proprietário não quis Vender sua Propriedade!");
-            return;
-        }
-
-
-        //Caso o donoAtual queira vender, Jogador interessado deverá fazer uma proposta
-        float proposta = InputUtility.getFloatInput("\nFaça uma Proposta para o Proprietário: $");
-        System.out.printf("\n%s, Aceita a Oferta? \n", donoAtual.getNome());
-        respostaDono = InputUtility.getYesOrNoInput("[S] Sim      [N] Não\n", 'S', 'N');
-
-
-        //Caso o DonoAtual não aceitou a proposta feita pelo Jogador Interessado
-        if(!respostaDono){
-            System.out.println("\nO Proprietário não aceitou a Proposta!");
-            return;
-        }
-
-
-        //donoAtual aceitou a proposta
-        donoAtual.getMinhasPropriedades().remove(propriedade);
-        donoAtual.setDinheiro(donoAtual.getDinheiro() + proposta);
-
-        this.getMinhasPropriedades().add(propriedade);
-        propriedade.setDono(this);
-        this.setDinheiro(this.getDinheiro() - proposta);
-        System.out.printf("\n%s comprou a propriedade %s de %s por $%.2f!\n", this.getNome(), propriedade.getNome(), donoAtual.getNome(), proposta);
+        processarCompraPropriedade(propriedade);
     }
 
 
@@ -511,8 +425,7 @@ public class Jogador {
         //todo pagar emprestimo
         //Pagar Emprestimo
         if(!respostaPagar){
-            int escolhaPropriedadeVenda = InputUtility.getIntInput("\nEm qual Propriedade gostaria de Vender Casa/Hotel? ");
-            jogador.venderCasa(jogador.getMinhasPropriedades(), escolhaPropriedadeVenda);
+            jogador.pagarEmprestimo();
         }
     }
 
@@ -573,8 +486,19 @@ public class Jogador {
     }
 
 
-    public void pagarEmprestimo(Emprestimo emprestimo, float valorPagar){
+    public void pagarEmprestimo(){
+        System.out.println("\nVocê escolheu Pagar Empréstimo.");
 
+
+        Emprestimo emprestimoParaPagar = selecionarEmprestimoPagar();
+
+
+        if(emprestimoParaPagar.equals(null)){
+            return;
+        }
+
+
+        processarPagamentoEmprestimo(emprestimoParaPagar);
     }
 
 
@@ -679,9 +603,132 @@ public class Jogador {
 
         Propriedade propriedade = listaPropriedades.get(escolhaPropriedade-1);
 
+
+        if(! (this.getDinheiro() > propriedade.getValor())){
+            System.out.println("Dinheiro insuficiente!");
+            return null;
+        }
+
+
+        if(propriedade.isGarantia()){
+            System.out.println("Não é possível comprar uma Propriedade em status de Garantia!");
+            return null;
+        }
+
+
+        //Se a Propriedade estiver Hipotecada e Quem está comprando não for o Dono da Hipoteca
+        if(propriedade.isHipotecado() &&  !propriedade.getDono().equals(this)){
+            System.out.println("Não é possível comprar uma Propriedade Hipotecada que não é Sua!");
+            return null;
+        }
+
+
         return propriedade;
     }
 
+
+    private void processarCompraPropriedade(Propriedade propriedade){
+        //Se for o Dono de uma Propriedade Hipotecada e quer recomprá-la
+        if(propriedade.isHipotecado()){
+            comprarPropriedadeHipotecada(propriedade);
+            return;
+        }
+
+
+        //Propriedade NÃO tem dono
+        if(propriedade.getDono() == null){
+            comprarPropriedadeSemDono(propriedade);
+            return;
+        }
+
+
+        comprarPropriedadeDeTerceiro(propriedade);
+    }
+
+
+    private void comprarPropriedadeHipotecada(Propriedade propriedade){
+        float valorComJuros = (float) (propriedade.getValor() * 1.30);
+
+        System.out.println("\nVocê está comprando sua Propriedade Hipotecada.");
+        System.out.printf("Juros de 30%%, valor a pagar: $%.2f", valorComJuros);
+
+        propriedade.setHipotecado(false);
+        this.setDinheiro(this.getDinheiro() - valorComJuros);
+        System.out.printf("\n%s recuperou %s, sua propriedade Hipotecada, por $%.2f!\n", this.getNome(), propriedade.getNome(), valorComJuros);
+    }
+
+
+    private void comprarPropriedadeSemDono(Propriedade propriedade){
+        this.getMinhasPropriedades().add(propriedade);
+        propriedade.setDono(this);
+        this.setDinheiro(this.getDinheiro() - propriedade.getValor());
+        System.out.printf("\n%s comprou a propriedade %s por $%.2f!\n", this.getNome(), propriedade.getNome(), propriedade.getValor());
+    }
+
+
+    private void comprarPropriedadeDeTerceiro(Propriedade propriedade){
+        //Propriedade TEM dono
+        Jogador donoAtual = propriedade.getDono();
+
+
+        //Se o DonoAtual tenta comprar uma Propriedade que já é dele
+        if (propriedade.getDono().equals(donoAtual)){
+            System.out.println("\nNão é possível comprar uma Propriedade que já é Sua!");
+            return;
+        }
+
+
+        //Caso o DonoAtual não queira vender sua Propriedade
+        if(!solicitarVenda(donoAtual, propriedade)){
+            System.out.println("\nO Proprietário não quis Vender sua Propriedade!");
+            return;
+        }
+
+
+        //Caso o donoAtual queira vender, Jogador interessado deverá fazer uma proposta
+        float proposta = obterProposta();
+        if(!confirmarProposta(donoAtual, propriedade, proposta)){
+            //Caso o DonoAtual não aceitou a proposta feita pelo Jogador Interessado
+            System.out.println("\nO Proprietário não aceitou a Proposta!");
+            return;
+        }
+
+
+        //donoAtual aceitou a proposta
+        finalizarTransacao(donoAtual, propriedade, proposta);
+    }
+
+
+    private boolean solicitarVenda(Jogador donoAtual, Propriedade propriedade){
+        System.out.printf("\n%s, deseja Vender %s para %s?\n",
+                donoAtual.getNome(), propriedade.getNome(), this.getNome());
+
+        return InputUtility.getYesOrNoInput("[S] Sim      [N] Não\n", 'S', 'N');
+    }
+
+
+    private float obterProposta(){
+        return InputUtility.getFloatInput("\nFaça uma Proposta para o Proprietário: $");
+    }
+
+
+    private boolean confirmarProposta(Jogador dono, Propriedade propriedade, float proposta) {
+        System.out.printf("\n%s, Aceita a Oferta de $%.2f por %s? \n",
+                dono.getNome(), proposta, propriedade.getNome());
+        return InputUtility.getYesOrNoInput("[S] Sim      [N] Não\n", 'S', 'N');
+    }
+
+
+    private void finalizarTransacao(Jogador donoAtual, Propriedade propriedade, float proposta){
+        donoAtual.getMinhasPropriedades().remove(propriedade);
+        donoAtual.setDinheiro(donoAtual.getDinheiro() + proposta);
+
+        this.getMinhasPropriedades().add(propriedade);
+        propriedade.setDono(this);
+        this.setDinheiro(this.getDinheiro() - proposta);
+        System.out.printf("\n%s comprou a propriedade %s de %s por $%.2f!\n", this.getNome(), propriedade.getNome(), donoAtual.getNome(), proposta);
+    }
+    
 
     //Metodos para fazerEmprestimo
     private List<Jogador> exibirCredoresValidor(Jogador[] jogadores, Jogador JogadorAtual){
@@ -811,6 +858,116 @@ public class Jogador {
         devedor.getEmprestimosAtivos().add(emprestimo);
     }
 
+
+    //Metodos para pagarEmprestimo
+    private Emprestimo selecionarEmprestimoPagar(){
+        if(this.getEmprestimosAtivos().isEmpty()){
+            System.out.println("\nVocê não possui Empréstimos Ativos!");
+            return null;
+        }
+
+
+        GameUtility.visualizarEmprestimoAtivos(this.getEmprestimosAtivos());
+        int escolhaEmprestimo = InputUtility.getIntInput("Selecione o Empréstimo a Pagar: ");
+
+
+        if(escolhaEmprestimo < 1 || escolhaEmprestimo > this.getEmprestimosAtivos().size()){
+            System.out.println("\nNúmero Inválido");
+            return null;
+        }
+
+
+        return this.getEmprestimosAtivos().get(escolhaEmprestimo - 1);
+    }
+
+
+    private void processarPagamentoEmprestimo(Emprestimo emprestimo){
+        /*
+
+        escolher o quanto quer pagar
+        pagar tudo
+        adicionar na carteira do credor
+        subtrair carteira do devedor
+        mostrar prazo total para pagamento
+         */
+        //todo mostrar prazo dos emprestimos
+
+        float valorPagamento = obterValorPagamento(emprestimo);
+
+
+        if(valorPagamento == -1){
+            return;
+        }
+
+
+        finalizarPagamentoEmprestimo(emprestimo, valorPagamento);
+    }
+
+
+    private float obterValorPagamento(Emprestimo emprestimo){
+        System.out.printf("\nValor da Dívida Atual: $%3f\n",
+                emprestimo.getValorAtual());
+
+
+        float valorPagar = InputUtility.getFloatInput("O quanto deseja Pagar: $");
+
+
+        if(valorPagar <= 0 || valorPagar > emprestimo.getValorAtual()){
+            System.out.println("\nValor inválido!");
+            return -1;
+        }
+
+
+        if(valorPagar > this.getDinheiro()){
+            System.out.println("\nVocê não tem Dinheiro o suficiente para Pagar esse valor!");
+            return -1;
+        }
+
+
+        return valorPagar;
+    }
+
+
+    private void finalizarPagamentoEmprestimo(Emprestimo emprestimo, float valorPagamento){
+        Jogador credor = emprestimo.getCredor();
+        Jogador devedor = emprestimo.getDevedor();
+
+
+        //Pagamento dinheiro
+        credor.setDinheiro(credor.getDinheiro() + valorPagamento);
+        devedor.setDinheiro(credor.getDinheiro() - valorPagamento);
+
+
+        //Quitou a divida
+        if(valorPagamento == emprestimo.getValorAtual()){
+            quitarEmprestimo(credor, devedor, emprestimo);
+
+            System.out.println("\nParabéns! Você honrou com suas Dívidas!");
+            System.out.printf("%s pagou $%.2f para %s no prazo de %d turnos!\n",
+                    devedor.getNome(), valorPagamento, credor.getNome(), emprestimo.getPrazoFinal());
+
+            return;
+        }
+
+
+        System.out.printf("%s pagou $%.2f para %s, de uma Divída total de $%.2f",
+                devedor.getNome(), valorPagamento, credor.getNome(), emprestimo.getValorAtual());
+
+
+        //Descontar do valor a pagar Emprestimo
+        emprestimo.setValorAtual(emprestimo.getValorAtual() - valorPagamento);
+    }
+
+
+    private void quitarEmprestimo(Jogador credor, Jogador devedor, Emprestimo emprestimo){
+        //Propriedade garantia é recuperada
+        emprestimo.getGarantia().setGarantia(false);
+        emprestimo.getGarantia().setDono(devedor);
+
+
+        //Remoção do Emprestimo dos Emprestimos Ativos
+        devedor.getEmprestimosAtivos().remove(emprestimo);
+    }
 
 
 

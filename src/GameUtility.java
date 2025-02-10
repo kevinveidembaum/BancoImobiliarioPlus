@@ -100,6 +100,7 @@ public class GameUtility {
 
                 // verifica o Prazo do Emprestimo
                 if (emprestimo.verificarPrazoEstourou()) {
+                    //todo colocar esses calculos num metodo separado
                     System.out.printf("\n%s não pagou o empréstimo a tempo! A propriedade %s será transferida para %s.\n",
                             emprestimo.getDevedor().getNome(), emprestimo.getGarantia().getNome(), emprestimo.getCredor().getNome());
                     System.out.printf("Valor Final do Dívida: $%.2f\n", emprestimo.getValorAtual());
