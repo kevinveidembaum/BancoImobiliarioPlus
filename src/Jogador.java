@@ -891,27 +891,27 @@ public class Jogador {
         mostrar prazo total para pagamento
          */
 
-        float quantiaPagar = obterQuantiaPagar(emprestimo);
+        float valorPagamento = obterValorPagamento(emprestimo);
 
 
-        if(quantiaPagar == -1){
+        if(valorPagamento == -1){
             return;
         }
 
 
-        finalizarPagamentoEmprestimo(emprestimo);
+        finalizarPagamentoEmprestimo(emprestimo, valorPagamento);
     }
 
 
-    private float obterQuantiaPagar(Emprestimo emprestimo){
-        System.out.println("\nValor da Dívida Atual: $"
-                + emprestimo.getValorAtual());
+    private float obterValorPagamento(Emprestimo emprestimo){
+        System.out.printf("\nValor da Dívida Atual: $%.2f\n",
+                emprestimo.getValorAtual());
 
 
         float valorPagar = InputUtility.getFloatInput("O quanto deseja Pagar: $");
 
 
-        if(valorPagar <= 0){
+        if(valorPagar <= 0 || valorPagar > emprestimo.getValorAtual()){
             System.out.println("\nValor inválido!");
             return -1;
         }
@@ -927,11 +927,39 @@ public class Jogador {
     }
 
 
-    private void finalizarPagamentoEmprestimo(Emprestimo emprestimo){
+    private void finalizarPagamentoEmprestimo(Emprestimo emprestimo, float valorPagamento){
+        Jogador credor = emprestimo.getCredor();
+        Jogador devedor = emprestimo.getDevedor();
 
 
+        //Pagamento dinheiro
+        credor.setDinheiro(credor.getDinheiro() + valorPagamento);
+        devedor.setDinheiro(credor.getDinheiro() - valorPagamento);
 
 
+        //Quitou a divida
+        if(valorPagamento == emprestimo.getValorAtual()){
+            quitarEmprestimo(credor, devedor, emprestimo);
+
+            System.out.println("\nParabéns! Você honrou com suas Dívidas!");
+            System.out.printf("%s pagou $%.2f para %s no prazo de %d turnos!\n",
+                    devedor.getNome(), valorPagamento, credor.getNome(), emprestimo.getPrazoFinal());
+        }
+
+
+        //Descontar do valor a pagar Emprestimo
+        emprestimo.setValorAtual(emprestimo.getValorAtual() - valorPagamento);
+    }
+
+
+    private void quitarEmprestimo(Jogador credor, Jogador devedor, Emprestimo emprestimo){
+        //Propriedade garantia é recuperada
+        emprestimo.getGarantia().setGarantia(false);
+        emprestimo.getGarantia().setDono(devedor);
+
+
+        //Remoção do Emprestimo dos Emprestimos Ativos
+        devedor.getEmprestimosAtivos().remove(emprestimo);
     }
 
 
