@@ -422,7 +422,6 @@ public class Jogador {
         }
 
 
-        //todo pagar emprestimo
         //Pagar Emprestimo
         if(!respostaPagar){
             jogador.pagarEmprestimo();
@@ -882,14 +881,6 @@ public class Jogador {
 
 
     private void processarPagamentoEmprestimo(Emprestimo emprestimo){
-        /*
-
-        escolher o quanto quer pagar
-        pagar tudo
-        adicionar na carteira do credor
-        subtrair carteira do devedor
-        mostrar prazo total para pagamento
-         */
         //todo mostrar prazo dos emprestimos
 
         float valorPagamento = obterValorPagamento(emprestimo);
@@ -950,7 +941,7 @@ public class Jogador {
         }
 
 
-        System.out.printf("%s pagou $%.2f para %s, de uma Divída total de $%.2f",
+        System.out.printf("\n%s pagou $%.2f para %s, de uma Divída total de $%.2f\n",
                 devedor.getNome(), valorPagamento, credor.getNome(), emprestimo.getValorAtual());
 
 
