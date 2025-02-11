@@ -100,16 +100,10 @@ public class GameUtility {
 
                 // verifica o Prazo do Emprestimo
                 if (emprestimo.verificarPrazoEstourou()) {
-                    //todo colocar esses calculos num metodo separado
-                    System.out.printf("\n%s não pagou o empréstimo a tempo! A propriedade %s será transferida para %s.\n",
-                            emprestimo.getDevedor().getNome(), emprestimo.getGarantia().getNome(), emprestimo.getCredor().getNome());
-                    System.out.printf("Valor Final do Dívida: $%.2f\n", emprestimo.getValorAtual());
 
 
-                    // Transfire Propriedade garantia para Credor
-                    emprestimo.getGarantia().setGarantia(false);
-                    emprestimo.getCredor().getMinhasPropriedades().add(emprestimo.getGarantia());
-                    emprestimo.getDevedor().getMinhasPropriedades().remove(emprestimo.getGarantia());
+                    //Consequencias Inadimplência
+                    emprestimo.processarInadimplencia(emprestimo);
 
 
                     // adicionar Emprestimo a Lista de Emprestimos Vencidos
@@ -271,8 +265,9 @@ public class GameUtility {
             Emprestimo emprestimo = emprestimos.get(i);
 
 
-            System.out.printf("%d. Credor: %s ==> Valor Emprestado: $%.2f, Valor a Pagar: $%.2f\n",
-                    i + 1, emprestimo.getCredor().getNome(), emprestimo.getValorEmprestimo(), emprestimo.getValorAtual());
+            System.out.printf("%d. Credor: %s ==> Valor Emprestado: $%.2f, Valor a Pagar: $%.2f, Prazo Restante: %d turnos\n",
+                    i + 1, emprestimo.getCredor().getNome(), emprestimo.getValorEmprestimo(),
+                    emprestimo.getValorAtual(), emprestimo.getPrazoFinal());
         }
     }
 }

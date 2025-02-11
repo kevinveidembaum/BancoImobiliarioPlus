@@ -35,6 +35,19 @@ public class Emprestimo {
     }
 
 
+    public void processarInadimplencia(Emprestimo emprestimo){
+        System.out.printf("\n%s não pagou o empréstimo a tempo! A propriedade %s será transferida para %s.\n",
+                emprestimo.getDevedor().getNome(), emprestimo.getGarantia().getNome(), emprestimo.getCredor().getNome());
+        System.out.printf("Valor Final do Dívida: $%.2f\n", emprestimo.getValorAtual());
+
+
+        // Transfire Propriedade garantia para Credor
+        emprestimo.getGarantia().setGarantia(false);
+        emprestimo.getCredor().getMinhasPropriedades().add(emprestimo.getGarantia());
+        emprestimo.getDevedor().getMinhasPropriedades().remove(emprestimo.getGarantia());
+    }
+
+
     //Calculo Prazo
     public void calcularPrazo(){
         if(prazoFinal > 0){
@@ -50,6 +63,7 @@ public class Emprestimo {
 
 
             valorAtual *= (1 + TAXA);
+            valorAtual = Math.round(valorAtual * 100) / 100.0f;
             prazoFinal--;
         }
     }
@@ -61,8 +75,7 @@ public class Emprestimo {
     }
 
     public float getValorAtual() {
-        //todo arredondar esse valor
-        return valorAtual;
+        return Math.round(valorAtual * 100) / 100.0f;
     }
 
     public void setValorAtual(float valorAtual) {
