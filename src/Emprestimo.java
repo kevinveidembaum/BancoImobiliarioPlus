@@ -50,6 +50,7 @@ public class Emprestimo {
 
 
             valorAtual *= (1 + TAXA);
+            valorAtual = Math.round(valorAtual * 100) / 100.0f;
             prazoFinal--;
         }
     }
@@ -61,8 +62,7 @@ public class Emprestimo {
     }
 
     public float getValorAtual() {
-        //todo arredondar esse valor
-        return valorAtual;
+        return Math.round(valorAtual * 100) / 100.0f;
     }
 
     public void setValorAtual(float valorAtual) {

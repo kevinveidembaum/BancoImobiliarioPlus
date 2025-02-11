@@ -881,8 +881,6 @@ public class Jogador {
 
 
     private void processarPagamentoEmprestimo(Emprestimo emprestimo){
-        //todo mostrar prazo dos emprestimos
-
         float valorPagamento = obterValorPagamento(emprestimo);
 
 
@@ -896,7 +894,7 @@ public class Jogador {
 
 
     private float obterValorPagamento(Emprestimo emprestimo){
-        System.out.printf("\nValor da Dívida Atual: $%3f\n",
+        System.out.printf("\nValor da Dívida Atual: $%.2f\n",
                 emprestimo.getValorAtual());
 
 
